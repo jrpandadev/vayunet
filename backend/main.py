@@ -11,7 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from services.gemini_evidence import extract_evidence
 from services.sensor_data import load_cpcb_data, get_latest_reading, calculate_sensor_anomaly
 from services.weather import get_weather, calculate_weather_persistence
-from services.satellite import get_sentinel5p_features
+from services.satellite import get_sentinel5p_features, calculate_satellite_anomaly
+from services.fusion import calculate_event_confidence, identify_supporting_contradicting
 
 app = FastAPI(
     title="VayuNet API",
@@ -69,18 +70,20 @@ async def submit_report(
     
     # Step 1: Gemini multimodal evidence extraction
     citizen_evidence = extract_evidence(description=text, image_path=image_path)
+    gemini_score = citizen_evidence.get("gemini_output", {}).get("confidence", 0.0)
     
     # Step 2: CPCB ground sensor data & anomaly score
     try:
         df = load_cpcb_data(city.lower())
         latest = get_latest_reading(df)
-        anomaly_score = calculate_sensor_anomaly(df, latest["pm25"])
-        sensor_data = {**latest, "anomaly_score": anomaly_score}
+        sensor_anomaly = calculate_sensor_anomaly(df, latest["pm25"])
+        sensor_data = {**latest, "anomaly_score": sensor_anomaly}
     except Exception as e:
+        sensor_anomaly = 0.5
         sensor_data = {
             "pm25": 180.0,
             "pm10": 240.0,
-            "anomaly_score": 0.5,
+            "anomaly_score": sensor_anomaly,
             "source": "CPCB_fallback",
             "station_id": "fallback_station",
             "error": str(e)
@@ -89,42 +92,68 @@ async def submit_report(
     # Step 3: Open-Meteo weather data & persistence score
     try:
         weather_raw = get_weather(lat, lng)
-        persistence_score = calculate_weather_persistence(weather_raw)
+        weather_persistence = calculate_weather_persistence(weather_raw)
         weather_data = {
             "wind_speed_kmh": weather_raw["current"]["wind_speed_10m"],
             "humidity_percent": weather_raw["current"]["relative_humidity_2m"],
             "source": "open_meteo",
-            "persistence_score": persistence_score
+            "persistence_score": weather_persistence
         }
     except Exception as e:
-        persistence_score = 0.5
+        weather_persistence = 0.5
         weather_data = {
             "wind_speed_kmh": 2.0,
             "humidity_percent": 80.0,
             "source": "open_meteo_fallback",
-            "persistence_score": persistence_score,
+            "persistence_score": weather_persistence,
             "error": str(e)
         }
 
-    # Step 4: Sentinel-5P satellite features
+    # Step 4: Sentinel-5P satellite features & anomaly score
     try:
-        satellite_data = get_sentinel5p_features(lat=lat, lng=lng)
+        satellite_raw = get_sentinel5p_features(lat=lat, lng=lng)
+        satellite_anomaly = calculate_satellite_anomaly(current_no2=satellite_raw["no2_index"])
+        satellite_data = {**satellite_raw, "anomaly_score": satellite_anomaly}
     except Exception as e:
+        satellite_anomaly = 0.5
         satellite_data = {
             "no2_index": 18.2,
             "aerosol_index": 1.3,
+            "anomaly_score": satellite_anomaly,
             "source": "Sentinel-5P",
             "freshness": "contextual",
             "error": str(e)
         }
 
+    # Step 5: Core Fusion Engine (weighted_fusion_v1)
+    fusion_result = calculate_event_confidence(
+        sensor_anomaly_score=sensor_anomaly,
+        gemini_evidence_score=gemini_score,
+        weather_persistence_score=weather_persistence,
+        satellite_signal_score=satellite_anomaly
+    )
+
+    # Step 6: Contradiction & Supporting Evidence Analysis
+    evidence_breakdown = identify_supporting_contradicting(
+        sensor_anomaly_score=sensor_anomaly,
+        gemini_evidence_score=gemini_score,
+        weather_persistence_score=weather_persistence,
+        satellite_signal_score=satellite_anomaly
+    )
+
     return {
         "event_id": event_id,
         "location": {"lat": lat, "lng": lng, "city": city},
-        "citizen_evidence": citizen_evidence,
-        "sensor": sensor_data,
-        "weather": weather_data,
-        "satellite": satellite_data,
+        "evidence": {
+            "citizen": citizen_evidence,
+            "sensor": sensor_data,
+            "satellite": satellite_data,
+            "weather": weather_data
+        },
+        "detection": {
+            **fusion_result,
+            **evidence_breakdown
+        },
         "status": "processed",
         "timestamp": datetime.utcnow().isoformat()
     }

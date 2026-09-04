@@ -108,7 +108,24 @@ def get_sentinel5p_features(
     }
 
 
+def calculate_satellite_anomaly(current_no2: float, baseline_no2: float = 10.0) -> float:
+    """
+    Calculates normalized satellite anomaly score (0.0 to 1.0).
+    Ratio = (current_no2 - baseline_no2) / baseline_no2
+    Score = clip(ratio / 2, 0, 1)
+    """
+    if baseline_no2 == 0:
+        return 0.0
+    ratio = (current_no2 - baseline_no2) / baseline_no2
+    score = max(0.0, min(ratio / 2.0, 1.0))
+    return round(score, 3)
+
+
 if __name__ == "__main__":
     print("Testing Satellite Service (Sentinel-5P)...")
     res = get_sentinel5p_features(lat=28.6139, lng=77.2090)
-    print("Result:", res)
+    print("Satellite Signal Result:", res)
+    
+    anomaly = calculate_satellite_anomaly(current_no2=res["no2_index"])
+    print(f"Satellite Anomaly Score: {anomaly}")
+
