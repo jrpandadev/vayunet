@@ -1,0 +1,18 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "earthengine-api>=1.7.42",
+    "fastapi>=0.141.1",
+    "flwr>=1.32.1",
+    "google-genai>=2.22.0",
+    "pandas>=3.0.5",
+    "pillow>=12.3.0",
+    "python-dotenv>=1.2.3",
+    "python-multipart>=0.0.32",
+    "scikit-learn>=1.9.0",
+    "uvicorn>=0.52.4",
+    "xgboost>=3.2.0",
+]

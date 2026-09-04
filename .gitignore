@@ -1,11 +1,14 @@
-﻿# Environment variables
+# Environment variables
 .env
 .env.*
+.env.local
 !.env.example
 
 # Dependencies
 node_modules/
 jspm_packages/
+.pnp
+.pnp.js
 
 # Python cache & virtual environments
 __pycache__/
@@ -15,12 +18,27 @@ __pycache__/
 venv/
 env/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Large data files
 *.csv
+*.parquet
+*.h5
+
+# Next.js build outputs
+.next/
+out/
+build/
+dist/
 
 # OS & Editor files
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+*.log
+
+# Temporary upload files
+temp/
+backend/temp/
