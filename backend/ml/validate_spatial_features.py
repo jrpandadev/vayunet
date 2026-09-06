@@ -149,46 +149,21 @@ def validate_spatial_features():
     rk_row = ts_slice[ts_slice["station_id"] == "r k puram"]
     if not rk_row.empty:
         rk_val = rk_row.iloc[0]
-        nearest_st = neighbor_order["r k puram"][0]
-        nearest_dist = neighbor_dists["r k puram"][0]
-        actual_nn_pm25 = ts_slice[ts_slice["station_id"] == nearest_st]["PM2.5"].values
-        expected_nn = actual_nn_pm25[0] if len(actual_nn_pm25) > 0 else np.nan
 
         print(f"\n8. Manual Spot Check - Station: R K Puram at {sample_ts}:")
-        print(f"   - Nearest station        : {nearest_st}")
-        print(f"   - Expected distance       : {nearest_dist:.2f} km")
-        print(f"   - Feature distance        : {rk_val['nearest_neighbor_distance_km']:.2f} km")
-        print(f"   - Nearest station PM2.5   : {expected_nn}")
-        print(f"   - Feature nn_pm25 value   : {rk_val['nearest_neighbor_pm25']}")
-        print(f"   - neighbor_pm25_mean_2    : {rk_val['neighbor_pm25_mean_2']}")
-        print(f"   - neighbor_pm25_mean_3    : {rk_val['neighbor_pm25_mean_3']}")
-        print(f"   - neighbor_pm25_max_3     : {rk_val['neighbor_pm25_max_3']}")
-        print(f"   - distance_weighted_pm25  : {rk_val['distance_weighted_neighbor_pm25']:.2f}")
-
-        # Assert equivalence
-        if not np.isnan(expected_nn):
-            assert np.isclose(rk_val["nearest_neighbor_pm25"], expected_nn), "Mismatch in nearest neighbor value!"
-            assert np.isclose(rk_val["nearest_neighbor_distance_km"], nearest_dist), "Mismatch in distance!"
-            print("   [PASS] Spot check exact numerical match confirmed.")
+        print(f"   - upwind_pm25_mean            : {rk_val['upwind_pm25_mean']}")
+        print(f"   - upwind_pm25_max             : {rk_val['upwind_pm25_max']}")
+        print(f"   - wind_aligned_pm25_transport : {rk_val['wind_aligned_pm25_transport']}")
 
     # Check Anand Vihar as well
     av_row = ts_slice[ts_slice["station_id"] == "anand vihar"]
     if not av_row.empty:
         av_val = av_row.iloc[0]
-        av_nearest_st = neighbor_order["anand vihar"][0]
-        av_nearest_dist = neighbor_dists["anand vihar"][0]
-        av_actual_nn = ts_slice[ts_slice["station_id"] == av_nearest_st]["PM2.5"].values
-        av_expected_nn = av_actual_nn[0] if len(av_actual_nn) > 0 else np.nan
 
         print(f"\n9. Manual Spot Check - Station: Anand Vihar at {sample_ts}:")
-        print(f"   - Nearest station        : {av_nearest_st}")
-        print(f"   - Expected distance       : {av_nearest_dist:.2f} km")
-        print(f"   - Feature distance        : {av_val['nearest_neighbor_distance_km']:.2f} km")
-        print(f"   - Nearest station PM2.5   : {av_expected_nn}")
-        print(f"   - Feature nn_pm25 value   : {av_val['nearest_neighbor_pm25']}")
-        if not np.isnan(av_expected_nn):
-            assert np.isclose(av_val["nearest_neighbor_pm25"], av_expected_nn), "Mismatch in nearest neighbor value!"
-            print("   [PASS] Anand Vihar spot check exact numerical match confirmed.")
+        print(f"   - upwind_pm25_mean            : {av_val['upwind_pm25_mean']}")
+        print(f"   - upwind_pm25_max             : {av_val['upwind_pm25_max']}")
+        print(f"   - wind_aligned_pm25_transport : {av_val['wind_aligned_pm25_transport']}")
 
     # -----------------------------------------------------------------------
     # Check 10: Adversarial Future-Leakage Test
