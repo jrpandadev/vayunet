@@ -1,0 +1,1141 @@
+{
+  "experiment": "physics_feature_ablation",
+  "dataset": "C:\\Users\\jrpan\\.gemini\\antigravity-ide\\scratch\\vayunet\\backend\\data\\processed\\delhi_forecasting_weather.csv",
+  "baseline_feature_count": 42,
+  "physics_groups": {
+    "A_atmospheric_transport": [
+      "ventilation_index",
+      "log_ventilation_index",
+      "wind_u",
+      "wind_v",
+      "stagnation_proxy"
+    ],
+    "B_pm25_dynamics": [
+      "PM25_change_1h",
+      "PM25_change_3h",
+      "PM25_change_6h",
+      "PM25_acceleration_1h",
+      "PM25_rolling_slope_6h"
+    ],
+    "C_particle_composition": [
+      "PM25_PM10_fraction"
+    ],
+    "D_meteorological_interactions": [
+      "temperature_RH_interaction",
+      "RH_PBLH_interaction"
+    ],
+    "E_pollution_transport_interaction": [
+      "PM25_ventilation_interaction"
+    ]
+  },
+  "split": {
+    "train_end": "2024-10-01 13:00:00",
+    "validation_end": "2025-08-30 15:00:00",
+    "test_end": "2026-08-31 23:00:00"
+  },
+  "results": [
+    {
+      "experiment": "Baseline",
+      "horizon": 6,
+      "extra_features": [],
+      "feature_count": 42,
+      "validation_metrics": {
+        "MAE": 35.66804277739451,
+        "RMSE": 59.51221614588493,
+        "R2": 0.7040576980543813,
+        "Bias": 3.533090652552952,
+        "MedAE": 21.556045532226562
+      },
+      "test_metrics": {
+        "MAE": 35.478525300650915,
+        "RMSE": 55.16148402419756,
+        "R2": 0.735867057765846,
+        "Bias": 3.6072191036544856,
+        "MedAE": 22.499107360839844
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 28335,
+          "MAE": 20.14924414595898,
+          "RMSE": 28.1812609837515,
+          "Bias": 17.605244960086864
+        },
+        "60_to_150": {
+          "count": 25704,
+          "MAE": 31.808790767626938,
+          "RMSE": 43.857633719904506,
+          "Bias": 12.84754787291317
+        },
+        "150_to_250": {
+          "count": 11993,
+          "MAE": 43.25726327743918,
+          "RMSE": 55.42339758781556,
+          "Bias": 4.66477152372494
+        },
+        "above_250": {
+          "count": 8694,
+          "MAE": 85.55807825664611,
+          "RMSE": 116.79294804909068,
+          "Bias": -70.79244727556585
+        }
+      }
+    },
+    {
+      "experiment": "A_atmospheric_transport",
+      "horizon": 6,
+      "extra_features": [
+        "ventilation_index",
+        "log_ventilation_index",
+        "wind_u",
+        "wind_v",
+        "stagnation_proxy"
+      ],
+      "feature_count": 47,
+      "validation_metrics": {
+        "MAE": 36.00110423593044,
+        "RMSE": 60.47668251303559,
+        "R2": 0.6943877763848121,
+        "Bias": 2.748981239098725,
+        "MedAE": 21.637588500976562
+      },
+      "test_metrics": {
+        "MAE": 35.91120076648876,
+        "RMSE": 55.84509372590168,
+        "R2": 0.7292797551158829,
+        "Bias": 2.8752152319459605,
+        "MedAE": 22.7763313293457
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 28335,
+          "MAE": 20.586860483851112,
+          "RMSE": 28.84353222269395,
+          "Bias": 18.017564868545332
+        },
+        "60_to_150": {
+          "count": 25704,
+          "MAE": 32.10580846363238,
+          "RMSE": 43.887707135197026,
+          "Bias": 13.634067195247647
+        },
+        "150_to_250": {
+          "count": 11993,
+          "MAE": 41.74588116074149,
+          "RMSE": 53.43711562416594,
+          "Bias": 2.563095659497561
+        },
+        "above_250": {
+          "count": 8694,
+          "MAE": 89.05746988230254,
+          "RMSE": 120.25067896577268,
+          "Bias": -77.85411048525854
+        }
+      }
+    },
+    {
+      "experiment": "B_pm25_dynamics",
+      "horizon": 6,
+      "extra_features": [
+        "PM25_change_1h",
+        "PM25_change_3h",
+        "PM25_change_6h",
+        "PM25_acceleration_1h",
+        "PM25_rolling_slope_6h"
+      ],
+      "feature_count": 47,
+      "validation_metrics": {
+        "MAE": 35.71019026641652,
+        "RMSE": 59.51624597612601,
+        "R2": 0.7040176176240698,
+        "Bias": 3.622624707388542,
+        "MedAE": 21.609054565429688
+      },
+      "test_metrics": {
+        "MAE": 35.36769840265186,
+        "RMSE": 54.95243537861432,
+        "R2": 0.737865263795938,
+        "Bias": 3.404756374989588,
+        "MedAE": 22.30453109741211
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 28335,
+          "MAE": 19.907567143750065,
+          "RMSE": 27.94526750187943,
+          "Bias": 17.306630687473312
+        },
+        "60_to_150": {
+          "count": 25704,
+          "MAE": 31.823359458283996,
+          "RMSE": 43.6161784039582,
+          "Bias": 12.81013138294962
+        },
+        "150_to_250": {
+          "count": 11993,
+          "MAE": 42.97861781029728,
+          "RMSE": 55.16027870881645,
+          "Bias": 4.108370480988687
+        },
+        "above_250": {
+          "count": 8694,
+          "MAE": 85.73447445408077,
+          "RMSE": 116.5696849962522,
+          "Bias": -70.68125832734285
+        }
+      }
+    },
+    {
+      "experiment": "C_particle_composition",
+      "horizon": 6,
+      "extra_features": [
+        "PM25_PM10_fraction"
+      ],
+      "feature_count": 43,
+      "validation_metrics": {
+        "MAE": 35.405864396402215,
+        "RMSE": 59.226595327663674,
+        "R2": 0.7068915513123906,
+        "Bias": 3.0275541775621333,
+        "MedAE": 21.40154266357422
+      },
+      "test_metrics": {
+        "MAE": 35.338905480597724,
+        "RMSE": 55.01981813775276,
+        "R2": 0.7372220096402261,
+        "Bias": 3.2899074749032438,
+        "MedAE": 22.311180114746094
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 28335,
+          "MAE": 19.952459283013226,
+          "RMSE": 28.126290734949702,
+          "Bias": 17.398586076304632
+        },
+        "60_to_150": {
+          "count": 25704,
+          "MAE": 31.544863779647972,
+          "RMSE": 43.31922747702866,
+          "Bias": 12.694265810678282
+        },
+        "150_to_250": {
+          "count": 11993,
+          "MAE": 43.081130807724385,
+          "RMSE": 55.10913700822045,
+          "Bias": 3.8414598408570777
+        },
+        "above_250": {
+          "count": 8694,
+          "MAE": 86.02265203472002,
+          "RMSE": 117.06069230755112,
+          "Bias": -71.25734377404478
+        }
+      }
+    },
+    {
+      "experiment": "D_meteorological_interactions",
+      "horizon": 6,
+      "extra_features": [
+        "temperature_RH_interaction",
+        "RH_PBLH_interaction"
+      ],
+      "feature_count": 44,
+      "validation_metrics": {
+        "MAE": 35.76277996080149,
+        "RMSE": 60.10815929478006,
+        "R2": 0.6981010108654768,
+        "Bias": 1.7459556692733975,
+        "MedAE": 21.598800659179688
+      },
+      "test_metrics": {
+        "MAE": 35.44995828398359,
+        "RMSE": 55.65810257179326,
+        "R2": 0.7310896738060575,
+        "Bias": 1.1986300595878767,
+        "MedAE": 22.09233283996582
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 28335,
+          "MAE": 19.661519265455734,
+          "RMSE": 27.400240416412583,
+          "Bias": 17.132721349608147
+        },
+        "60_to_150": {
+          "count": 25704,
+          "MAE": 30.988218394934556,
+          "RMSE": 42.5913339214387,
+          "Bias": 11.122394523552337
+        },
+        "150_to_250": {
+          "count": 11993,
+          "MAE": 42.39095123539116,
+          "RMSE": 54.17477611540569,
+          "Bias": 0.6695484735251448
+        },
+        "above_250": {
+          "count": 8694,
+          "MAE": 90.52318731916563,
+          "RMSE": 121.52173333608542,
+          "Bias": -79.34285176958356
+        }
+      }
+    },
+    {
+      "experiment": "E_pollution_transport_interaction",
+      "horizon": 6,
+      "extra_features": [
+        "PM25_ventilation_interaction"
+      ],
+      "feature_count": 43,
+      "validation_metrics": {
+        "MAE": 35.57236449988846,
+        "RMSE": 59.39440641283576,
+        "R2": 0.7052282266205978,
+        "Bias": 3.0118081390242266,
+        "MedAE": 21.60821533203125
+      },
+      "test_metrics": {
+        "MAE": 35.831033211321035,
+        "RMSE": 55.45300153506812,
+        "R2": 0.7330679002576446,
+        "Bias": 4.112444765300091,
+        "MedAE": 22.73839569091797
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 28335,
+          "MAE": 20.56784913905857,
+          "RMSE": 28.897547873139704,
+          "Bias": 18.11292495667495
+        },
+        "60_to_150": {
+          "count": 25704,
+          "MAE": 32.44149832546544,
+          "RMSE": 44.5450934615053,
+          "Bias": 14.10696810441265
+        },
+        "150_to_250": {
+          "count": 11993,
+          "MAE": 42.841577152826964,
+          "RMSE": 54.76536016816262,
+          "Bias": 4.863243166553679
+        },
+        "above_250": {
+          "count": 8694,
+          "MAE": 85.92644060758384,
+          "RMSE": 117.06770088494935,
+          "Bias": -72.1018592785681
+        }
+      }
+    },
+    {
+      "experiment": "Baseline",
+      "horizon": 24,
+      "extra_features": [],
+      "feature_count": 42,
+      "validation_metrics": {
+        "MAE": 39.827595546550654,
+        "RMSE": 67.75660842172573,
+        "R2": 0.6186167500855744,
+        "Bias": -1.3075880300541913,
+        "MedAE": 22.847930908203125
+      },
+      "test_metrics": {
+        "MAE": 39.32441608865797,
+        "RMSE": 61.4493647660878,
+        "R2": 0.6725999134481622,
+        "Bias": 0.4903477605665102,
+        "MedAE": 24.067325592041016
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 27600,
+          "MAE": 21.346888635000973,
+          "RMSE": 30.598286243963905,
+          "Bias": 18.664605869612487
+        },
+        "60_to_150": {
+          "count": 25503,
+          "MAE": 33.876598160881365,
+          "RMSE": 46.663375489649106,
+          "Bias": 11.879337565238789
+        },
+        "150_to_250": {
+          "count": 11950,
+          "MAE": 48.15428952359634,
+          "RMSE": 59.97276910819575,
+          "Bias": -2.614806187266585
+        },
+        "above_250": {
+          "count": 8675,
+          "MAE": 100.37323116479702,
+          "RMSE": 133.25674339934784,
+          "Bias": -86.53631980388542
+        }
+      }
+    },
+    {
+      "experiment": "A_atmospheric_transport",
+      "horizon": 24,
+      "extra_features": [
+        "ventilation_index",
+        "log_ventilation_index",
+        "wind_u",
+        "wind_v",
+        "stagnation_proxy"
+      ],
+      "feature_count": 47,
+      "validation_metrics": {
+        "MAE": 39.60232866677364,
+        "RMSE": 67.44303689519941,
+        "R2": 0.6221385969602901,
+        "Bias": -1.6150254487959868,
+        "MedAE": 22.853668212890625
+      },
+      "test_metrics": {
+        "MAE": 39.24091532289723,
+        "RMSE": 61.57887691430511,
+        "R2": 0.671218386633841,
+        "Bias": -0.1423559157358897,
+        "MedAE": 24.02651023864746
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 27600,
+          "MAE": 21.469437344834425,
+          "RMSE": 30.731633018327653,
+          "Bias": 18.85382626193641
+        },
+        "60_to_150": {
+          "count": 25503,
+          "MAE": 33.62178006413188,
+          "RMSE": 46.07189072251566,
+          "Bias": 11.803942904629222
+        },
+        "150_to_250": {
+          "count": 11950,
+          "MAE": 46.6158284721598,
+          "RMSE": 58.22923906067027,
+          "Bias": -3.817108861436405
+        },
+        "above_250": {
+          "count": 8675,
+          "MAE": 102.14205498458466,
+          "RMSE": 135.32148627871246,
+          "Bias": -90.63777830402474
+        }
+      }
+    },
+    {
+      "experiment": "B_pm25_dynamics",
+      "horizon": 24,
+      "extra_features": [
+        "PM25_change_1h",
+        "PM25_change_3h",
+        "PM25_change_6h",
+        "PM25_acceleration_1h",
+        "PM25_rolling_slope_6h"
+      ],
+      "feature_count": 47,
+      "validation_metrics": {
+        "MAE": 39.68086239795993,
+        "RMSE": 67.42100114015452,
+        "R2": 0.6223854749611497,
+        "Bias": -1.1889994857018047,
+        "MedAE": 22.850418090820312
+      },
+      "test_metrics": {
+        "MAE": 39.36027924312175,
+        "RMSE": 61.51647740760631,
+        "R2": 0.6718843752619607,
+        "Bias": 0.7650846848316076,
+        "MedAE": 24.109106063842773
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 27600,
+          "MAE": 21.365850128591234,
+          "RMSE": 30.575195148002713,
+          "Bias": 18.729077843328835
+        },
+        "60_to_150": {
+          "count": 25503,
+          "MAE": 34.042867644047895,
+          "RMSE": 46.97146665287195,
+          "Bias": 12.345650216227387
+        },
+        "150_to_250": {
+          "count": 11950,
+          "MAE": 48.0685186708586,
+          "RMSE": 60.00416849213541,
+          "Bias": -2.035246976972125
+        },
+        "above_250": {
+          "count": 8675,
+          "MAE": 100.24704931929091,
+          "RMSE": 133.19907590009473,
+          "Bias": -86.57571192187218
+        }
+      }
+    },
+    {
+      "experiment": "C_particle_composition",
+      "horizon": 24,
+      "extra_features": [
+        "PM25_PM10_fraction"
+      ],
+      "feature_count": 43,
+      "validation_metrics": {
+        "MAE": 39.78358534605994,
+        "RMSE": 67.61657471521804,
+        "R2": 0.6201915432538887,
+        "Bias": -1.4210250627518497,
+        "MedAE": 22.84261703491211
+      },
+      "test_metrics": {
+        "MAE": 39.41453928547704,
+        "RMSE": 61.55061100363979,
+        "R2": 0.6715201517608239,
+        "Bias": 0.9082875902712758,
+        "MedAE": 24.119686126708984
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 27600,
+          "MAE": 21.369890768728396,
+          "RMSE": 30.662853362506855,
+          "Bias": 18.668181915789066
+        },
+        "60_to_150": {
+          "count": 25503,
+          "MAE": 34.186330550419314,
+          "RMSE": 47.120492769420665,
+          "Bias": 12.302723795860109
+        },
+        "150_to_250": {
+          "count": 11950,
+          "MAE": 48.27010242433428,
+          "RMSE": 60.40414602829457,
+          "Bias": -1.4757754510855574
+        },
+        "above_250": {
+          "count": 8675,
+          "MAE": 99.99590261955152,
+          "RMSE": 132.86478724171513,
+          "Bias": -85.80938809747613
+        }
+      }
+    },
+    {
+      "experiment": "D_meteorological_interactions",
+      "horizon": 24,
+      "extra_features": [
+        "temperature_RH_interaction",
+        "RH_PBLH_interaction"
+      ],
+      "feature_count": 44,
+      "validation_metrics": {
+        "MAE": 39.568288075885675,
+        "RMSE": 67.40191289027916,
+        "R2": 0.6225992653209258,
+        "Bias": -1.643767470455479,
+        "MedAE": 22.72602081298828
+      },
+      "test_metrics": {
+        "MAE": 39.27611773382769,
+        "RMSE": 61.737829987596946,
+        "R2": 0.6695188331256422,
+        "Bias": -0.2712833645391382,
+        "MedAE": 23.860441207885742
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 27600,
+          "MAE": 21.254429828939575,
+          "RMSE": 30.527637709030895,
+          "Bias": 18.58939431351648
+        },
+        "60_to_150": {
+          "count": 25503,
+          "MAE": 33.73359204797162,
+          "RMSE": 46.40392195082617,
+          "Bias": 11.942426298014563
+        },
+        "150_to_250": {
+          "count": 11950,
+          "MAE": 46.63026368810422,
+          "RMSE": 58.218798405403014,
+          "Bias": -3.3357575312658336
+        },
+        "above_250": {
+          "count": 8675,
+          "MAE": 102.77670270070892,
+          "RMSE": 135.75589483173857,
+          "Bias": -91.96240441883977
+        }
+      }
+    },
+    {
+      "experiment": "E_pollution_transport_interaction",
+      "horizon": 24,
+      "extra_features": [
+        "PM25_ventilation_interaction"
+      ],
+      "feature_count": 43,
+      "validation_metrics": {
+        "MAE": 39.83989800044829,
+        "RMSE": 67.82132888131824,
+        "R2": 0.617887814903741,
+        "Bias": -1.5539600780669809,
+        "MedAE": 22.926589965820312
+      },
+      "test_metrics": {
+        "MAE": 39.32342511579084,
+        "RMSE": 61.48004577195412,
+        "R2": 0.672272897158066,
+        "Bias": 0.5971336297535648,
+        "MedAE": 24.127117156982422
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 27600,
+          "MAE": 21.608610892483807,
+          "RMSE": 30.925418686677162,
+          "Bias": 18.98237973664602
+        },
+        "60_to_150": {
+          "count": 25503,
+          "MAE": 33.924638324482224,
+          "RMSE": 46.57957594704097,
+          "Bias": 12.38484054037119
+        },
+        "150_to_250": {
+          "count": 11950,
+          "MAE": 47.030691267912154,
+          "RMSE": 58.84882264382542,
+          "Bias": -2.594428701105477
+        },
+        "above_250": {
+          "count": 8675,
+          "MAE": 100.93867601886497,
+          "RMSE": 133.91160741421348,
+          "Bias": -88.15393404032682
+        }
+      }
+    },
+    {
+      "experiment": "Baseline",
+      "horizon": 72,
+      "extra_features": [],
+      "feature_count": 42,
+      "validation_metrics": {
+        "MAE": 44.51361175846176,
+        "RMSE": 74.91953494291194,
+        "R2": 0.537236452655513,
+        "Bias": -1.9947518562712063,
+        "MedAE": 25.70317840576172
+      },
+      "test_metrics": {
+        "MAE": 45.872403763898376,
+        "RMSE": 71.9339256686286,
+        "R2": 0.5558750691510406,
+        "Bias": -1.1551830072553295,
+        "MedAE": 27.37264633178711
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 26581,
+          "MAE": 24.015144082466172,
+          "RMSE": 34.317331639857514,
+          "Bias": 21.479523143160538
+        },
+        "60_to_150": {
+          "count": 25348,
+          "MAE": 39.22812446617113,
+          "RMSE": 55.346418308070945,
+          "Bias": 15.916637980307767
+        },
+        "150_to_250": {
+          "count": 11936,
+          "MAE": 52.572280677867,
+          "RMSE": 64.52455605342912,
+          "Bias": -3.02195315327785
+        },
+        "above_250": {
+          "count": 8703,
+          "MAE": 122.79269336355479,
+          "RMSE": 157.85287296060545,
+          "Bias": -117.44931998462275
+        }
+      }
+    },
+    {
+      "experiment": "A_atmospheric_transport",
+      "horizon": 72,
+      "extra_features": [
+        "ventilation_index",
+        "log_ventilation_index",
+        "wind_u",
+        "wind_v",
+        "stagnation_proxy"
+      ],
+      "feature_count": 47,
+      "validation_metrics": {
+        "MAE": 44.50833706533877,
+        "RMSE": 75.02736112058577,
+        "R2": 0.5359034510079786,
+        "Bias": -2.267483323184354,
+        "MedAE": 25.68051528930664
+      },
+      "test_metrics": {
+        "MAE": 45.64632483754239,
+        "RMSE": 71.40143724067772,
+        "R2": 0.5624259719231803,
+        "Bias": -1.38613851747312,
+        "MedAE": 27.58590316772461
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 26581,
+          "MAE": 24.259051661406183,
+          "RMSE": 34.49035479975135,
+          "Bias": 21.812893991965097
+        },
+        "60_to_150": {
+          "count": 25348,
+          "MAE": 38.80990854311162,
+          "RMSE": 54.17585427869815,
+          "Bias": 15.41041666415845
+        },
+        "150_to_250": {
+          "count": 11936,
+          "MAE": 51.53853044853773,
+          "RMSE": 63.04469893875287,
+          "Bias": -3.885464979291921
+        },
+        "above_250": {
+          "count": 8703,
+          "MAE": 122.79848183550476,
+          "RMSE": 157.72465329713094,
+          "Bias": -117.73459344440693
+        }
+      }
+    },
+    {
+      "experiment": "B_pm25_dynamics",
+      "horizon": 72,
+      "extra_features": [
+        "PM25_change_1h",
+        "PM25_change_3h",
+        "PM25_change_6h",
+        "PM25_acceleration_1h",
+        "PM25_rolling_slope_6h"
+      ],
+      "feature_count": 47,
+      "validation_metrics": {
+        "MAE": 44.25771182317069,
+        "RMSE": 74.76159388940964,
+        "R2": 0.5391855389879732,
+        "Bias": -2.4893790867657186,
+        "MedAE": 25.486175537109375
+      },
+      "test_metrics": {
+        "MAE": 45.53210082867983,
+        "RMSE": 71.52006486517806,
+        "R2": 0.5609707774552142,
+        "Bias": -1.5566447297063555,
+        "MedAE": 27.234375
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 26581,
+          "MAE": 23.89747773535387,
+          "RMSE": 34.145790715870966,
+          "Bias": 21.387030276924275
+        },
+        "60_to_150": {
+          "count": 25348,
+          "MAE": 38.679394676656365,
+          "RMSE": 54.32302915226336,
+          "Bias": 15.144378058602236
+        },
+        "150_to_250": {
+          "count": 11936,
+          "MAE": 51.968567509267665,
+          "RMSE": 63.58332097222384,
+          "Bias": -3.491731813433343
+        },
+        "above_250": {
+          "count": 8703,
+          "MAE": 122.74072379612693,
+          "RMSE": 157.95764704360715,
+          "Bias": -117.62077796628334
+        }
+      }
+    },
+    {
+      "experiment": "C_particle_composition",
+      "horizon": 72,
+      "extra_features": [
+        "PM25_PM10_fraction"
+      ],
+      "feature_count": 43,
+      "validation_metrics": {
+        "MAE": 44.340312117301245,
+        "RMSE": 74.80380447993484,
+        "R2": 0.5386650380028286,
+        "Bias": -2.113080295326603,
+        "MedAE": 25.55642318725586
+      },
+      "test_metrics": {
+        "MAE": 45.50256707460086,
+        "RMSE": 71.46631708315948,
+        "R2": 0.5616303959946427,
+        "Bias": -1.547016295608724,
+        "MedAE": 27.187896728515625
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 26581,
+          "MAE": 23.87570373813283,
+          "RMSE": 34.080444802337084,
+          "Bias": 21.39890918214041
+        },
+        "60_to_150": {
+          "count": 25348,
+          "MAE": 38.597336505280694,
+          "RMSE": 54.214302125240934,
+          "Bias": 15.165599971429321
+        },
+        "150_to_250": {
+          "count": 11936,
+          "MAE": 52.18403305531827,
+          "RMSE": 63.75361406017458,
+          "Bias": -3.5998856369867402
+        },
+        "above_250": {
+          "count": 8703,
+          "MAE": 122.50445847663937,
+          "RMSE": 157.81249815815104,
+          "Bias": -117.4902535473888
+        }
+      }
+    },
+    {
+      "experiment": "D_meteorological_interactions",
+      "horizon": 72,
+      "extra_features": [
+        "temperature_RH_interaction",
+        "RH_PBLH_interaction"
+      ],
+      "feature_count": 44,
+      "validation_metrics": {
+        "MAE": 44.346856753053636,
+        "RMSE": 74.30809001422199,
+        "R2": 0.5447591843076616,
+        "Bias": -1.2528610960098527,
+        "MedAE": 25.622051239013672
+      },
+      "test_metrics": {
+        "MAE": 45.84405259151835,
+        "RMSE": 71.74418012206812,
+        "R2": 0.5582149827128936,
+        "Bias": -1.0114172214852477,
+        "MedAE": 27.64954376220703
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 26581,
+          "MAE": 24.447445279368203,
+          "RMSE": 34.76187150270429,
+          "Bias": 21.929962614726854
+        },
+        "60_to_150": {
+          "count": 25348,
+          "MAE": 39.11632808100788,
+          "RMSE": 54.76696792580616,
+          "Bias": 16.36595511181377
+        },
+        "150_to_250": {
+          "count": 11936,
+          "MAE": 51.180770543407824,
+          "RMSE": 62.705400627817326,
+          "Bias": -2.967552276514171
+        },
+        "above_250": {
+          "count": 8703,
+          "MAE": 123.4699878302785,
+          "RMSE": 158.4288029267445,
+          "Bias": -119.009581453818
+        }
+      }
+    },
+    {
+      "experiment": "E_pollution_transport_interaction",
+      "horizon": 72,
+      "extra_features": [
+        "PM25_ventilation_interaction"
+      ],
+      "feature_count": 43,
+      "validation_metrics": {
+        "MAE": 44.55926824326144,
+        "RMSE": 75.21220806210239,
+        "R2": 0.5336138194913684,
+        "Bias": -1.949652751335019,
+        "MedAE": 25.68682861328125
+      },
+      "test_metrics": {
+        "MAE": 45.76575264361527,
+        "RMSE": 71.72387748555617,
+        "R2": 0.5584649857513941,
+        "Bias": -0.9011847884514905,
+        "MedAE": 27.337200164794922
+      },
+      "test_regimes": {
+        "below_60": {
+          "count": 26581,
+          "MAE": 24.04673717060063,
+          "RMSE": 34.36466895762404,
+          "Bias": 21.572470064785694
+        },
+        "60_to_150": {
+          "count": 25348,
+          "MAE": 39.17142649916495,
+          "RMSE": 55.25139551069675,
+          "Bias": 15.696911099590261
+        },
+        "150_to_250": {
+          "count": 11936,
+          "MAE": 52.99561902604217,
+          "RMSE": 64.88779406542362,
+          "Bias": -2.4087857582166428
+        },
+        "above_250": {
+          "count": 8703,
+          "MAE": 121.39145001889753,
+          "RMSE": 156.91440564859997,
+          "Bias": -115.8162748779451
+        }
+      }
+    }
+  ],
+  "comparison_table": [
+    {
+      "horizon": 6,
+      "experiment": "Baseline",
+      "feature_count": 42,
+      "test_MAE": 35.478525300650915,
+      "test_RMSE": 55.16148402419756,
+      "test_R2": 0.735867057765846,
+      "test_Bias": 3.6072191036544856,
+      "test_MedAE": 22.499107360839844,
+      "MAE_change_vs_baseline_pct": 0.0,
+      "RMSE_change_vs_baseline_pct": 0.0
+    },
+    {
+      "horizon": 6,
+      "experiment": "A_atmospheric_transport",
+      "feature_count": 47,
+      "test_MAE": 35.91120076648876,
+      "test_RMSE": 55.84509372590168,
+      "test_R2": 0.7292797551158829,
+      "test_Bias": 2.8752152319459605,
+      "test_MedAE": 22.7763313293457,
+      "MAE_change_vs_baseline_pct": -1.2195418557318336,
+      "RMSE_change_vs_baseline_pct": -1.239288089864001
+    },
+    {
+      "horizon": 6,
+      "experiment": "B_pm25_dynamics",
+      "feature_count": 47,
+      "test_MAE": 35.36769840265186,
+      "test_RMSE": 54.95243537861432,
+      "test_R2": 0.737865263795938,
+      "test_Bias": 3.404756374989588,
+      "test_MedAE": 22.30453109741211,
+      "MAE_change_vs_baseline_pct": 0.31237740875610964,
+      "RMSE_change_vs_baseline_pct": 0.3789757459961408
+    },
+    {
+      "horizon": 6,
+      "experiment": "C_particle_composition",
+      "feature_count": 43,
+      "test_MAE": 35.338905480597724,
+      "test_RMSE": 55.01981813775276,
+      "test_R2": 0.7372220096402261,
+      "test_Bias": 3.2899074749032438,
+      "test_MedAE": 22.311180114746094,
+      "MAE_change_vs_baseline_pct": 0.3935333243702486,
+      "RMSE_change_vs_baseline_pct": 0.25682029581122406
+    },
+    {
+      "horizon": 6,
+      "experiment": "D_meteorological_interactions",
+      "feature_count": 44,
+      "test_MAE": 35.44995828398359,
+      "test_RMSE": 55.65810257179326,
+      "test_R2": 0.7310896738060575,
+      "test_Bias": 1.1986300595878767,
+      "test_MedAE": 22.09233283996582,
+      "MAE_change_vs_baseline_pct": 0.08051917723536295,
+      "RMSE_change_vs_baseline_pct": -0.9002994686978405
+    },
+    {
+      "horizon": 6,
+      "experiment": "E_pollution_transport_interaction",
+      "feature_count": 43,
+      "test_MAE": 35.831033211321035,
+      "test_RMSE": 55.45300153506812,
+      "test_R2": 0.7330679002576446,
+      "test_Bias": 4.112444765300091,
+      "test_MedAE": 22.73839569091797,
+      "MAE_change_vs_baseline_pct": -0.993581068217772,
+      "RMSE_change_vs_baseline_pct": -0.5284801814662494
+    },
+    {
+      "horizon": 24,
+      "experiment": "Baseline",
+      "feature_count": 42,
+      "test_MAE": 39.32441608865797,
+      "test_RMSE": 61.4493647660878,
+      "test_R2": 0.6725999134481622,
+      "test_Bias": 0.4903477605665102,
+      "test_MedAE": 24.067325592041016,
+      "MAE_change_vs_baseline_pct": 0.0,
+      "RMSE_change_vs_baseline_pct": 0.0
+    },
+    {
+      "horizon": 24,
+      "experiment": "A_atmospheric_transport",
+      "feature_count": 47,
+      "test_MAE": 39.24091532289723,
+      "test_RMSE": 61.57887691430511,
+      "test_R2": 0.671218386633841,
+      "test_Bias": -0.1423559157358897,
+      "test_MedAE": 24.02651023864746,
+      "MAE_change_vs_baseline_pct": 0.21233822155803767,
+      "RMSE_change_vs_baseline_pct": -0.21076238739052025
+    },
+    {
+      "horizon": 24,
+      "experiment": "B_pm25_dynamics",
+      "feature_count": 47,
+      "test_MAE": 39.36027924312175,
+      "test_RMSE": 61.51647740760631,
+      "test_R2": 0.6718843752619607,
+      "test_Bias": 0.7650846848316076,
+      "test_MedAE": 24.109106063842773,
+      "MAE_change_vs_baseline_pct": -0.09119818685401104,
+      "RMSE_change_vs_baseline_pct": -0.10921616809869844
+    },
+    {
+      "horizon": 24,
+      "experiment": "C_particle_composition",
+      "feature_count": 43,
+      "test_MAE": 39.41453928547704,
+      "test_RMSE": 61.55061100363979,
+      "test_R2": 0.6715201517608239,
+      "test_Bias": 0.9082875902712758,
+      "test_MedAE": 24.119686126708984,
+      "MAE_change_vs_baseline_pct": -0.22917872859417984,
+      "RMSE_change_vs_baseline_pct": -0.16476368460014618
+    },
+    {
+      "horizon": 24,
+      "experiment": "D_meteorological_interactions",
+      "feature_count": 44,
+      "test_MAE": 39.27611773382769,
+      "test_RMSE": 61.737829987596946,
+      "test_R2": 0.6695188331256422,
+      "test_Bias": -0.2712833645391382,
+      "test_MedAE": 23.860441207885742,
+      "MAE_change_vs_baseline_pct": 0.12282027207063881,
+      "RMSE_change_vs_baseline_pct": -0.46943564446470115
+    },
+    {
+      "horizon": 24,
+      "experiment": "E_pollution_transport_interaction",
+      "feature_count": 43,
+      "test_MAE": 39.32342511579084,
+      "test_RMSE": 61.48004577195412,
+      "test_R2": 0.672272897158066,
+      "test_Bias": 0.5971336297535648,
+      "test_MedAE": 24.127117156982422,
+      "MAE_change_vs_baseline_pct": 0.0025199938503720635,
+      "RMSE_change_vs_baseline_pct": -0.04992892275308316
+    },
+    {
+      "horizon": 72,
+      "experiment": "Baseline",
+      "feature_count": 42,
+      "test_MAE": 45.872403763898376,
+      "test_RMSE": 71.9339256686286,
+      "test_R2": 0.5558750691510406,
+      "test_Bias": -1.1551830072553295,
+      "test_MedAE": 27.37264633178711,
+      "MAE_change_vs_baseline_pct": 0.0,
+      "RMSE_change_vs_baseline_pct": 0.0
+    },
+    {
+      "horizon": 72,
+      "experiment": "A_atmospheric_transport",
+      "feature_count": 47,
+      "test_MAE": 45.64632483754239,
+      "test_RMSE": 71.40143724067772,
+      "test_R2": 0.5624259719231803,
+      "test_Bias": -1.38613851747312,
+      "test_MedAE": 27.58590316772461,
+      "MAE_change_vs_baseline_pct": 0.49284299013323757,
+      "RMSE_change_vs_baseline_pct": 0.7402465846280185
+    },
+    {
+      "horizon": 72,
+      "experiment": "B_pm25_dynamics",
+      "feature_count": 47,
+      "test_MAE": 45.53210082867983,
+      "test_RMSE": 71.52006486517806,
+      "test_R2": 0.5609707774552142,
+      "test_Bias": -1.5566447297063555,
+      "test_MedAE": 27.234375,
+      "MAE_change_vs_baseline_pct": 0.7418467472732796,
+      "RMSE_change_vs_baseline_pct": 0.5753346555240724
+    },
+    {
+      "horizon": 72,
+      "experiment": "C_particle_composition",
+      "feature_count": 43,
+      "test_MAE": 45.50256707460086,
+      "test_RMSE": 71.46631708315948,
+      "test_R2": 0.5616303959946427,
+      "test_Bias": -1.547016295608724,
+      "test_MedAE": 27.187896728515625,
+      "MAE_change_vs_baseline_pct": 0.8062291463971117,
+      "RMSE_change_vs_baseline_pct": 0.6500529216537018
+    },
+    {
+      "horizon": 72,
+      "experiment": "D_meteorological_interactions",
+      "feature_count": 44,
+      "test_MAE": 45.84405259151835,
+      "test_RMSE": 71.74418012206812,
+      "test_R2": 0.5582149827128936,
+      "test_Bias": -1.0114172214852477,
+      "test_MedAE": 27.64954376220703,
+      "MAE_change_vs_baseline_pct": 0.06180441846027649,
+      "RMSE_change_vs_baseline_pct": 0.263777549739981
+    },
+    {
+      "horizon": 72,
+      "experiment": "E_pollution_transport_interaction",
+      "feature_count": 43,
+      "test_MAE": 45.76575264361527,
+      "test_RMSE": 71.72387748555617,
+      "test_R2": 0.5584649857513941,
+      "test_Bias": -0.9011847884514905,
+      "test_MedAE": 27.337200164794922,
+      "MAE_change_vs_baseline_pct": 0.23249516382884272,
+      "RMSE_change_vs_baseline_pct": 0.29200155715126713
+    }
+  ]
+}
