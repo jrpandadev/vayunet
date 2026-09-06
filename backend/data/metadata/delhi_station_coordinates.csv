@@ -1,0 +1,11 @@
+station_id,station_name,agency,latitude,longitude,coordinate_source,source_year
+anand vihar,Anand Vihar,DPCC,28.646844,77.315747,OpenAQ_CAAQMS_Location_Registry,2024
+aya nagar,Aya Nagar,IMD,28.470691,77.129966,OpenAQ_CAAQMS_Location_Registry,2024
+bawana,Bawana,DPCC,28.776200,77.051074,OpenAQ_CAAQMS_Location_Registry,2024
+ito,ITO,CPCB,28.628624,77.241060,OpenAQ_CAAQMS_Location_Registry,2024
+jahangirpuri,Jahangirpuri,DPCC,28.732820,77.170633,OpenAQ_CAAQMS_Location_Registry,2024
+narela,Narela,DPCC,28.822836,77.101981,OpenAQ_CAAQMS_Location_Registry,2024
+punjabi bagh,Punjabi Bagh,DPCC,28.674045,77.131023,OpenAQ_CAAQMS_Location_Registry,2024
+r k puram,R K Puram,DPCC,28.563269,77.186937,OpenAQ_CAAQMS_Location_Registry,2024
+vivek vihar,Vivek Vihar,DPCC,28.672342,77.315260,OpenAQ_CAAQMS_Location_Registry,2024
+wazirpur,Wazirpur,DPCC,28.699781,77.165453,OpenAQ_CAAQMS_Location_Registry,2024
