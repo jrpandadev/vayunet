@@ -1,0 +1,293 @@
+{
+  "experiment": "S1_spatial_no_wind",
+  "horizons": {
+    "6h": {
+      "feature_count_canonical": 47,
+      "feature_count_spatial": 6,
+      "feature_count_total": 53,
+      "train_samples": 164539,
+      "test_samples": 210658,
+      "overall_metrics": {
+        "MAE": 32.342342355705675,
+        "RMSE": 53.33683148924113,
+        "R2": 0.7239775900448245,
+        "Bias": -2.155277769917407,
+        "MedAE": 19.75708137512207
+      },
+      "s0_champion_metrics": {
+        "MAE": 34.1216741000388,
+        "RMSE": 59.062330451956704,
+        "R2": 0.708515168345339,
+        "bias": -1.2053553570193436,
+        "MedAE": 20.24026107788086
+      },
+      "improvement_vs_s0": {
+        "delta_mae_pct": 5.2147,
+        "delta_rmse_pct": 9.694,
+        "interpretation": "S1_BETTER"
+      },
+      "regime_metrics": {
+        "Good": {
+          "n_samples": 28288,
+          "MAE": 20.858830695320847,
+          "RMSE": 26.643394574833387
+        },
+        "Moderate": {
+          "n_samples": 56793,
+          "MAE": 16.06383331806017,
+          "RMSE": 23.587483050324373
+        },
+        "Unhealthy": {
+          "n_samples": 36372,
+          "MAE": 21.76798847295186,
+          "RMSE": 30.036624196706203
+        },
+        "Very Unhealthy": {
+          "n_samples": 22860,
+          "MAE": 30.014136415166178,
+          "RMSE": 39.60777238183574
+        },
+        "Hazardous": {
+          "n_samples": 66345,
+          "MAE": 57.77280627684852,
+          "RMSE": 84.96322108570678
+        }
+      },
+      "station_metrics": {
+        "anand vihar": {
+          "n_samples": 19114,
+          "MAE": 38.77556513955058
+        },
+        "aya nagar": {
+          "n_samples": 21060,
+          "MAE": 27.155591061002504
+        },
+        "bawana": {
+          "n_samples": 21494,
+          "MAE": 33.96781964344746
+        },
+        "ito": {
+          "n_samples": 20930,
+          "MAE": 26.515547705608867
+        },
+        "jahangirpuri": {
+          "n_samples": 20974,
+          "MAE": 35.40865032661469
+        },
+        "narela": {
+          "n_samples": 22080,
+          "MAE": 30.28094197606522
+        },
+        "punjabi bagh": {
+          "n_samples": 20830,
+          "MAE": 34.06537826789164
+        },
+        "r k puram": {
+          "n_samples": 20863,
+          "MAE": 31.257052740890508
+        },
+        "vivek vihar": {
+          "n_samples": 21520,
+          "MAE": 32.84304576855167
+        },
+        "wazirpur": {
+          "n_samples": 21793,
+          "MAE": 33.74024828508974
+        }
+      },
+      "model_saved": "models\\xgb_spatial_pm25_6h_experimental.joblib"
+    },
+    "24h": {
+      "feature_count_canonical": 44,
+      "feature_count_spatial": 6,
+      "feature_count_total": 50,
+      "train_samples": 162876,
+      "test_samples": 208366,
+      "overall_metrics": {
+        "MAE": 37.319781311286484,
+        "RMSE": 60.642083609164466,
+        "R2": 0.6446093413394729,
+        "Bias": -0.30690508978045755,
+        "MedAE": 22.505046844482422
+      },
+      "s0_champion_metrics": {
+        "MAE": 39.169200626157455,
+        "RMSE": 66.92706499961294,
+        "R2": 0.6278981262369414,
+        "bias": -2.655116270756048,
+        "MedAE": 22.611743927001953
+      },
+      "improvement_vs_s0": {
+        "delta_mae_pct": 4.7216,
+        "delta_rmse_pct": 9.3908,
+        "interpretation": "S1_BETTER"
+      },
+      "regime_metrics": {
+        "Good": {
+          "n_samples": 27952,
+          "MAE": 24.044003796102526,
+          "RMSE": 30.966498041407274
+        },
+        "Moderate": {
+          "n_samples": 56030,
+          "MAE": 19.18373336372464,
+          "RMSE": 29.973277541003995
+        },
+        "Unhealthy": {
+          "n_samples": 35913,
+          "MAE": 27.366009596682126,
+          "RMSE": 38.637856174283485
+        },
+        "Very Unhealthy": {
+          "n_samples": 22704,
+          "MAE": 35.88165673769385,
+          "RMSE": 46.54189262427651
+        },
+        "Hazardous": {
+          "n_samples": 65767,
+          "MAE": 64.34501103914005,
+          "RMSE": 94.42009076674935
+        }
+      },
+      "station_metrics": {
+        "anand vihar": {
+          "n_samples": 18686,
+          "MAE": 45.01547866472197
+        },
+        "aya nagar": {
+          "n_samples": 20859,
+          "MAE": 31.15275260739487
+        },
+        "bawana": {
+          "n_samples": 21351,
+          "MAE": 38.77028303579359
+        },
+        "ito": {
+          "n_samples": 20665,
+          "MAE": 31.85689085335758
+        },
+        "jahangirpuri": {
+          "n_samples": 20759,
+          "MAE": 39.846257806404275
+        },
+        "narela": {
+          "n_samples": 21926,
+          "MAE": 35.41397269491752
+        },
+        "punjabi bagh": {
+          "n_samples": 20588,
+          "MAE": 37.877329216670454
+        },
+        "r k puram": {
+          "n_samples": 20736,
+          "MAE": 36.874906342441655
+        },
+        "vivek vihar": {
+          "n_samples": 21202,
+          "MAE": 37.97712468507391
+        },
+        "wazirpur": {
+          "n_samples": 21594,
+          "MAE": 39.16779423193876
+        }
+      },
+      "model_saved": "models\\xgb_spatial_pm25_24h_experimental.joblib"
+    },
+    "72h": {
+      "feature_count_canonical": 42,
+      "feature_count_spatial": 6,
+      "feature_count_total": 48,
+      "train_samples": 161772,
+      "test_samples": 206201,
+      "overall_metrics": {
+        "MAE": 42.33457135362278,
+        "RMSE": 67.49360315534142,
+        "R2": 0.5628756126306058,
+        "Bias": 0.2656022942664605,
+        "MedAE": 26.409988403320312
+      },
+      "s0_champion_metrics": {
+        "MAE": 44.63832585158059,
+        "RMSE": 73.53661051102631,
+        "R2": 0.5541628926263666,
+        "bias": 0.026879322088335215,
+        "MedAE": 26.881459350585942
+      },
+      "improvement_vs_s0": {
+        "delta_mae_pct": 5.1609,
+        "delta_rmse_pct": 8.2177,
+        "interpretation": "S1_BETTER"
+      },
+      "regime_metrics": {
+        "Good": {
+          "n_samples": 27401,
+          "MAE": 29.06896436305443,
+          "RMSE": 36.381937697389446
+        },
+        "Moderate": {
+          "n_samples": 55276,
+          "MAE": 22.85379900591049,
+          "RMSE": 34.77253978970972
+        },
+        "Unhealthy": {
+          "n_samples": 35758,
+          "MAE": 31.977232884696626,
+          "RMSE": 44.484874877262044
+        },
+        "Very Unhealthy": {
+          "n_samples": 22574,
+          "MAE": 40.30764005677403,
+          "RMSE": 52.26509064280621
+        },
+        "Hazardous": {
+          "n_samples": 65192,
+          "MAE": 70.81082189828518,
+          "RMSE": 103.90244898326907
+        }
+      },
+      "station_metrics": {
+        "anand vihar": {
+          "n_samples": 18266,
+          "MAE": 49.947833891442244
+        },
+        "aya nagar": {
+          "n_samples": 20683,
+          "MAE": 34.06935079124468
+        },
+        "bawana": {
+          "n_samples": 21231,
+          "MAE": 44.270911930524974
+        },
+        "ito": {
+          "n_samples": 20292,
+          "MAE": 36.5864966209565
+        },
+        "jahangirpuri": {
+          "n_samples": 20532,
+          "MAE": 45.28081804950312
+        },
+        "narela": {
+          "n_samples": 21800,
+          "MAE": 41.1450197579515
+        },
+        "punjabi bagh": {
+          "n_samples": 20348,
+          "MAE": 42.63819689429155
+        },
+        "r k puram": {
+          "n_samples": 20511,
+          "MAE": 41.694178666743476
+        },
+        "vivek vihar": {
+          "n_samples": 21057,
+          "MAE": 43.362885413725344
+        },
+        "wazirpur": {
+          "n_samples": 21481,
+          "MAE": 45.04202395937672
+        }
+      },
+      "model_saved": "models\\xgb_spatial_pm25_72h_experimental.joblib"
+    }
+  }
+}
