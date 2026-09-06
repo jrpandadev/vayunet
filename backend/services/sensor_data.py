@@ -5,6 +5,10 @@ def load_cpcb_data(city: str) -> pd.DataFrame:
     """Load and clean CPCB historical data for a given city."""
     # Check potential path locations (running from backend or repo root)
     possible_paths = [
+        Path(f"../data/{city}/anand_vihar/cpcb_{city}.csv"),
+        Path(f"data/{city}/anand_vihar/cpcb_{city}.csv"),
+        Path(f"../data/{city}/anand_vihar/sample_cpcb_{city}.csv"),
+        Path(f"data/{city}/anand_vihar/sample_cpcb_{city}.csv"),
         Path(f"../data/cpcb_{city}.csv"),
         Path(f"data/cpcb_{city}.csv"),
         Path(f"../data/sample_cpcb_{city}.csv"),

@@ -42,3 +42,10 @@ Thumbs.db
 # Temporary upload files
 temp/
 backend/temp/
+
+# ML model binaries
+*.joblib
+*.pkl
+
+# Scratch session scripts
+scratch/
