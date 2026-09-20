@@ -1,0 +1,32 @@
+[
+  {
+    "horizon": "6h",
+    "train_samples": 300471,
+    "test_samples": 74726,
+    "n_features": 47,
+    "fit_duration_seconds": 210.9,
+    "test_mae": 35.3064,
+    "test_rmse": 54.7787,
+    "test_r2": 0.7395
+  },
+  {
+    "horizon": "24h",
+    "train_samples": 297514,
+    "test_samples": 73728,
+    "n_features": 44,
+    "fit_duration_seconds": 206.5,
+    "test_mae": 41.2157,
+    "test_rmse": 65.3501,
+    "test_r2": 0.6297
+  },
+  {
+    "horizon": "72h",
+    "train_samples": 295405,
+    "test_samples": 72568,
+    "n_features": 42,
+    "fit_duration_seconds": 446.4,
+    "test_mae": 47.7779,
+    "test_rmse": 73.2201,
+    "test_r2": 0.5399
+  }
+]

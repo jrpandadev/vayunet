@@ -1,0 +1,360 @@
+{
+  "$defs": {
+    "EventInfo": {
+      "properties": {
+        "start_time": {
+          "title": "Start Time",
+          "type": "string"
+        },
+        "end_time": {
+          "title": "End Time",
+          "type": "string"
+        },
+        "duration_hours": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duration Hours"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        },
+        "peak_pm25": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Peak Pm25"
+        },
+        "mean_pm25": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mean Pm25"
+        },
+        "min_pm25": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Min Pm25"
+        },
+        "onset_growth": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Onset Growth"
+        }
+      },
+      "required": [
+        "start_time",
+        "end_time",
+        "duration_hours",
+        "severity",
+        "peak_pm25",
+        "mean_pm25",
+        "min_pm25",
+        "onset_growth"
+      ],
+      "title": "EventInfo",
+      "type": "object"
+    },
+    "FireActivity": {
+      "properties": {
+        "firms_detections_72h_50km": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Firms Detections 72H 50Km"
+        }
+      },
+      "title": "FireActivity",
+      "type": "object"
+    },
+    "Meteorology": {
+      "properties": {
+        "temperature": {
+          "$ref": "#/$defs/Stat"
+        },
+        "relative_humidity": {
+          "$ref": "#/$defs/Stat"
+        },
+        "wind_speed": {
+          "$ref": "#/$defs/Stat"
+        },
+        "wind_direction": {
+          "$ref": "#/$defs/WindDirection"
+        },
+        "pblh": {
+          "$ref": "#/$defs/Stat"
+        }
+      },
+      "required": [
+        "temperature",
+        "relative_humidity",
+        "wind_speed",
+        "wind_direction",
+        "pblh"
+      ],
+      "title": "Meteorology",
+      "type": "object"
+    },
+    "NWP": {
+      "properties": {
+        "forecast_6h": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Forecast 6H"
+        },
+        "forecast_24h": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Forecast 24H"
+        },
+        "forecast_72h": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Forecast 72H"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provenance"
+        }
+      },
+      "title": "NWP",
+      "type": "object"
+    },
+    "PollutionDynamics": {
+      "properties": {
+        "pm25": {
+          "$ref": "#/$defs/Stat"
+        },
+        "pm10": {
+          "$ref": "#/$defs/Stat"
+        },
+        "no2": {
+          "$ref": "#/$defs/Stat"
+        }
+      },
+      "required": [
+        "pm25",
+        "pm10",
+        "no2"
+      ],
+      "title": "PollutionDynamics",
+      "type": "object"
+    },
+    "Satellite": {
+      "properties": {
+        "sentinel5p_no2_latest": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sentinel5P No2 Latest"
+        },
+        "sentinel5p_no2_age_hours": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sentinel5P No2 Age Hours"
+        }
+      },
+      "title": "Satellite",
+      "type": "object"
+    },
+    "SourceContext": {
+      "properties": {
+        "owbeii_waste_burned": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owbeii Waste Burned"
+        }
+      },
+      "title": "SourceContext",
+      "type": "object"
+    },
+    "Stat": {
+      "properties": {
+        "mean": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mean"
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max"
+        }
+      },
+      "title": "Stat",
+      "type": "object"
+    },
+    "WindDirection": {
+      "properties": {
+        "mean_sin": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mean Sin"
+        },
+        "mean_cos": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mean Cos"
+        }
+      },
+      "title": "WindDirection",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "station_id": {
+      "title": "Station Id",
+      "type": "string"
+    },
+    "event": {
+      "$ref": "#/$defs/EventInfo"
+    },
+    "pollution_dynamics": {
+      "$ref": "#/$defs/PollutionDynamics"
+    },
+    "meteorology": {
+      "$ref": "#/$defs/Meteorology"
+    },
+    "nwp": {
+      "$ref": "#/$defs/NWP"
+    },
+    "satellite": {
+      "$ref": "#/$defs/Satellite"
+    },
+    "fire_activity": {
+      "$ref": "#/$defs/FireActivity"
+    },
+    "source_context": {
+      "$ref": "#/$defs/SourceContext"
+    }
+  },
+  "required": [
+    "event_id",
+    "station_id",
+    "event",
+    "pollution_dynamics",
+    "meteorology",
+    "nwp",
+    "satellite",
+    "fire_activity",
+    "source_context"
+  ],
+  "title": "EvidenceBundleInput",
+  "type": "object"
+}

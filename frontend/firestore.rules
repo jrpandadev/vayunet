@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Check if the user is an authority
+    function isAuthority() {
+      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'authority';
+    }
+
+    match /users/{userId} {
+      // Any authenticated user can read their own profile, authorities can read any
+      allow read: if request.auth != null && (request.auth.uid == userId || isAuthority());
+
+      // Users can only create/update their own profile
+      // CRITICAL: Prevent users from setting their own role to 'authority'
+      allow create: if request.auth != null && request.auth.uid == userId
+                    && request.resource.data.role == 'user';
+
+      allow update: if request.auth != null && request.auth.uid == userId
+                    // Cannot change the role field (prevents self-escalation)
+                    && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']));
+    }
+
+    match /reports/{reportId} {
+      // Users can read their own reports, authorities can read any report
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAuthority());
+
+      // Users can create a report if they own it and the initial status is SUBMITTED
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.processingStatus == 'SUBMITTED';
+
+      // Users cannot update processing status or verification fields
+      allow update: if request.auth != null && request.auth.uid == resource.data.userId
+                    && (!request.resource.data.diff(resource.data).affectedKeys().hasAny([
+                      'userId', 'createdAt', 'processingStatus', 'analysisResult', 'verificationStatus', 'authorityDecision'
+                    ]));
+    }
+  }
+}

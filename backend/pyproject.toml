@@ -6,6 +6,7 @@ requires-python = ">=3.11"
 dependencies = [
     "earthengine-api>=1.7.42",
     "fastapi>=0.141.1",
+    "firebase-admin>=7.6.0",
     "flwr>=1.32.1",
     "google-genai>=2.22.0",
     "matplotlib>=3.11.1",
@@ -15,6 +16,12 @@ dependencies = [
     "python-multipart>=0.0.32",
     "requests>=2.34.2",
     "scikit-learn>=1.9.0",
+    "torch>=2.0.0",
     "uvicorn>=0.52.4",
     "xgboost>=3.2.0",
 ]
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

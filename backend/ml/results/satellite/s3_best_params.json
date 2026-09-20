@@ -1,0 +1,80 @@
+{
+  "6h": {
+    "params": {
+      "max_depth": 8,
+      "min_child_weight": 7,
+      "learning_rate": 0.02,
+      "subsample": 1.0,
+      "colsample_bytree": 0.7
+    },
+    "best_iteration": 412,
+    "validation_metrics": {
+      "MAE": 34.00186053855834,
+      "RMSE": 58.66612024767714,
+      "R2": 0.7124128098090727,
+      "bias": -0.978378404581514,
+      "MedAE": 20.179183959960938
+    },
+    "canonical_feature_count": 47,
+    "satellite_features": [
+      "satellite_no2_latest",
+      "satellite_no2_age_hours"
+    ],
+    "total_feature_count": 49,
+    "train_satellite_availability_pct": 88.66785457833568,
+    "validation_satellite_availability_pct": 90.06879048954785,
+    "tuning_seconds": 384.0555603504181
+  },
+  "24h": {
+    "params": {
+      "max_depth": 4,
+      "min_child_weight": 1,
+      "learning_rate": 0.02,
+      "subsample": 0.9,
+      "colsample_bytree": 0.7
+    },
+    "best_iteration": 401,
+    "validation_metrics": {
+      "MAE": 39.33115866881903,
+      "RMSE": 66.56653750856782,
+      "R2": 0.6318962583111596,
+      "bias": -1.652911548646099,
+      "MedAE": 22.902252197265625
+    },
+    "canonical_feature_count": 44,
+    "satellite_features": [
+      "satellite_no2_latest",
+      "satellite_no2_age_hours"
+    ],
+    "total_feature_count": 46,
+    "train_satellite_availability_pct": 88.68116363962108,
+    "validation_satellite_availability_pct": 90.08740858462741,
+    "tuning_seconds": 155.25613713264465
+  },
+  "72h": {
+    "params": {
+      "max_depth": 4,
+      "min_child_weight": 5,
+      "learning_rate": 0.1,
+      "subsample": 0.9,
+      "colsample_bytree": 0.7
+    },
+    "best_iteration": 56,
+    "validation_metrics": {
+      "MAE": 44.79566191600005,
+      "RMSE": 73.70693101511162,
+      "R2": 0.5520952656765354,
+      "bias": 0.23391584244749228,
+      "MedAE": 26.627410888671875
+    },
+    "canonical_feature_count": 42,
+    "satellite_features": [
+      "satellite_no2_latest",
+      "satellite_no2_age_hours"
+    ],
+    "total_feature_count": 44,
+    "train_satellite_availability_pct": 88.7714579685554,
+    "validation_satellite_availability_pct": 90.19902721890284,
+    "tuning_seconds": 134.861572265625
+  }
+}

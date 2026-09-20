@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <radialGradient id="plume" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#334155" stop-opacity="0.9" />
+      <stop offset="60%" stop-color="#334155" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#334155" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#bg)" />
+  <circle cx="320" cy="180" r="160" fill="url(#plume)" />
+  <circle cx="380" cy="140" r="110" fill="url(#plume)" />
+  <rect x="0" y="280" width="640" height="120" fill="#090d16" />
+
+  <!-- Camera icon badge -->
+  <g transform="translate(24, 24)">
+    <rect width="260" height="32" rx="6" fill="#0a2540" stroke="#1e3a8a" stroke-width="1" />
+    <text x="14" y="20" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" letter-spacing="0.5">📸 CITIZEN EVIDENCE (SIMULATION)</text>
+  </g>
+
+  <text x="24" y="316" fill="#ffffff" font-family="system-ui, sans-serif" font-size="19" font-weight="bold">Arterial Congestion Smog</text>
+  <text x="24" y="342" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Heavy diesel transport particulate haze along Ring Road</text>
+  <text x="24" y="374" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="bold">DELHI NCR SURVEILLANCE • WGS84 GPS VALIDATED</text>
+</svg>

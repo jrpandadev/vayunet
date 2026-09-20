@@ -49,3 +49,31 @@ backend/temp/
 
 # Scratch session scripts
 scratch/
+
+# VayuNet generated/raw data
+backend/data/raw/
+backend/data/processed/
+backend/data/Nemo/
+backend/data/construction*/
+
+# Other generated/downloaded datasets
+backend/data/filtered_delhi_ncr/
+backend/data/kaggle/
+backend/kaggle/
+backend/reports/
+
+# CV Datasets (Large data only)
+cv-datasets/raw/
+cv-datasets/extracted/
+cv-datasets/unified/
+cv-datasets/models/
+
+# Firebase Cache
+.firebase/
+frontend/.firebase/
+
+# Large scientific/data files
+*.nc
+*.nc4
+*.tif
+*.tiff

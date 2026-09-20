@@ -1,0 +1,373 @@
+{
+  "$defs": {
+    "ConfidenceLevel": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW"
+      ],
+      "title": "ConfidenceLevel",
+      "type": "string"
+    },
+    "DataQualityAudit": {
+      "additionalProperties": false,
+      "properties": {
+        "missing_indicators": {
+          "description": "Variables absent in evidence bundle (e.g. 'PBLH', 'Sentinel-5P NO2')",
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Indicators",
+          "type": "array"
+        },
+        "instrument_artifacts_detected": {
+          "description": "Known sensor limits detected (e.g. 'CPCB 998 \u00b5g/m\u00b3 saturation ceiling')",
+          "items": {
+            "type": "string"
+          },
+          "title": "Instrument Artifacts Detected",
+          "type": "array"
+        },
+        "data_completeness_score": {
+          "description": "Proportion of expected observational modalities available",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Data Completeness Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "data_completeness_score"
+      ],
+      "title": "DataQualityAudit",
+      "type": "object"
+    },
+    "EventSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "start_time": {
+          "description": "ISO 8601 timestamp of event start",
+          "title": "Start Time",
+          "type": "string"
+        },
+        "end_time": {
+          "description": "ISO 8601 timestamp of event end",
+          "title": "End Time",
+          "type": "string"
+        },
+        "duration_hours": {
+          "description": "Event duration in continuous hours",
+          "minimum": 1,
+          "title": "Duration Hours",
+          "type": "integer"
+        },
+        "severity": {
+          "$ref": "#/$defs/SeverityLevel",
+          "description": "Classification: POLLUTION_EVENT or SEVERE_EVENT"
+        },
+        "peak_pm25": {
+          "description": "Peak PM2.5 in \u00b5g/m\u00b3 recorded during event",
+          "minimum": 0.0,
+          "title": "Peak Pm25",
+          "type": "number"
+        },
+        "mean_pm25": {
+          "description": "Mean PM2.5 in \u00b5g/m\u00b3 across observed hours",
+          "minimum": 0.0,
+          "title": "Mean Pm25",
+          "type": "number"
+        },
+        "min_pm25": {
+          "description": "Minimum PM2.5 in \u00b5g/m\u00b3 across observed hours",
+          "minimum": 0.0,
+          "title": "Min Pm25",
+          "type": "number"
+        },
+        "onset_growth": {
+          "description": "1-hour PM2.5 delta (\u00b5g/m\u00b3/h) at onset",
+          "title": "Onset Growth",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start_time",
+        "end_time",
+        "duration_hours",
+        "severity",
+        "peak_pm25",
+        "mean_pm25",
+        "min_pm25",
+        "onset_growth"
+      ],
+      "title": "EventSummary",
+      "type": "object"
+    },
+    "HypothesisEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "hypothesis": {
+          "$ref": "#/$defs/SourceHypothesisType",
+          "description": "Taxonomy source hypothesis being evaluated"
+        },
+        "support_level": {
+          "$ref": "#/$defs/SupportLevel",
+          "description": "Categorical degree of empirical support"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceLevel",
+          "description": "Confidence in assessment based on data completeness"
+        },
+        "supporting_evidence": {
+          "description": "List of quantitative observations supporting this hypothesis",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Supporting Evidence",
+          "type": "array"
+        },
+        "contrasting_evidence": {
+          "description": "List of observations conflicting with or weakening this hypothesis",
+          "items": {
+            "type": "string"
+          },
+          "title": "Contrasting Evidence",
+          "type": "array"
+        },
+        "causal_disclaimer": {
+          "default": "Statistical association based on observational proximity; direct causality cannot be established.",
+          "description": "Mandatory non-causal disclaimer statement",
+          "title": "Causal Disclaimer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "hypothesis",
+        "support_level",
+        "confidence",
+        "supporting_evidence"
+      ],
+      "title": "HypothesisEvaluation",
+      "type": "object"
+    },
+    "InversionRisk": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNKNOWN"
+      ],
+      "title": "InversionRisk",
+      "type": "string"
+    },
+    "MeteorologicalAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "ventilation_status": {
+          "$ref": "#/$defs/VentilationStatus",
+          "description": "Atmospheric dispersion capability: POOR, MODERATE, FAVORABLE, or UNKNOWN"
+        },
+        "inversion_risk": {
+          "$ref": "#/$defs/InversionRisk",
+          "description": "Risk of thermal trapping based on PBLH and diurnal cycle"
+        },
+        "wind_transport_regime": {
+          "$ref": "#/$defs/WindTransportRegime",
+          "description": "STAGNANT (<1.5 m/s), LOCAL_CIRCULATION, or REGIONAL_ADVECTION"
+        },
+        "evidence_notes": {
+          "description": "Specific meteorological metrics cited (wind speed, pblh, humidity)",
+          "minLength": 10,
+          "title": "Evidence Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ventilation_status",
+        "inversion_risk",
+        "wind_transport_regime",
+        "evidence_notes"
+      ],
+      "title": "MeteorologicalAssessment",
+      "type": "object"
+    },
+    "PublicHealthExposure": {
+      "additionalProperties": false,
+      "properties": {
+        "risk_level": {
+          "$ref": "#/$defs/PublicHealthRiskLevel",
+          "description": "Exposure risk category"
+        },
+        "dominant_health_concern": {
+          "description": "Primary exposure concern",
+          "minLength": 5,
+          "title": "Dominant Health Concern",
+          "type": "string"
+        },
+        "recommended_precautions": {
+          "description": "Targeted guidance for sensitive populations and general public",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Recommended Precautions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "risk_level",
+        "dominant_health_concern",
+        "recommended_precautions"
+      ],
+      "title": "PublicHealthExposure",
+      "type": "object"
+    },
+    "PublicHealthRiskLevel": {
+      "enum": [
+        "MODERATE",
+        "POOR",
+        "VERY_POOR",
+        "SEVERE",
+        "EMERGENCY"
+      ],
+      "title": "PublicHealthRiskLevel",
+      "type": "string"
+    },
+    "SeverityLevel": {
+      "enum": [
+        "SEVERE_EVENT",
+        "POLLUTION_EVENT"
+      ],
+      "title": "SeverityLevel",
+      "type": "string"
+    },
+    "SourceHypothesisType": {
+      "enum": [
+        "BIOMASS_BURNING_REGIONAL",
+        "LOCAL_WASTE_BURNING",
+        "METEOROLOGICAL_STAGNATION_INVERSION",
+        "URBAN_TRAFFIC_INDUSTRIAL",
+        "DUST_OR_COARSE_PARTICULATE",
+        "SECONDARY_AEROSOL_FORMATION",
+        "UNCLASSIFIED_MULTIFACTOR"
+      ],
+      "title": "SourceHypothesisType",
+      "type": "string"
+    },
+    "SupportLevel": {
+      "enum": [
+        "STRONG_SUPPORT",
+        "MODERATE_SUPPORT",
+        "WEAK_SUPPORT",
+        "INSUFFICIENT_EVIDENCE",
+        "CONTRADICTED"
+      ],
+      "title": "SupportLevel",
+      "type": "string"
+    },
+    "VentilationStatus": {
+      "enum": [
+        "POOR",
+        "MODERATE",
+        "FAVORABLE",
+        "UNKNOWN"
+      ],
+      "title": "VentilationStatus",
+      "type": "string"
+    },
+    "WindTransportRegime": {
+      "enum": [
+        "STAGNANT",
+        "LOCAL_CIRCULATION",
+        "REGIONAL_ADVECTION",
+        "UNKNOWN"
+      ],
+      "title": "WindTransportRegime",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "investigation_id": {
+      "description": "Unique investigation identifier (e.g. INV_anand_vihar_202201010000)",
+      "title": "Investigation Id",
+      "type": "string"
+    },
+    "event_id": {
+      "description": "Target event identifier matching the evidence bundle",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "station_id": {
+      "description": "Station name (e.g. anand vihar)",
+      "title": "Station Id",
+      "type": "string"
+    },
+    "generated_at": {
+      "description": "ISO 8601 generation timestamp",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "investigation_version": {
+      "default": "1.0.0",
+      "description": "Investigator engine schema version",
+      "title": "Investigation Version",
+      "type": "string"
+    },
+    "event_summary": {
+      "$ref": "#/$defs/EventSummary",
+      "description": "Deterministic event boundary metrics"
+    },
+    "meteorological_assessment": {
+      "$ref": "#/$defs/MeteorologicalAssessment",
+      "description": "Atmospheric ventilation assessment"
+    },
+    "evaluated_hypotheses": {
+      "description": "Structured evaluation of source hypotheses from the taxonomy",
+      "items": {
+        "$ref": "#/$defs/HypothesisEvaluation"
+      },
+      "minItems": 1,
+      "title": "Evaluated Hypotheses",
+      "type": "array"
+    },
+    "primary_contributing_factors": {
+      "description": "Top hypotheses exhibiting STRONG_SUPPORT or MODERATE_SUPPORT",
+      "items": {
+        "$ref": "#/$defs/SourceHypothesisType"
+      },
+      "minItems": 1,
+      "title": "Primary Contributing Factors",
+      "type": "array"
+    },
+    "data_quality_audit": {
+      "$ref": "#/$defs/DataQualityAudit",
+      "description": "Assessment of missing data and instrument artifacts"
+    },
+    "public_health_exposure": {
+      "$ref": "#/$defs/PublicHealthExposure",
+      "description": "Exposure and advisory assessment"
+    },
+    "synthesis_narrative": {
+      "description": "Non-causal analytical synthesis integrating meteorology, emissions, and dynamics",
+      "minLength": 50,
+      "title": "Synthesis Narrative",
+      "type": "string"
+    }
+  },
+  "required": [
+    "investigation_id",
+    "event_id",
+    "station_id",
+    "generated_at",
+    "event_summary",
+    "meteorological_assessment",
+    "evaluated_hypotheses",
+    "primary_contributing_factors",
+    "data_quality_audit",
+    "public_health_exposure",
+    "synthesis_narrative"
+  ],
+  "title": "PollutionEventInvestigationReport",
+  "type": "object"
+}

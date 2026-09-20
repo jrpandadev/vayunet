@@ -1,0 +1,122 @@
+{
+  "6h": {
+    "params": {
+      "max_depth": 8,
+      "min_child_weight": 7,
+      "learning_rate": 0.02,
+      "subsample": 1.0,
+      "colsample_bytree": 0.7
+    },
+    "best_iteration": 362,
+    "validation_metrics": {
+      "MAE": 34.00140735109289,
+      "RMSE": 58.792140350881745,
+      "R2": 0.7111759564932875,
+      "bias": -0.9701846391181942,
+      "MedAE": 20.187586364746096
+    },
+    "canonical_feature_count": 47,
+    "satellite_features": [
+      "satellite_no2_latest",
+      "satellite_no2_age_hours"
+    ],
+    "pm10_features": [
+      "PM10_lag_1h",
+      "PM10_lag_3h",
+      "PM10_lag_6h",
+      "PM10_lag_12h",
+      "PM10_lag_24h",
+      "PM10_lag_48h",
+      "PM10_lag_72h",
+      "PM10_roll_mean_6h",
+      "PM10_roll_mean_24h",
+      "PM10_roll_std_24h"
+    ],
+    "total_feature_count": 59,
+    "train_satellite_availability_pct": 88.66785457833568,
+    "validation_satellite_availability_pct": 90.06879048954785,
+    "train_pm10_availability_pct": 98.28417683926845,
+    "validation_pm10_availability_pct": 97.48347024644359,
+    "tuning_seconds": 10705.41773223877
+  },
+  "24h": {
+    "params": {
+      "max_depth": 4,
+      "min_child_weight": 1,
+      "learning_rate": 0.02,
+      "subsample": 0.9,
+      "colsample_bytree": 0.7
+    },
+    "best_iteration": 404,
+    "validation_metrics": {
+      "MAE": 39.36429806175418,
+      "RMSE": 66.58838140286612,
+      "R2": 0.6316546312466372,
+      "bias": -1.548645254222807,
+      "MedAE": 22.944198608398438
+    },
+    "canonical_feature_count": 44,
+    "satellite_features": [
+      "satellite_no2_latest",
+      "satellite_no2_age_hours"
+    ],
+    "pm10_features": [
+      "PM10_lag_1h",
+      "PM10_lag_3h",
+      "PM10_lag_6h",
+      "PM10_lag_12h",
+      "PM10_lag_24h",
+      "PM10_lag_48h",
+      "PM10_lag_72h",
+      "PM10_roll_mean_6h",
+      "PM10_roll_mean_24h",
+      "PM10_roll_std_24h"
+    ],
+    "total_feature_count": 56,
+    "train_satellite_availability_pct": 88.68116363962108,
+    "validation_satellite_availability_pct": 90.08740858462741,
+    "train_pm10_availability_pct": 98.28410185205921,
+    "validation_pm10_availability_pct": 97.45181753289607,
+    "tuning_seconds": 177.53448796272278
+  },
+  "72h": {
+    "params": {
+      "max_depth": 5,
+      "min_child_weight": 7,
+      "learning_rate": 0.1,
+      "subsample": 1.0,
+      "colsample_bytree": 0.7
+    },
+    "best_iteration": 56,
+    "validation_metrics": {
+      "MAE": 44.85369110974255,
+      "RMSE": 73.6652855787999,
+      "R2": 0.5526012674371683,
+      "bias": 0.9958629120459763,
+      "MedAE": 26.5235009765625
+    },
+    "canonical_feature_count": 42,
+    "satellite_features": [
+      "satellite_no2_latest",
+      "satellite_no2_age_hours"
+    ],
+    "pm10_features": [
+      "PM10_lag_1h",
+      "PM10_lag_3h",
+      "PM10_lag_6h",
+      "PM10_lag_12h",
+      "PM10_lag_24h",
+      "PM10_lag_48h",
+      "PM10_lag_72h",
+      "PM10_roll_mean_6h",
+      "PM10_roll_mean_24h",
+      "PM10_roll_std_24h"
+    ],
+    "total_feature_count": 54,
+    "train_satellite_availability_pct": 88.7714579685554,
+    "validation_satellite_availability_pct": 90.19902721890284,
+    "train_pm10_availability_pct": 98.22695355511833,
+    "validation_pm10_availability_pct": 97.45017545285806,
+    "tuning_seconds": 144.00835037231445
+  }
+}

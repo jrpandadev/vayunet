@@ -1,0 +1,196 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@layer base {
+  :root {
+    --navy-primary: #0a2540;
+    --navy-hover: #0f2a3f;
+    --navy-active: #071a2e;
+    --cyan-accent: #0284c7;
+
+    --canvas-bg: #f8fafc;
+    --surface-card: #ffffff;
+    --surface-muted: #f1f5f9;
+    --border-hairline: #e2e8f0;
+    --border-strong: #cbd5e1;
+
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+
+    /* 5-tier civic risk scale */
+    --risk-low: #22c55e;
+    --risk-moderate: #eab308;
+    --risk-high: #f97316;
+    --risk-very-high: #ef4444;
+    --risk-critical: #9333ea;
+  }
+
+  body {
+    background-color: var(--canvas-bg);
+    color: var(--text-primary);
+    font-family: var(--font-inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Tabular figures for telemetry, timestamps, coordinates */
+.tabular-telemetry {
+  font-feature-settings: "tnum" 1, "cv05" 1, "zero" 1;
+}
+
+/* Ensure Leaflet overlays do not clip beneath dashboard navigation */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Ensure map popups and info cards always render above overlay controls and filter panels */
+.leaflet-container .leaflet-popup-pane,
+.leaflet-container .leaflet-popup {
+  z-index: 1200 !important;
+}
+
+/* Subtle Emission Hotspot Smoke Dispersion Effect */
+@keyframes smokeDispersion {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Active Hotspot Subtle Pulse Ring */
+@keyframes hotspotPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.75;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.hotspot-smoke-ring {
+  animation: smokeDispersion 3.6s ease-out infinite;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.hotspot-pulse-ring {
+  animation: hotspotPulse 2.8s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+/* Subtle Fire Detection Thermal Glow & Flicker Effect */
+@keyframes fireFlicker {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 4px rgba(234, 88, 12, 0.65));
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: drop-shadow(0 0 9px rgba(220, 38, 38, 0.85));
+  }
+}
+
+/* Active Fire Outer Thermal Pulse */
+@keyframes firePulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.65;
+  }
+  60% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.fire-active-glow {
+  animation: fireFlicker 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.fire-active-pulse {
+  animation: firePulse 2.2s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotspot-smoke-ring,
+  .hotspot-pulse-ring,
+  .fire-active-glow,
+  .fire-active-pulse {
+    animation: none !important;
+    opacity: 0.8 !important;
+    transform: scale(1) !important;
+  }
+}
+
+/* PM2.5 Risk Zone Sticky Tooltip Styling */
+.leaflet-tooltip.vayu-risk-zone-tooltip {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+  padding: 4px 8px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.leaflet-tooltip.vayu-risk-zone-tooltip::before {
+  display: none;
+}
+
+/* Atmospheric Wind Flow & Transport Streamlines (Step 8) */
+@keyframes vayuWindMotion {
+  from {
+    stroke-dashoffset: 28;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.vayu-wind-streamline {
+  pointer-events: none !important;
+  animation: vayuWindMotion 2s linear infinite;
+}
+
+.vayu-wind-arrowhead {
+  pointer-events: none !important;
+}
+
+.vayu-wind-corridor {
+  pointer-events: none !important;
+  animation: vayuWindMotion 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vayu-wind-streamline,
+  .vayu-wind-corridor {
+    animation: none !important;
+    stroke-dasharray: none !important;
+  }
+}
