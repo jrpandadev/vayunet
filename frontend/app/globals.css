@@ -1,8 +1,157 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
+@theme {
+  --color-on-tertiary-container: #523200;
+  --color-on-error: #690005;
+  --color-background: #0d131f;
+  --color-on-primary-fixed-variant: #005236;
+  --color-surface: #0d131f;
+  --color-on-tertiary-fixed: #2a1700;
+  --color-on-primary: #003824;
+  --color-secondary-container: #03b5d3;
+  --color-surface-container-highest: #2f3541;
+  --color-tertiary-fixed-dim: #ffb95f;
+  --color-surface-dim: #0d131f;
+  --color-on-surface-variant: #bbcabf;
+  --color-surface-tint: #4edea3;
+  --color-primary: #4edea3;
+  --color-on-primary-fixed: #002113;
+  --color-on-primary-container: #00422b;
+  --color-surface-container: #1a202b;
+  --color-on-surface: #dde2f3;
+  --color-surface-bright: #333946;
+  --color-tertiary-container: #e29100;
+  --color-tertiary: #ffb95f;
+  --color-secondary: #4cd7f6;
+  --color-on-error-container: #ffdad6;
+  --color-inverse-primary: #006c49;
+  --color-primary-container: #10b981;
+  --color-on-secondary: #003640;
+  --color-inverse-surface: #dde2f3;
+  --color-error-container: #93000a;
+  --color-primary-fixed: #6ffbbe;
+  --color-on-secondary-fixed: #001f26;
+  --color-surface-container-low: #161c27;
+  --color-on-secondary-container: #00424e;
+  --color-error: #ffb4ab;
+  --color-on-background: #dde2f3;
+  --color-tertiary-fixed: #ffddb8;
+  --color-surface-container-high: #242a36;
+  --color-on-secondary-fixed-variant: #004e5c;
+  --color-on-tertiary-fixed-variant: #653e00;
+  --color-on-tertiary: #472a00;
+  --color-inverse-on-surface: #2a303d;
+  --color-outline-variant: #3c4a42;
+  --color-surface-variant: #2f3541;
+  --color-secondary-fixed: #acedff;
+  --color-surface-container-lowest: #080e19;
+  --color-primary-fixed-dim: #4edea3;
+  --color-outline: #86948a;
+  --color-secondary-fixed-dim: #4cd7f6;
+
+  --spacing-space-xs: 0.25rem;
+  --spacing-gutter-mobile: 0.75rem;
+  --spacing-margin-mobile: 1rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-margin: 2rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-space-sm: 0.5rem;
+
+  --font-headline-lg: var(--font-space-grotesk), sans-serif;
+  --font-body-sm: var(--font-jakarta), sans-serif;
+  --font-display-xl-mobile: var(--font-space-grotesk), sans-serif;
+  --font-label-md: var(--font-jetbrains-mono), monospace;
+  --font-display-xl: var(--font-space-grotesk), sans-serif;
+  --font-headline-sm: var(--font-space-grotesk), sans-serif;
+  --font-label-sm: var(--font-jetbrains-mono), monospace;
+  --font-headline-lg-mobile: var(--font-space-grotesk), sans-serif;
+  --font-telemetry-metric: var(--font-jetbrains-mono), monospace;
+  --font-headline-md: var(--font-space-grotesk), sans-serif;
+  --font-label-lg: var(--font-jakarta), sans-serif;
+  --font-body-lg: var(--font-jakarta), sans-serif;
+  --font-body-md: var(--font-jakarta), sans-serif;
+
+  --text-headline-lg: 2rem;
+  --text-headline-lg--line-height: 2.5rem;
+  --text-headline-lg--letter-spacing: -0.02em;
+  --text-headline-lg--font-weight: 600;
+
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.25rem;
+  --text-body-sm--letter-spacing: 0.005em;
+  --text-body-sm--font-weight: 400;
+
+  --text-display-xl-mobile: 2.25rem;
+  --text-display-xl-mobile--line-height: 2.75rem;
+  --text-display-xl-mobile--letter-spacing: -0.02em;
+  --text-display-xl-mobile--font-weight: 600;
+
+  --text-label-md: 0.75rem;
+  --text-label-md--line-height: 1rem;
+  --text-label-md--letter-spacing: 0.04em;
+  --text-label-md--font-weight: 500;
+
+  --text-display-xl: 3.5rem;
+  --text-display-xl--line-height: 4rem;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display-xl--font-weight: 600;
+
+  --text-headline-sm: 1.125rem;
+  --text-headline-sm--line-height: 1.625rem;
+  --text-headline-sm--letter-spacing: 0em;
+  --text-headline-sm--font-weight: 500;
+
+  --text-label-sm: 0.6875rem;
+  --text-label-sm--line-height: 0.875rem;
+  --text-label-sm--letter-spacing: 0.06em;
+  --text-label-sm--font-weight: 500;
+
+  --text-headline-lg-mobile: 1.5rem;
+  --text-headline-lg-mobile--line-height: 2rem;
+  --text-headline-lg-mobile--letter-spacing: -0.01em;
+  --text-headline-lg-mobile--font-weight: 600;
+
+  --text-telemetry-metric: 2rem;
+  --text-telemetry-metric--line-height: 2.25rem;
+  --text-telemetry-metric--letter-spacing: -0.02em;
+  --text-telemetry-metric--font-weight: 700;
+
+  --text-headline-md: 1.5rem;
+  --text-headline-md--line-height: 2rem;
+  --text-headline-md--letter-spacing: -0.01em;
+  --text-headline-md--font-weight: 500;
+
+  --text-label-lg: 0.875rem;
+  --text-label-lg--line-height: 1.25rem;
+  --text-label-lg--letter-spacing: 0.01em;
+  --text-label-lg--font-weight: 600;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body-lg--letter-spacing: -0.005em;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 0.9375rem;
+  --text-body-md--line-height: 1.5rem;
+  --text-body-md--letter-spacing: 0em;
+  --text-body-md--font-weight: 400;
+
+  --animate-sweep: sweep 9s linear infinite;
+
+  @keyframes sweep {
+    0% { transform: translateX(-100px); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { transform: translateX(1100px); opacity: 0; }
+  }
+}
+
 @layer base {
   :root {
+    /* Legacy variables for backwards compatibility with existing dashboard components */
     --navy-primary: #0a2540;
     --navy-hover: #0f2a3f;
     --navy-active: #071a2e;
@@ -25,12 +174,23 @@
     --risk-critical: #9333ea;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
   body {
-    background-color: var(--canvas-bg);
-    color: var(--text-primary);
-    font-family: var(--font-inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+    /* Remove strict background color enforcement on body to let tailwind classes handle it */
+  }
+
+  /* Custom scrollbar for landing page */
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -54,34 +214,16 @@
 
 /* Subtle Emission Hotspot Smoke Dispersion Effect */
 @keyframes smokeDispersion {
-  0% {
-    transform: scale(0.7);
-    opacity: 0.65;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(1.6);
-    opacity: 0;
-  }
+  0% { transform: scale(0.7); opacity: 0.65; }
+  50% { transform: scale(1.2); opacity: 0.3; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 /* Active Hotspot Subtle Pulse Ring */
 @keyframes hotspotPulse {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.75;
-  }
-  70% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
+  0% { transform: scale(0.95); opacity: 0.75; }
+  70% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
 }
 
 .hotspot-smoke-ring {
@@ -98,32 +240,15 @@
 
 /* Subtle Fire Detection Thermal Glow & Flicker Effect */
 @keyframes fireFlicker {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.85;
-    filter: drop-shadow(0 0 4px rgba(234, 88, 12, 0.65));
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 1;
-    filter: drop-shadow(0 0 9px rgba(220, 38, 38, 0.85));
-  }
+  0%, 100% { transform: scale(1); opacity: 0.85; filter: drop-shadow(0 0 4px rgba(234, 88, 12, 0.65)); }
+  50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 9px rgba(220, 38, 38, 0.85)); }
 }
 
 /* Active Fire Outer Thermal Pulse */
 @keyframes firePulse {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.65;
-  }
-  60% {
-    transform: scale(1.35);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.35);
-    opacity: 0;
-  }
+  0% { transform: scale(0.95); opacity: 0.65; }
+  60% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
 }
 
 .fire-active-glow {
@@ -165,12 +290,8 @@
 
 /* Atmospheric Wind Flow & Transport Streamlines (Step 8) */
 @keyframes vayuWindMotion {
-  from {
-    stroke-dashoffset: 28;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
+  from { stroke-dashoffset: 28; }
+  to { stroke-dashoffset: 0; }
 }
 
 .vayu-wind-streamline {
