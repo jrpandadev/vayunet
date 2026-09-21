@@ -96,6 +96,21 @@ export default function HomePage() {
               <span>3-City Federated Pilot</span>
             </span>
 
+            <div className="hidden sm:flex items-center gap-3 pr-2 sm:pr-3 border-r border-white/10">
+              <Link
+                href="/signin"
+                className="text-slate-300 hover:text-white text-xs font-medium transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/signup"
+                className="px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs font-medium transition-colors"
+              >
+                Create Account
+              </Link>
+            </div>
+
             <Link
               href="/dashboard"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition-colors shadow-xs"
