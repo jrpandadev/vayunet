@@ -29,22 +29,22 @@ const CorroborationStatus: React.FC<CorroborationStatusProps> = ({
 }) => {
   if (isSupporting) {
     return (
-      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#27E0C3] bg-[rgba(39,224,195,0.1)] px-2 py-0.5 rounded border border-[rgba(39,224,195,0.25)]">
+        <CheckCircle2 className="w-3 h-3 text-[#27E0C3]" />
         Supporting Evidence
       </span>
     );
   }
   if (isContradicting) {
     return (
-      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-        <AlertTriangle className="w-3 h-3 text-amber-600" />
+      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#FFB52E] bg-[rgba(255,181,46,0.1)] px-2 py-0.5 rounded border border-[rgba(255,181,46,0.25)]">
+        <AlertTriangle className="w-3 h-3 text-[#FFB52E]" />
         Contradicting Evidence
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#7BA4BC] bg-[rgba(255,255,255,0.05)] px-2 py-0.5 rounded border border-[rgba(255,255,255,0.1)]">
       Neutral / Contextual
     </span>
   );
@@ -58,22 +58,22 @@ export const CitizenEvidenceCard: React.FC<{
 }> = ({ evidence, isSupporting, isContradicting }) => {
   if (!evidence) {
     return (
-      <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 text-slate-400 text-xs">
+      <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 text-[#7BA4BC] text-xs">
         No citizen report evidence on record for this event.
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 flex flex-col justify-between shadow-xs">
+    <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 flex flex-col justify-between shadow-lg shadow-black/20">
       <div>
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded bg-slate-100 text-[#0a2540]">
+            <div className="p-1.5 rounded bg-[rgba(0,213,255,0.08)] text-[#00E5FF]">
               <Users className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#0f172a]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#E8F4FD]">
                 Citizen Report
               </h4>
               <ProvenanceBadge
@@ -89,33 +89,33 @@ export const CitizenEvidenceCard: React.FC<{
           />
         </div>
 
-        <div className="bg-slate-50 rounded p-3 border border-slate-200/80 mb-3">
-          <p className="text-xs text-slate-800 italic">
+        <div className="bg-[rgba(255,255,255,0.02)] rounded p-3 border border-[rgba(0,213,255,0.1)] mb-3">
+          <p className="text-xs text-[#E8F4FD] italic">
             &ldquo;{evidence.gemini_output.description}&rdquo;
           </p>
-          <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-[#64748b]">
+          <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-[#7BA4BC]">
             <span>
-              Type: <strong className="text-slate-900 capitalize">{evidence.gemini_output.event_type}</strong>
+              Type: <strong className="text-[#E8F4FD] capitalize">{evidence.gemini_output.event_type}</strong>
             </span>
             <span>•</span>
             <span>
-              Severity: <strong className="text-slate-900 capitalize">{evidence.gemini_output.severity}</strong>
+              Severity: <strong className="text-[#E8F4FD] capitalize">{evidence.gemini_output.severity}</strong>
             </span>
             <span>•</span>
             <span>
-              Gemini Conf: <strong className="text-slate-900 tabular-telemetry">{Math.round(evidence.gemini_output.confidence * 100)}%</strong>
+              Gemini Conf: <strong className="text-[#00E5FF] tabular-telemetry">{Math.round(evidence.gemini_output.confidence * 100)}%</strong>
             </span>
           </div>
         </div>
       </div>
 
-      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-[#64748b]">
+      <div className="pt-2 border-t border-[rgba(0,213,255,0.1)] flex items-center justify-between text-xs text-[#7BA4BC]">
         <div className="flex items-center gap-1.5">
-          <ImageIcon className="w-3.5 h-3.5 text-slate-400" />
+          <ImageIcon className="w-3.5 h-3.5 text-[#2E5470]" />
           <span>{(evidence.photo_url || evidence.supabase_path) ? 'Observation photo attached' : 'No photo uploaded'}</span>
         </div>
         {(evidence.photo_url || evidence.supabase_path) && (
-          <span className="text-[10px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200">
+          <span className="text-[10px] text-[#00E5FF] bg-[rgba(0,213,255,0.08)] px-1.5 py-0.5 rounded border border-[rgba(0,213,255,0.2)]">
             Image Verified
           </span>
         )}
@@ -132,22 +132,22 @@ export const SensorEvidenceCard: React.FC<{
 }> = ({ evidence, isSupporting, isContradicting }) => {
   if (!evidence) {
     return (
-      <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 text-slate-400 text-xs">
+      <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 text-[#7BA4BC] text-xs">
         No ground sensor evidence linked to this event.
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 flex flex-col justify-between shadow-xs">
+    <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 flex flex-col justify-between shadow-lg shadow-black/20">
       <div>
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded bg-slate-100 text-[#0a2540]">
+            <div className="p-1.5 rounded bg-[rgba(0,213,255,0.08)] text-[#00E5FF]">
               <Gauge className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#0f172a]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#E8F4FD]">
                 Ground Sensor Grid
               </h4>
               <ProvenanceBadge
@@ -164,33 +164,33 @@ export const SensorEvidenceCard: React.FC<{
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-3">
-          <div className="bg-slate-50 rounded p-2.5 border border-slate-200/80">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b] block">
+          <div className="bg-[rgba(255,255,255,0.02)] rounded p-2.5 border border-[rgba(0,213,255,0.1)]">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#7BA4BC] block">
               PM2.5 Observation
             </span>
-            <span className="text-xl font-bold text-[#0f172a] tabular-telemetry">
+            <span className="text-xl font-bold text-[#E8F4FD] tabular-telemetry">
               {evidence.pm25}
             </span>
-            <span className="text-[10px] text-slate-500 ml-1">µg/m³</span>
+            <span className="text-[10px] text-[#2E5470] ml-1">µg/m³</span>
           </div>
 
-          <div className="bg-slate-50 rounded p-2.5 border border-slate-200/80">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b] block">
+          <div className="bg-[rgba(255,255,255,0.02)] rounded p-2.5 border border-[rgba(0,213,255,0.1)]">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#7BA4BC] block">
               PM10 Observation
             </span>
-            <span className="text-xl font-bold text-[#0f172a] tabular-telemetry">
+            <span className="text-xl font-bold text-[#E8F4FD] tabular-telemetry">
               {evidence.pm10}
             </span>
-            <span className="text-[10px] text-slate-500 ml-1">µg/m³</span>
+            <span className="text-[10px] text-[#2E5470] ml-1">µg/m³</span>
           </div>
         </div>
       </div>
 
-      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-[#64748b]">
-        <span className="font-mono text-[11px] text-slate-600 truncate">
+      <div className="pt-2 border-t border-[rgba(0,213,255,0.1)] flex items-center justify-between text-xs text-[#7BA4BC]">
+        <span className="font-mono text-[11px] text-[#2E5470] truncate">
           Station: {evidence.station_id}
         </span>
-        <span className="text-[11px] font-mono tabular-telemetry text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded">
+        <span className="text-[11px] font-mono tabular-telemetry text-[#00E5FF] bg-[rgba(0,213,255,0.05)] border border-[rgba(0,213,255,0.1)] px-1.5 py-0.5 rounded">
           Anomaly: {evidence.anomaly_score != null ? evidence.anomaly_score.toFixed(2) : 'N/A'}
         </span>
       </div>
@@ -206,22 +206,22 @@ export const SatelliteEvidenceCard: React.FC<{
 }> = ({ evidence, isSupporting, isContradicting }) => {
   if (!evidence) {
     return (
-      <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 text-slate-400 text-xs">
+      <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 text-[#7BA4BC] text-xs">
         No satellite pass ingest on record for this event.
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 flex flex-col justify-between shadow-xs">
+    <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 flex flex-col justify-between shadow-lg shadow-black/20">
       <div>
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded bg-sky-50 text-[#0284c7]">
+            <div className="p-1.5 rounded bg-[rgba(0,213,255,0.08)] text-[#00E5FF]">
               <Orbit className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#0f172a]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#E8F4FD]">
                 Orbital Satellite
               </h4>
               <ProvenanceBadge
@@ -238,31 +238,31 @@ export const SatelliteEvidenceCard: React.FC<{
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-3">
-          <div className="bg-slate-50 rounded p-2.5 border border-slate-200/80">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b] block">
+          <div className="bg-[rgba(255,255,255,0.02)] rounded p-2.5 border border-[rgba(0,213,255,0.1)]">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#7BA4BC] block">
               NO₂ Column Index
             </span>
-            <span className="text-xl font-bold text-[#0f172a] tabular-telemetry">
+            <span className="text-xl font-bold text-[#E8F4FD] tabular-telemetry">
               {evidence.no2_index.toFixed(1)}
             </span>
-            <span className="text-[10px] text-slate-500 ml-1">mol/m²</span>
+            <span className="text-[10px] text-[#2E5470] ml-1">mol/m²</span>
           </div>
 
-          <div className="bg-slate-50 rounded p-2.5 border border-slate-200/80">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b] block">
+          <div className="bg-[rgba(255,255,255,0.02)] rounded p-2.5 border border-[rgba(0,213,255,0.1)]">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#7BA4BC] block">
               Aerosol Index (AI)
             </span>
-            <span className="text-xl font-bold text-[#0f172a] tabular-telemetry">
+            <span className="text-xl font-bold text-[#E8F4FD] tabular-telemetry">
               {evidence.aerosol_index.toFixed(2)}
             </span>
-            <span className="text-[10px] text-slate-500 ml-1">index</span>
+            <span className="text-[10px] text-[#2E5470] ml-1">index</span>
           </div>
         </div>
       </div>
 
-      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-[#64748b]">
+      <div className="pt-2 border-t border-[rgba(0,213,255,0.1)] flex items-center justify-between text-xs text-[#7BA4BC]">
         <span>Spectral Band: UV-VIS/TROPOMI</span>
-        <span className="text-[10px] font-mono uppercase text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-100">
+        <span className="text-[10px] font-mono uppercase text-[#00E5FF] bg-[rgba(0,213,255,0.05)] border border-[rgba(0,213,255,0.1)] px-1.5 py-0.5 rounded">
           Spatial Resolution 5.5km
         </span>
       </div>
@@ -278,22 +278,22 @@ export const WeatherEvidenceCard: React.FC<{
 }> = ({ evidence, isSupporting, isContradicting }) => {
   if (!evidence) {
     return (
-      <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 text-slate-400 text-xs">
+      <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 text-[#7BA4BC] text-xs">
         No meteorological readings available.
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 flex flex-col justify-between shadow-xs">
+    <div className="bg-[rgba(6,24,39,0.80)] border border-[rgba(0,213,255,0.14)] rounded-lg p-5 flex flex-col justify-between shadow-lg shadow-black/20">
       <div>
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded bg-cyan-50 text-cyan-800">
+            <div className="p-1.5 rounded bg-[rgba(0,213,255,0.08)] text-[#00E5FF]">
               <Wind className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#0f172a]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#E8F4FD]">
                 Meteorology & Atmospheric Conditions
               </h4>
               <ProvenanceBadge
@@ -309,36 +309,36 @@ export const WeatherEvidenceCard: React.FC<{
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-3">
-          <div className="bg-slate-50 rounded p-2.5 border border-slate-200/80">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b] block">
+          <div className="bg-[rgba(255,255,255,0.02)] rounded p-2.5 border border-[rgba(0,213,255,0.1)]">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#7BA4BC] block">
               Surface Wind Speed
             </span>
-            <span className="text-xl font-bold text-[#0f172a] tabular-telemetry">
+            <span className="text-xl font-bold text-[#E8F4FD] tabular-telemetry">
               {evidence.wind_speed_kmh}
             </span>
-            <span className="text-[10px] text-slate-500 ml-1">km/h</span>
+            <span className="text-[10px] text-[#2E5470] ml-1">km/h</span>
           </div>
 
-          <div className="bg-slate-50 rounded p-2.5 border border-slate-200/80">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b] block">
+          <div className="bg-[rgba(255,255,255,0.02)] rounded p-2.5 border border-[rgba(0,213,255,0.1)]">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#7BA4BC] block">
               Relative Humidity
             </span>
-            <span className="text-xl font-bold text-[#0f172a] tabular-telemetry">
+            <span className="text-xl font-bold text-[#E8F4FD] tabular-telemetry">
               {evidence.humidity_percent}
             </span>
-            <span className="text-[10px] text-slate-500 ml-1">%</span>
+            <span className="text-[10px] text-[#2E5470] ml-1">%</span>
           </div>
         </div>
       </div>
 
-      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-[#64748b]">
+      <div className="pt-2 border-t border-[rgba(0,213,255,0.1)] flex items-center justify-between text-xs text-[#7BA4BC]">
         <span>
           Ventilation Condition:{' '}
-          <strong className="text-slate-800 font-semibold">
+          <strong className="text-[#00E5FF] font-semibold">
             {evidence.wind_speed_kmh != null ? (evidence.wind_speed_kmh < 5 ? 'Stagnant (Trap)' : 'Active Venting') : 'Unknown'}
           </strong>
         </span>
-        <span className="text-[10px] font-mono text-slate-500 uppercase">
+        <span className="text-[10px] font-mono text-[#2E5470] uppercase">
           Open-Meteo Synoptic
         </span>
       </div>

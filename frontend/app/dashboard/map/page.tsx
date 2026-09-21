@@ -295,7 +295,7 @@ export default function MapPage() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-50px)] md:h-screen overflow-hidden bg-slate-100">
+    <div className="flex flex-col h-full w-full bg-[#03111F]">
       {/* Primary Dashboard Header */}
       <DashboardHeader
         title="Geospatial Pollution Surveillance"
@@ -303,7 +303,7 @@ export default function MapPage() {
         actions={
           <button
             onClick={loadAllEvents}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[rgba(0,213,255,0.20)] text-xs font-semibold text-[#00E5FF] hover:bg-[rgba(0,213,255,0.08)] hover:border-[#00E5FF] transition-all cursor-pointer bg-[rgba(6,24,39,0.80)] shadow-sm shadow-[rgba(0,213,255,0.1)]"
             title="Refresh surveillance events"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
@@ -313,108 +313,97 @@ export default function MapPage() {
       />
 
       {/* Operational Surveillance HUD Status Bar */}
-      <div className="bg-white border-b border-slate-200 px-4 py-2 flex flex-wrap items-center justify-between gap-2.5 text-xs select-none shrink-0 z-10 shadow-2xs">
+      <div className="bg-[#061827] border-b border-[rgba(0,213,255,0.10)] px-4 py-2 flex flex-wrap items-center justify-between gap-2.5 text-xs select-none shrink-0 z-10 shadow-lg shadow-black/20">
         {/* Left Status Chips */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Simulation Mode Badge */}
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-amber-50 text-amber-900 border border-amber-200">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span>Simulation Mode</span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-[rgba(255,181,46,0.10)] text-[#FFB52E] border border-[rgba(255,181,46,0.25)] shadow-[0_0_8px_rgba(255,181,46,0.15)]">
+            <span className="w-2 h-2 rounded-full bg-[#FFB52E] animate-pulse shadow-[0_0_6px_#FFB52E]" />
+            <span className="tracking-wide uppercase">Simulation Mode</span>
           </span>
 
           {/* Data Timestamp Badge */}
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-slate-50 text-slate-700 border border-slate-200">
-            <Clock className="w-3.5 h-3.5 text-slate-500" />
-            <span>Data updated: <strong>{latestDataTimestamp}</strong></span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-[rgba(0,213,255,0.04)] text-[#7BA4BC] border border-[rgba(0,213,255,0.10)]">
+            <Clock className="w-3.5 h-3.5 text-[#2E5470]" />
+            <span>Data updated: <strong className="text-[#E8F4FD]">{latestDataTimestamp}</strong></span>
           </span>
 
           {/* PM2.5 Forecast Horizon Badge */}
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-sky-50 text-sky-800 border border-sky-200">
-            <TrendingUp className="w-3.5 h-3.5 text-sky-600" />
-            <span>PM2.5 forecast: next 24 hours</span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-[rgba(0,102,255,0.10)] text-[#4D94FF] border border-[rgba(0,102,255,0.25)]">
+            <TrendingUp className="w-3.5 h-3.5 text-[#4D94FF]" />
+            <span className="tracking-wide">PM2.5 FORECAST: NEXT 24 HOURS</span>
           </span>
 
           {/* Wind Telemetry Badge (Step 8) */}
           <span
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold border transition-opacity ${
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold border transition-all ${
               layersState.wind
-                ? 'bg-cyan-50 text-cyan-900 border-cyan-200'
-                : 'bg-slate-50 text-slate-400 border-slate-200 opacity-50 line-through'
+                ? 'bg-[rgba(39,224,195,0.10)] text-[#27E0C3] border-[rgba(39,224,195,0.25)] shadow-[0_0_8px_rgba(39,224,195,0.1)]'
+                : 'bg-[rgba(6,24,39,0.5)] text-[#2E5470] border-[rgba(0,213,255,0.05)] opacity-60 line-through'
             }`}
             title="Prevailing Atmospheric Wind Direction & Velocity"
           >
-            <Wind className={`w-3.5 h-3.5 ${layersState.wind ? 'text-cyan-600' : 'text-slate-400'}`} />
-            <span>NW • <strong>{activeWindSpeed} km/h</strong></span>
+            <Wind className={`w-3.5 h-3.5 ${layersState.wind ? 'text-[#27E0C3]' : 'text-[#2E5470]'}`} />
+            <span className="tracking-wide">NW • <strong className={layersState.wind ? "text-white" : ""}>{activeWindSpeed} km/h</strong></span>
           </span>
         </div>
 
         {/* Right Status Context */}
-        <div className="hidden sm:flex items-center gap-3 text-[11px] text-slate-600">
+        <div className="hidden sm:flex items-center gap-3 text-[11px] text-[#7BA4BC]">
           <span className="inline-flex items-center gap-1">
-            <Compass className="w-3.5 h-3.5 text-sky-600" />
-            <span>Default Focal Basin: <strong>Delhi NCR</strong></span>
+            <Compass className="w-3.5 h-3.5 text-[#00E5FF]" />
+            <span>Focal Basin: <strong className="text-[#E8F4FD]">Delhi NCR</strong></span>
           </span>
-          <span className="text-slate-300">•</span>
+          <span className="text-[#2E5470]">•</span>
           <span
             className={`font-mono transition-opacity ${
-              layersState.events ? 'text-slate-500' : 'text-slate-400 opacity-50 line-through'
+              layersState.events ? 'text-[#00E5FF]' : 'text-[#2E5470] opacity-50 line-through'
             }`}
           >
             {filteredEvents.length} Monitored Sites
           </span>
-          <span className="text-slate-300">•</span>
+          <span className="text-[#2E5470]">•</span>
           <span
             className={`font-mono px-1.5 py-0.5 rounded border font-semibold transition-opacity ${
               layersState.hotspots
-                ? 'text-purple-700 bg-purple-50 border-purple-200'
-                : 'text-slate-400 bg-slate-50 border-slate-200 opacity-50 line-through'
+                ? 'text-[#B87333] bg-[rgba(184,115,51,0.1)] border-[rgba(184,115,51,0.3)]'
+                : 'text-[#2E5470] bg-transparent border-[rgba(0,213,255,0.05)] opacity-50 line-through'
             }`}
           >
-            7 Emission Spots (Simulation)
+            7 Emission Spots
           </span>
-          <span className="text-slate-300">•</span>
+          <span className="text-[#2E5470]">•</span>
           <span
             className={`font-mono px-1.5 py-0.5 rounded border font-semibold transition-opacity ${
               layersState.fires
-                ? 'text-amber-900 bg-amber-50 border-amber-200'
-                : 'text-slate-400 bg-slate-50 border-slate-200 opacity-50 line-through'
+                ? 'text-[#FF4D4D] bg-[rgba(255,77,77,0.1)] border-[rgba(255,77,77,0.3)]'
+                : 'text-[#2E5470] bg-transparent border-[rgba(0,213,255,0.05)] opacity-50 line-through'
             }`}
             title="Simulated Fire Detections"
           >
-            3 Active · 2 Historical Fires (Simulation)
+            5 Fires
           </span>
-          <span className="text-slate-300">•</span>
+          <span className="text-[#2E5470]">•</span>
           <span
             className={`font-mono px-1.5 py-0.5 rounded border font-semibold transition-opacity ${
               layersState.riskZones
-                ? 'text-emerald-900 bg-emerald-50 border-emerald-200'
-                : 'text-slate-400 bg-slate-50 border-slate-200 opacity-50 line-through'
+                ? 'text-[#27E0C3] bg-[rgba(39,224,195,0.1)] border-[rgba(39,224,195,0.3)]'
+                : 'text-[#2E5470] bg-transparent border-[rgba(0,213,255,0.05)] opacity-50 line-through'
             }`}
             title="Simulated PM2.5 Regional Exposure Corridors"
           >
-            6 Risk Zones (Simulation)
+            6 Risk Zones
           </span>
-          <span className="text-slate-300">•</span>
+          <span className="text-[#2E5470]">•</span>
           <span
             className={`font-mono px-1.5 py-0.5 rounded border font-semibold transition-opacity ${
               layersState.observations
-                ? 'text-sky-900 bg-sky-50 border-sky-200'
-                : 'text-slate-400 bg-slate-50 border-slate-200 opacity-50 line-through'
+                ? 'text-[#4D94FF] bg-[rgba(77,148,255,0.1)] border-[rgba(77,148,255,0.3)]'
+                : 'text-[#2E5470] bg-transparent border-[rgba(0,213,255,0.05)] opacity-50 line-through'
             }`}
             title="Simulated Citizen Photographic Observations"
           >
-            7 Citizen Observations (Simulation)
-          </span>
-          <span className="text-slate-300">•</span>
-          <span
-            className={`font-mono px-1.5 py-0.5 rounded border font-semibold transition-opacity ${
-              layersState.wind
-                ? 'text-cyan-900 bg-cyan-50 border-cyan-200'
-                : 'text-slate-400 bg-slate-50 border-slate-200 opacity-50 line-through'
-            }`}
-            title="Prevailing Atmospheric Wind Streamlines"
-          >
-            Wind NW 315° (Simulation)
+            7 Obs
           </span>
         </div>
       </div>
@@ -422,10 +411,10 @@ export default function MapPage() {
       {/* Dominant Main Map Canvas (Takes ~75–80% of available viewport) */}
       <div className="relative flex-1 w-full h-full min-h-[500px]">
         {loading ? (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-slate-50 text-slate-500">
-            <div className="h-8 w-8 border-3 border-sky-600 border-t-transparent rounded-full animate-spin mb-3" />
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-700">
-              Retrieving Pan-India Telemetry Hotspots...
+          <div className="w-full h-full flex flex-col items-center justify-center bg-[#03111F] text-[#7BA4BC]">
+            <div className="h-8 w-8 border-3 border-[#00E5FF] border-t-transparent rounded-full animate-spin mb-3 shadow-[0_0_15px_rgba(0,229,255,0.5)]" />
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#00E5FF] animate-pulse">
+              Retrieving Geospatial Telemetry...
             </p>
           </div>
         ) : (

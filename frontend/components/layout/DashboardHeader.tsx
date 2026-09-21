@@ -46,36 +46,36 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   }, []);
 
   return (
-    <header className="bg-white border-b border-[#e2e8f0] px-6 py-3.5 sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4">
+    <header className="bg-[#061827] border-b border-[rgba(0,213,255,0.10)] px-6 py-3.5 sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4">
       {/* Title & Basin Context */}
       <div>
-        <div className="flex items-center gap-2.5">
-          <h1 className="text-lg font-bold text-[#0f172a] tracking-tight">
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <h1 className="text-lg font-bold text-[#E8F4FD] tracking-tight">
             {title}
           </h1>
           {apiStatus.isConnected ? (
             <span
-              className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200"
+              className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-[rgba(39,224,195,0.10)] text-[#27E0C3] border border-[rgba(39,224,195,0.25)]"
               title={`Connected to backend: ${apiStatus.backendUrl}`}
             >
-              <Radio className="w-3 h-3 text-emerald-600 animate-pulse" />
-              Backend Connected
+              <Radio className="w-3 h-3 animate-pulse" />
+              System Live
             </span>
           ) : (
             <span
-              className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200"
+              className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-[rgba(255,181,46,0.10)] text-[#FFB52E] border border-[rgba(255,181,46,0.25)]"
               title={
                 apiStatus.backendConfigured
                   ? 'Backend unreachable. Running with offline simulation fallback.'
                   : 'Running in local simulation demo mode'
               }
             >
-              <Radio className="w-3 h-3 text-amber-600" />
-              Simulation Mode
+              <Radio className="w-3 h-3" />
+              {apiStatus.backendConfigured ? 'Offline' : 'Simulation'}
             </span>
           )}
         </div>
-        <p className="text-xs text-[#64748b] mt-0.5">{subtitle}</p>
+        <p className="text-xs text-[#7BA4BC] mt-0.5">{subtitle}</p>
       </div>
 
       {/* Operational Telemetry & Quick Indicators */}
@@ -83,14 +83,14 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
         {actions}
 
         {/* Temporal telemetry readout */}
-        <div className="hidden lg:flex items-center gap-1.5 text-xs text-[#64748b] font-mono tabular-telemetry bg-slate-50 px-3 py-1.5 rounded border border-slate-200">
-          <Clock className="w-3.5 h-3.5 text-slate-400" />
+        <div className="hidden lg:flex items-center gap-1.5 text-xs text-[#7BA4BC] font-mono tabular-telemetry bg-[rgba(0,213,255,0.04)] px-3 py-1.5 rounded-lg border border-[rgba(0,213,255,0.10)]">
+          <Clock className="w-3.5 h-3.5 text-[#2E5470]" />
           <span>{currentTime || 'Synchronizing...'}</span>
         </div>
 
         {/* Clearance indicator */}
-        <div className="flex items-center gap-1.5 text-xs font-medium text-[#0a2540] bg-slate-100 px-2.5 py-1.5 rounded border border-slate-200">
-          <ShieldCheck className="w-4 h-4 text-[#0a2540]" />
+        <div className="flex items-center gap-1.5 text-xs font-medium text-[#7BA4BC] bg-[rgba(0,213,255,0.04)] px-2.5 py-1.5 rounded-lg border border-[rgba(0,213,255,0.10)]">
+          <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
           <span className="hidden sm:inline">Authority Station</span>
         </div>
       </div>

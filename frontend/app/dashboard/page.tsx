@@ -368,7 +368,7 @@ export default function DashboardOverviewPage() {
   const currentStage = selectedEvent ? getEventLifecycleStage(selectedEvent) : null;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#03111F]">
       {/* Header */}
       <DashboardHeader
         title="Environmental Intelligence Command Center"
@@ -377,29 +377,29 @@ export default function DashboardOverviewPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={loadData}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[rgba(0,213,255,0.20)] bg-[rgba(0,213,255,0.05)] text-xs font-medium text-[#7BA4BC] hover:text-[#E8F4FD] hover:border-[rgba(0,213,255,0.35)] transition-colors cursor-pointer"
               title="Refresh telemetry feed"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[#00E5FF]' : ''}`} />
               <span className="hidden sm:inline">Refresh Feed</span>
             </button>
             <Link
               href="/dashboard/alerts"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[rgba(255,181,46,0.25)] bg-[rgba(255,181,46,0.06)] text-xs font-medium text-[#FFB52E] hover:border-[rgba(255,181,46,0.45)] transition-colors"
             >
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
+              <AlertTriangle className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Alert Center</span>
               {metrics.awaitingHumanAction > 0 && (
-                <span className="text-[10px] font-mono bg-amber-100 text-amber-900 px-1.5 py-0.2 rounded-full font-bold">
+                <span className="text-[10px] font-mono bg-[rgba(255,181,46,0.20)] text-[#FFB52E] px-1.5 py-0.5 rounded-full font-bold">
                   {metrics.awaitingHumanAction}
                 </span>
               )}
             </Link>
             <Link
               href="/dashboard/map"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#0a2540] hover:bg-[#0f2a3f] text-white text-xs font-semibold transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[rgba(0,229,255,0.10)] hover:bg-[rgba(0,229,255,0.18)] border border-[rgba(0,229,255,0.25)] text-[#00E5FF] text-xs font-semibold transition-colors"
             >
-              <Radio className="w-3.5 h-3.5 text-sky-400" />
+              <Radio className="w-3.5 h-3.5 animate-pulse" />
               <span>Full Spatial Grid</span>
             </Link>
           </div>
@@ -408,10 +408,10 @@ export default function DashboardOverviewPage() {
 
       <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto w-full">
         {/* Jurisdiction Basin Filters Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-white border border-slate-200 rounded-lg shadow-2xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl">
           <div className="flex items-center gap-2">
-            <Compass className="w-4 h-4 text-sky-600 shrink-0" />
-            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+            <Compass className="w-4 h-4 text-[#00E5FF] shrink-0" />
+            <span className="text-xs font-bold text-[#7BA4BC] uppercase tracking-wider">
               Surveillance Basin:
             </span>
           </div>
@@ -429,18 +429,18 @@ export default function DashboardOverviewPage() {
                   key={basin.id}
                   type="button"
                   onClick={() => setSelectedBasin(basin.id)}
-                  className={`text-xs px-3 py-1.5 rounded-md font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`text-xs px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
                     isSelected
-                      ? 'bg-[#0a2540] text-white shadow-xs'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      ? 'bg-[rgba(0,229,255,0.12)] border border-[rgba(0,229,255,0.35)] text-[#00E5FF]'
+                      : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#7BA4BC] hover:text-[#E8F4FD] hover:border-[rgba(0,213,255,0.20)]'
                   }`}
                 >
                   <span>{basin.label}</span>
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
                       isSelected
-                        ? 'bg-white/20 text-white'
-                        : 'bg-slate-200 text-slate-600'
+                        ? 'bg-[rgba(0,229,255,0.15)] text-[#00E5FF]'
+                        : 'bg-[rgba(255,255,255,0.06)] text-[#7BA4BC]'
                     }`}
                   >
                     {basin.count}
@@ -581,20 +581,20 @@ export default function DashboardOverviewPage() {
         {/* Action Feedback Banner */}
         {actionFeedback && (
           <div
-            className={`p-3.5 rounded-lg border text-xs flex items-center justify-between gap-3 ${
+            className={`p-3.5 rounded-xl border text-xs flex items-center justify-between gap-3 ${
               actionFeedback.type === 'success'
-                ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                : 'bg-rose-50 text-rose-800 border-rose-200'
+                ? 'bg-[rgba(39,224,195,0.06)] text-[#27E0C3] border-[rgba(39,224,195,0.25)]'
+                : 'bg-[rgba(255,68,68,0.06)] text-[#FF4444] border-[rgba(255,68,68,0.25)]'
             }`}
             role="status"
           >
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{actionFeedback.message}</span>
             </div>
             <button
               onClick={() => setActionFeedback(null)}
-              className="text-[11px] underline opacity-80 hover:opacity-100 cursor-pointer"
+              className="text-[11px] underline opacity-60 hover:opacity-100 cursor-pointer"
             >
               Dismiss
             </button>
@@ -620,18 +620,18 @@ export default function DashboardOverviewPage() {
 
               <CardContent className="p-2 space-y-2 max-h-[520px] overflow-y-auto">
                 {loading ? (
-                  <div className="p-8 text-center text-xs text-slate-400">
-                    <div className="h-6 w-6 border-2 border-[#0a2540] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                  <div className="p-8 text-center text-xs text-[#7BA4BC]">
+                    <div className="h-6 w-6 border-2 border-[#00E5FF] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                     Ingesting active event catalog...
                   </div>
                 ) : apiError ? (
-                  <div className="p-8 text-center text-xs text-slate-400 border border-rose-200 bg-rose-50 rounded-lg m-2">
-                    <AlertTriangle className="w-6 h-6 text-rose-500 mx-auto mb-2" />
-                    <span className="text-rose-700 font-bold block mb-1">Event feed unavailable</span>
-                    <span className="text-rose-600 opacity-80">{apiError}</span>
+                  <div className="p-8 text-center text-xs border border-[rgba(255,68,68,0.25)] bg-[rgba(255,68,68,0.06)] rounded-xl m-2">
+                    <AlertTriangle className="w-6 h-6 text-[#FF4444] mx-auto mb-2" />
+                    <span className="text-[#FF4444] font-bold block mb-1">Event feed unavailable</span>
+                    <span className="text-[#7BA4BC] opacity-80">{apiError}</span>
                   </div>
                 ) : filteredEvents.length === 0 ? (
-                  <div className="p-8 text-center text-xs text-slate-400">
+                  <div className="p-8 text-center text-xs text-[#7BA4BC]">
                     No pollution incidents registered in this basin.
                   </div>
                 ) : (
@@ -650,17 +650,17 @@ export default function DashboardOverviewPage() {
                         onClick={() => setSelectedEventId(evt.event_id)}
                         className={`p-3.5 rounded-lg border transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-sky-50/50 border-sky-500 border-l-4 border-l-sky-600 shadow-xs'
-                            : 'bg-white hover:bg-slate-50 border-slate-200'
+                            ? 'bg-[rgba(0,229,255,0.06)] border-[rgba(0,229,255,0.35)] border-l-[3px] border-l-[#00E5FF]'
+                            : 'bg-[rgba(255,255,255,0.02)] hover:bg-[rgba(0,213,255,0.04)] border-[rgba(0,213,255,0.10)]'
                         }`}
                       >
                         {/* Top: City, ID, Risk Badge */}
                         <div className="flex items-start justify-between gap-2 mb-1.5">
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="font-bold text-sm text-[#0f172a]">
+                            <span className="font-bold text-sm text-[#E8F4FD]">
                               {evt.location.city}
                             </span>
-                            <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.2 rounded">
+                            <span className="text-[10px] font-mono text-[#7BA4BC] bg-[rgba(255,255,255,0.05)] px-1.5 py-0.5 rounded">
                               {evt.event_id}
                             </span>
                           </div>
@@ -668,18 +668,18 @@ export default function DashboardOverviewPage() {
                         </div>
 
                         {/* Middle: Source hypothesis & PM2.5 measurement */}
-                        <div className="flex items-center gap-2 text-xs text-slate-700 mb-2 flex-wrap">
+                        <div className="flex items-center gap-2 text-xs text-[#7BA4BC] mb-2 flex-wrap">
                           {eventCategory && (
-                            <span className="inline-flex items-center gap-1 capitalize font-medium text-slate-800">
-                              <Flame className="w-3.5 h-3.5 text-orange-500" />
+                            <span className="inline-flex items-center gap-1 capitalize font-medium text-[#E8F4FD]">
+                              <Flame className="w-3.5 h-3.5 text-[#FF9F1C]" />
                               {eventCategory.replace('_', ' ')}
                             </span>
                           )}
                           {pm25 !== undefined && (
                             <>
-                              <span className="text-slate-300">•</span>
-                              <span className="font-mono text-[11px] text-slate-600">
-                                PM2.5: <strong className="text-slate-900">{pm25} µg/m³</strong>
+                              <span className="text-[#2E5470]">•</span>
+                              <span className="font-mono text-[11px] text-[#7BA4BC]">
+                                PM2.5: <strong className="text-[#E8F4FD]">{pm25} µg/m³</strong>
                               </span>
                             </>
                           )}
@@ -687,38 +687,38 @@ export default function DashboardOverviewPage() {
 
                         {/* Evidence Provenance Badges (Based solely on existing evidence fields) */}
                         <div className="flex items-center gap-1.5 mb-2.5 flex-wrap">
-                          <span className="text-[10px] uppercase font-bold text-slate-400 mr-0.5">
+                          <span className="text-[10px] uppercase font-bold text-[#2E5470] mr-0.5">
                             Sources:
                           </span>
                           {evt.evidence?.sensor && (
-                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 inline-flex items-center gap-1">
-                              <Activity className="w-2.5 h-2.5 text-[#0a2540]" />
+                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[rgba(0,213,255,0.06)] text-[#7BA4BC] border border-[rgba(0,213,255,0.15)] inline-flex items-center gap-1">
+                              <Activity className="w-2.5 h-2.5 text-[#00E5FF]" />
                               CPCB
                             </span>
                           )}
                           {evt.evidence?.satellite && (
-                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200 inline-flex items-center gap-1">
-                              <Layers className="w-2.5 h-2.5 text-sky-600" />
+                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[rgba(59,174,212,0.08)] text-[#3BAED4] border border-[rgba(59,174,212,0.20)] inline-flex items-center gap-1">
+                              <Layers className="w-2.5 h-2.5" />
                               Sentinel-5P
                             </span>
                           )}
                           {evt.evidence?.citizen && (
-                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 inline-flex items-center gap-1">
-                              <Camera className="w-2.5 h-2.5 text-amber-600" />
+                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[rgba(255,181,46,0.08)] text-[#FFB52E] border border-[rgba(255,181,46,0.20)] inline-flex items-center gap-1">
+                              <Camera className="w-2.5 h-2.5" />
                               Citizen
                             </span>
                           )}
                           {evt.evidence?.weather && (
-                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-800 border border-cyan-200 inline-flex items-center gap-1">
-                              <Wind className="w-2.5 h-2.5 text-cyan-600" />
+                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[rgba(39,224,195,0.08)] text-[#27E0C3] border border-[rgba(39,224,195,0.20)] inline-flex items-center gap-1">
+                              <Wind className="w-2.5 h-2.5" />
                               Weather
                             </span>
                           )}
                         </div>
 
                         {/* Bottom Row: Timestamp, Response status, Triage indicator */}
-                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-[#64748b]">
-                          <span className="flex items-center gap-1 font-mono text-slate-400">
+                        <div className="pt-2 border-t border-[rgba(0,213,255,0.08)] flex items-center justify-between text-[11px] text-[#7BA4BC]">
+                          <span className="flex items-center gap-1 font-mono text-[#2E5470]">
                             <Clock className="w-3 h-3" />
                             {new Date(evt.timestamp).toLocaleTimeString([], {
                               hour: '2-digit',
@@ -728,16 +728,16 @@ export default function DashboardOverviewPage() {
 
                           <div className="flex items-center gap-2">
                             {isPending ? (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded">
-                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#FFB52E] bg-[rgba(255,181,46,0.08)] border border-[rgba(255,181,46,0.25)] px-1.5 py-0.5 rounded">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#FFB52E] animate-pulse" />
                                 Action Pending
                               </span>
                             ) : (
-                              <span className="text-[10px] font-semibold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded capitalize">
+                              <span className="text-[10px] font-semibold text-[#7BA4BC] bg-[rgba(255,255,255,0.05)] px-1.5 py-0.5 rounded capitalize">
                                 {evt.outcome || evt.response?.status}
                               </span>
                             )}
-                            <span className="text-xs font-semibold text-sky-700 flex items-center">
+                            <span className="text-xs font-semibold text-[#00E5FF] flex items-center">
                               Inspect <ChevronRight className="w-3 h-3 ml-0.5" />
                             </span>
                           </div>
@@ -750,7 +750,7 @@ export default function DashboardOverviewPage() {
             </Card>
 
             {/* Basin Telemetry & Evidence Profile (Balances Left Column Vertically) */}
-            <Card className="overflow-hidden border border-slate-200 shadow-2xs">
+            <Card className="overflow-hidden">
               <CardHeader
                 title="Jurisdiction Telemetry Profile"
                 subtitle={
@@ -767,53 +767,53 @@ export default function DashboardOverviewPage() {
               <CardContent className="p-4 space-y-4">
                 {/* Evidence Source Coverage in this basin */}
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-2 font-mono">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#7BA4BC] block mb-2 font-mono">
                     Evidence Source Presence ({basinProfile.total} Events)
                   </span>
                   <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                      <div className="flex items-center justify-between text-slate-700">
+                    <div className="p-2.5 rounded-lg bg-[rgba(0,213,255,0.04)] border border-[rgba(0,213,255,0.10)]">
+                      <div className="flex items-center justify-between text-[#7BA4BC]">
                         <span className="flex items-center gap-1.5 font-medium">
-                          <Activity className="w-3.5 h-3.5 text-[#0a2540]" />
+                          <Activity className="w-3.5 h-3.5 text-[#00E5FF]" />
                           CPCB Sensors
                         </span>
-                        <span className="font-bold text-slate-900 font-mono">
+                        <span className="font-bold text-[#E8F4FD] font-mono">
                           {basinProfile.withSensor}/{basinProfile.total}
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                      <div className="flex items-center justify-between text-slate-700">
+                    <div className="p-2.5 rounded-lg bg-[rgba(59,174,212,0.04)] border border-[rgba(59,174,212,0.12)]">
+                      <div className="flex items-center justify-between text-[#7BA4BC]">
                         <span className="flex items-center gap-1.5 font-medium">
-                          <Layers className="w-3.5 h-3.5 text-sky-600" />
+                          <Layers className="w-3.5 h-3.5 text-[#3BAED4]" />
                           Sentinel-5P
                         </span>
-                        <span className="font-bold text-slate-900 font-mono">
+                        <span className="font-bold text-[#E8F4FD] font-mono">
                           {basinProfile.withSatellite}/{basinProfile.total}
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                      <div className="flex items-center justify-between text-slate-700">
+                    <div className="p-2.5 rounded-lg bg-[rgba(255,181,46,0.04)] border border-[rgba(255,181,46,0.12)]">
+                      <div className="flex items-center justify-between text-[#7BA4BC]">
                         <span className="flex items-center gap-1.5 font-medium">
-                          <Camera className="w-3.5 h-3.5 text-amber-600" />
+                          <Camera className="w-3.5 h-3.5 text-[#FFB52E]" />
                           Citizen Reports
                         </span>
-                        <span className="font-bold text-slate-900 font-mono">
+                        <span className="font-bold text-[#E8F4FD] font-mono">
                           {basinProfile.withCitizen}/{basinProfile.total}
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                      <div className="flex items-center justify-between text-slate-700">
+                    <div className="p-2.5 rounded-lg bg-[rgba(39,224,195,0.04)] border border-[rgba(39,224,195,0.12)]">
+                      <div className="flex items-center justify-between text-[#7BA4BC]">
                         <span className="flex items-center gap-1.5 font-medium">
-                          <Wind className="w-3.5 h-3.5 text-cyan-600" />
+                          <Wind className="w-3.5 h-3.5 text-[#27E0C3]" />
                           Weather Links
                         </span>
-                        <span className="font-bold text-slate-900 font-mono">
+                        <span className="font-bold text-[#E8F4FD] font-mono">
                           {basinProfile.withWeather}/{basinProfile.total}
                         </span>
                       </div>
@@ -824,14 +824,14 @@ export default function DashboardOverviewPage() {
                 {/* Ground Sensor Stations in Basin */}
                 {basinProfile.activeStations.length > 0 && (
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5 font-mono">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#7BA4BC] block mb-1.5 font-mono">
                       Linked Ground Stations ({basinProfile.activeStations.length})
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {basinProfile.activeStations.map((station) => (
                         <span
                           key={station}
-                          className="text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200"
+                          className="text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-[rgba(0,213,255,0.06)] text-[#7BA4BC] border border-[rgba(0,213,255,0.15)]"
                         >
                           {station}
                         </span>
@@ -841,26 +841,26 @@ export default function DashboardOverviewPage() {
                 )}
 
                 {/* Authority Incident Disposition */}
-                <div className="pt-2 border-t border-slate-100">
-                  <div className="flex items-center justify-between text-[11px] text-slate-600">
+                <div className="pt-2 border-t border-[rgba(0,213,255,0.08)]">
+                  <div className="flex items-center justify-between text-[11px] text-[#7BA4BC]">
                     <span className="flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-amber-500" />
-                      Awaiting Action:{' '}
-                      <strong className="text-slate-900 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-[#FFB52E]" />
+                      Awaiting:{' '}
+                      <strong className="text-[#FFB52E] font-mono">
                         {basinProfile.pendingCount}
                       </strong>
                     </span>
                     <span className="flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-sky-500" />
-                      Active/Confirmed:{' '}
-                      <strong className="text-slate-900 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-[#00E5FF]" />
+                      Confirmed:{' '}
+                      <strong className="text-[#E8F4FD] font-mono">
                         {basinProfile.confirmedCount}
                       </strong>
                     </span>
                     <span className="flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-slate-400" />
-                      Closed/Resolved:{' '}
-                      <strong className="text-slate-900 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-[#2E5470]" />
+                      Closed:{' '}
+                      <strong className="text-[#7BA4BC] font-mono">
                         {basinProfile.closedCount}
                       </strong>
                     </span>
@@ -880,7 +880,7 @@ export default function DashboardOverviewPage() {
                 action={
                   <Link
                     href="/dashboard/map"
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#0a2540] hover:text-sky-700 transition-colors"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#00E5FF] hover:text-[#27E0C3] transition-colors"
                   >
                     <span>Full Screen Grid</span>
                     <ExternalLink className="w-3.5 h-3.5" />

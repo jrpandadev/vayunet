@@ -1,91 +1,106 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { RiskLevel } from '@/lib/types';
-import { ChevronRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+type RiskLevel = 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL' | 'UNAVAILABLE';
+
+const RISK_BORDER: Record<string, string> = {
+  LOW:      'border-[rgba(39,224,195,0.30)]',
+  MODERATE: 'border-[rgba(255,181,46,0.30)]',
+  HIGH:     'border-[rgba(255,159,28,0.30)]',
+  CRITICAL: 'border-[rgba(255,68,68,0.45)] shadow-[0_0_12px_rgba(255,68,68,0.12)]',
+};
+
+const RISK_VALUE_COLOR: Record<string, string> = {
+  LOW:      'text-[#27E0C3]',
+  MODERATE: 'text-[#FFB52E]',
+  HIGH:     'text-[#FF9F1C]',
+  CRITICAL: 'text-[#FF4444]',
+};
 
 interface StatCardProps {
   title: string;
   value: string | number;
+  unit?: string;
   subtitle?: string;
   icon?: React.ReactNode;
   riskAccent?: RiskLevel;
-  className?: string;
-  unit?: string;
-  badge?: React.ReactNode;
   href?: string;
+  className?: string;
 }
 
-const ACCENT_BORDER: Record<RiskLevel, string> = {
-  LOW: 'border-l-4 border-l-[#22c55e]',
-  MODERATE: 'border-l-4 border-l-[#eab308]',
-  HIGH: 'border-l-4 border-l-[#f97316]',
-  CRITICAL: 'border-l-4 border-l-[#ef4444]',
-};
-
-export const StatCard: React.FC<StatCardProps> = ({
+export function StatCard({
   title,
   value,
+  unit,
   subtitle,
   icon,
   riskAccent,
-  className = '',
-  unit,
-  badge,
   href,
-}) => {
-  const accentClass = riskAccent ? ACCENT_BORDER[riskAccent] : '';
+  className,
+}: StatCardProps) {
+  const isUnavailable =
+    value === 'UNAVAILABLE' || value === null || value === undefined || value === '...';
 
-  const cardInner = (
+  const borderClass = riskAccent ? RISK_BORDER[riskAccent] : 'border-[rgba(0,213,255,0.12)]';
+  const valueColor = riskAccent && !isUnavailable ? RISK_VALUE_COLOR[riskAccent] : 'text-[#E8F4FD]';
+
+  const inner = (
     <div
-      className={`bg-white border border-[#e2e8f0] rounded-lg p-4 sm:p-5 shadow-xs transition-all hover:shadow-sm ${accentClass} ${
-        href ? 'hover:border-slate-400 group cursor-pointer' : ''
-      } ${className}`}
+      className={cn(
+        'bg-[#092337] border rounded-xl p-4 flex flex-col gap-2 transition-all duration-200 h-full',
+        borderClass,
+        href && 'hover:bg-[#0B2940] cursor-pointer',
+        className
+      )}
     >
-      <div className="flex items-start justify-between gap-2">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#64748b] truncate">
+      {/* Label row */}
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[#7BA4BC] truncate leading-snug">
           {title}
         </span>
-        <div className="flex items-center gap-1.5 shrink-0">
-          {badge}
-          {icon && (
-            <div className="p-1.5 rounded bg-slate-50 text-[#0a2540] border border-slate-100">
-              {icon}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="mt-2.5 flex items-baseline">
-        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0f172a] tabular-telemetry">
-          {value}
-        </span>
-        {unit && (
-          <span className="text-xs font-semibold text-slate-500 ml-1.5 font-sans">
-            {unit}
-          </span>
+        {icon && (
+          <span className="text-[#2E5470] shrink-0 opacity-80">{icon}</span>
         )}
       </div>
 
+      {/* Value row */}
+      <div className="flex items-end gap-1.5 min-h-[2rem]">
+        {isUnavailable ? (
+          <span className="text-xs font-mono text-[#2E5470] uppercase tracking-wider">
+            Unavailable
+          </span>
+        ) : (
+          <>
+            <span
+              className={cn(
+                'text-2xl font-bold font-mono tabular-telemetry leading-none',
+                valueColor
+              )}
+            >
+              {value}
+            </span>
+            {unit && (
+              <span className="text-sm text-[#7BA4BC] pb-0.5">{unit}</span>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Subtitle */}
       {subtitle && (
-        <div className="mt-1 text-xs text-[#64748b] flex items-center justify-between gap-1">
-          <span className="truncate">{subtitle}</span>
-          {href && (
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#0a2540] group-hover:translate-x-0.5 transition-all shrink-0" />
-          )}
-        </div>
+        <p className="text-[11px] text-[#7BA4BC] leading-snug">{subtitle}</p>
       )}
     </div>
   );
 
   if (href) {
-    return (
-      <Link href={href} className="block no-underline">
-        {cardInner}
-      </Link>
-    );
+    return <Link href={href} className="block h-full">{inner}</Link>;
   }
 
-  return cardInner;
-};
+  return inner;
+}
 
 export default StatCard;

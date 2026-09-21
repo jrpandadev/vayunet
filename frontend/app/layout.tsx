@@ -43,7 +43,7 @@ export default function RootLayout({
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col bg-[#f8fafc] text-[#0f172a]">
+      <body className="min-h-full flex flex-col bg-[#03111F] text-[#E8F4FD]">
         <AuthProvider>
           {children}
         </AuthProvider>

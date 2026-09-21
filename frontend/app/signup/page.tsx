@@ -55,56 +55,71 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white relative overflow-hidden">
-      {/* VayuNet ambient glow background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="min-h-screen flex items-center justify-center bg-[#03111F] relative overflow-hidden py-12">
+      {/* Atmospheric glow layers */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[rgba(0,229,255,0.04)] rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[rgba(0,90,140,0.08)] rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="z-10 w-full max-w-md p-8 bg-gray-800/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl shadow-2xl">
+      {/* Scanline overlay for atmosphere */}
+      <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_3px,rgba(0,229,255,0.01)_3px,rgba(0,229,255,0.01)_4px)] pointer-events-none" />
+
+      <div className="z-10 w-full max-w-md px-8 py-10 bg-[rgba(6,24,39,0.85)] backdrop-blur-xl border border-[rgba(0,213,255,0.14)] rounded-2xl shadow-2xl shadow-black/40 my-auto">
+        {/* Logo / Brand */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">VayuNet</h1>
-          <p className="text-gray-400 text-sm">Join the Federated Environmental Intelligence Platform</p>
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgba(0,229,255,0.08)] border border-[rgba(0,229,255,0.20)] mb-4">
+            <svg viewBox="0 0 32 32" className="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="14" stroke="#00E5FF" strokeWidth="1.5" strokeDasharray="4 2" className="animate-spin" style={{animationDuration: '20s'}} />
+              <circle cx="16" cy="16" r="8" stroke="#27E0C3" strokeWidth="1.5" opacity="0.6" />
+              <circle cx="16" cy="16" r="3" fill="#00E5FF" />
+              <path d="M16 6V4M16 28V26M6 16H4M28 16H26" stroke="#00E5FF" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-[#E8F4FD] mb-1">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#27E0C3]">Vayu</span>Net
+          </h1>
+          <p className="text-xs text-[#7BA4BC] uppercase tracking-widest font-medium">Platform Access Request</p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">
+          <div className="mb-6 p-3.5 bg-[rgba(255,68,68,0.08)] border border-[rgba(255,68,68,0.25)] rounded-xl text-[#FF7070] text-xs font-medium">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSignup} className="space-y-5">
+        <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="name">Full Name</label>
+            <label className="block text-xs font-bold text-[#7BA4BC] uppercase tracking-wider mb-1.5" htmlFor="name">Operator Name</label>
             <input
               id="name"
               type="text"
               required
-              className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
-              placeholder="Jane Doe"
+              className="w-full px-4 py-3 bg-[#03111F] border border-[rgba(0,213,255,0.18)] rounded-xl text-[#E8F4FD] text-sm placeholder:text-[#2E5470] focus:ring-1 focus:ring-[#00E5FF] focus:border-[#00E5FF] outline-none transition-all"
+              placeholder="e.g. Jane Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="email">Email Address</label>
+            <label className="block text-xs font-bold text-[#7BA4BC] uppercase tracking-wider mb-1.5" htmlFor="email">Email Address</label>
             <input
               id="email"
               type="email"
               required
-              className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
-              placeholder="jane@example.com"
+              className="w-full px-4 py-3 bg-[#03111F] border border-[rgba(0,213,255,0.18)] rounded-xl text-[#E8F4FD] text-sm placeholder:text-[#2E5470] focus:ring-1 focus:ring-[#00E5FF] focus:border-[#00E5FF] outline-none transition-all"
+              placeholder="operator@vayunet.in"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="password">Password</label>
+            <label className="block text-xs font-bold text-[#7BA4BC] uppercase tracking-wider mb-1.5" htmlFor="password">Access Key (Password)</label>
             <input
               id="password"
               type="password"
               required
-              className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 bg-[#03111F] border border-[rgba(0,213,255,0.18)] rounded-xl text-[#E8F4FD] text-sm placeholder:text-[#2E5470] focus:ring-1 focus:ring-[#00E5FF] focus:border-[#00E5FF] outline-none transition-all"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -112,12 +127,12 @@ export default function SignupPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="confirmPassword">Confirm Password</label>
+            <label className="block text-xs font-bold text-[#7BA4BC] uppercase tracking-wider mb-1.5" htmlFor="confirmPassword">Verify Access Key</label>
             <input
               id="confirmPassword"
               type="password"
               required
-              className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 bg-[#03111F] border border-[rgba(0,213,255,0.18)] rounded-xl text-[#E8F4FD] text-sm placeholder:text-[#2E5470] focus:ring-1 focus:ring-[#00E5FF] focus:border-[#00E5FF] outline-none transition-all"
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -127,20 +142,20 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium rounded-lg shadow-lg transition-all flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 px-4 mt-2 bg-gradient-to-r from-[#0066CC] to-[#004A99] hover:from-[#0077EE] hover:to-[#0055BB] text-white font-semibold rounded-xl shadow-lg shadow-[rgba(0,100,204,0.25)] transition-all flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed border border-[rgba(0,150,255,0.30)]"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
             ) : (
-              'Create Account'
+              <span>Request Clearances</span>
             )}
           </button>
         </form>
 
-        <div className="mt-8 text-center text-sm text-gray-400">
-          Already have an account?{' '}
-          <Link href="/signin" className="text-cyan-400 hover:text-cyan-300 transition-colors">
-            Sign in
+        <div className="mt-8 text-center text-xs text-[#2E5470]">
+          Already an authorized operator?{' '}
+          <Link href="/signin" className="text-[#00E5FF] hover:text-[#27E0C3] transition-colors font-semibold">
+            Authenticate here
           </Link>
         </div>
       </div>

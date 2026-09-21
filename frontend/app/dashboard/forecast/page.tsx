@@ -107,7 +107,7 @@ export default function ForecastPage() {
   }, [forecastPoints]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#03111F]">
       {/* Header */}
       <DashboardHeader
         title="PM2.5 Forecast"
@@ -116,13 +116,13 @@ export default function ForecastPage() {
 
       <div className="p-6 space-y-6 max-w-7xl mx-auto w-full">
         {/* Horizon & Basin Control Bar */}
-        <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+        <div className="bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
             {/* City Selector */}
             <div>
               <label
                 htmlFor="forecast-city"
-                className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1"
+                className="block text-[10px] font-bold uppercase tracking-wider text-[#7BA4BC] mb-1"
               >
                 Surveillance Air Basin
               </label>
@@ -131,7 +131,7 @@ export default function ForecastPage() {
                   id="forecast-city"
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
-                  className="bg-slate-50 border border-slate-300 rounded px-3 py-1.5 text-xs text-slate-900 font-semibold focus:outline-hidden focus:border-[#0a2540] pr-8 cursor-pointer"
+                  className="bg-[#03111F] border border-[rgba(0,213,255,0.20)] rounded px-3 py-1.5 text-xs text-[#E8F4FD] font-semibold focus:outline-hidden focus:border-[#00E5FF] pr-8 cursor-pointer"
                 >
                   {cities.map((city) => (
                     <option key={city} value={city}>
@@ -145,13 +145,13 @@ export default function ForecastPage() {
             {/* Current Baseline Chip */}
             {currentCityEvent?.evidence?.sensor && (
               <div className="hidden sm:block pl-4 border-l border-slate-200">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-[#7BA4BC] mb-0.5">
                   Current Sensor Baseline
                 </span>
-                <span className="text-sm font-bold text-slate-900 tabular-telemetry">
+                <span className="text-sm font-bold text-[#E8F4FD] tabular-telemetry">
                   {currentCityEvent.evidence.sensor.pm25} µg/m³
                 </span>
-                <span className="text-[11px] text-slate-500 ml-1">
+                <span className="text-[11px] text-[#7BA4BC] ml-1">
                   ({currentCityEvent.evidence.sensor.station_id})
                 </span>
               </div>
@@ -160,10 +160,10 @@ export default function ForecastPage() {
 
           {/* Horizon Selector Toggles */}
           <div>
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 text-right sm:text-left">
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-[#7BA4BC] mb-1 text-right sm:text-left">
               Forecast Horizon
             </span>
-            <div className="inline-flex bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs">
+            <div className="inline-flex bg-[rgba(0,213,255,0.06)] p-1 rounded-lg border border-[rgba(0,213,255,0.12)] text-xs">
               {([6, 24, 72] as const).map((hours) => (
                 <button
                   key={hours}
@@ -171,8 +171,8 @@ export default function ForecastPage() {
                   onClick={() => setSelectedHorizon(hours)}
                   className={`px-3.5 py-1.5 rounded font-semibold transition-all cursor-pointer ${
                     selectedHorizon === hours
-                      ? 'bg-[#0a2540] text-white shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? 'bg-[rgba(0,229,255,0.15)] border border-[rgba(0,229,255,0.35)] text-[#00E5FF] shadow-xs'
+                      : 'text-[#7BA4BC] hover:text-[#E8F4FD]'
                   }`}
                 >
                   +{hours} Hours
@@ -187,7 +187,7 @@ export default function ForecastPage() {
           <CardHeader
             title={
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-[#0a2540]" />
+                <TrendingUp className="w-4 h-4 text-[#00E5FF]" />
                 <span>
                   PM2.5 Forecast: {selectedCity} (+{selectedHorizon}h)
                 </span>
@@ -197,7 +197,7 @@ export default function ForecastPage() {
             action={
               currentCityEvent && (
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#64748b]">Current Risk:</span>
+                  <span className="text-xs text-[#7BA4BC]">Current Risk:</span>
                   <RiskBadge level={currentCityEvent.risk} size="sm" />
                 </div>
               )
@@ -207,12 +207,12 @@ export default function ForecastPage() {
           <CardContent className="p-6">
             <div className="h-80 w-full">
               {loadingForecast ? (
-                <div className="h-full flex flex-col items-center justify-center text-slate-400 text-xs">
-                  <div className="h-7 w-7 border-2 border-[#0a2540] border-t-transparent rounded-full animate-spin mb-2" />
+                <div className="h-full flex flex-col items-center justify-center text-[#7BA4BC] text-xs">
+                  <div className="h-7 w-7 border-2 border-[#00E5FF] border-t-transparent rounded-full animate-spin mb-2" />
                   <span>Computing PM2.5 forecast...</span>
                 </div>
               ) : apiError ? (
-                <div className="h-full flex flex-col items-center justify-center text-rose-500 text-xs bg-rose-50 rounded-lg border border-rose-100">
+                <div className="h-full flex flex-col items-center justify-center text-[#FF4444] text-xs bg-[rgba(255,68,68,0.06)] rounded-xl border border-[rgba(255,68,68,0.20)]">
                   <AlertTriangle className="w-8 h-8 mb-2" />
                   <span className="font-bold text-sm">Forecast Data Unavailable</span>
                   <span className="opacity-80 mt-1 max-w-md text-center">{apiError}</span>
@@ -225,18 +225,18 @@ export default function ForecastPage() {
                   >
                     <CartesianGrid
                       strokeDasharray="3 3"
-                      stroke="#f1f5f9"
+                      stroke="rgba(0,213,255,0.08)"
                       vertical={false}
                     />
                     <XAxis
                       dataKey="time"
-                      tick={{ fontSize: 11, fill: '#64748b' }}
-                      axisLine={{ stroke: '#cbd5e1' }}
+                      tick={{ fontSize: 11, fill: '#7BA4BC' }}
+                      axisLine={{ stroke: 'rgba(0,213,255,0.15)' }}
                       tickLine={false}
                     />
                     <YAxis
                       domain={[0, Math.ceil(maxVal * 1.15)]}
-                      tick={{ fontSize: 11, fill: '#64748b' }}
+                      tick={{ fontSize: 11, fill: '#7BA4BC' }}
                       axisLine={false}
                       tickLine={false}
                       unit=" µg"
@@ -246,21 +246,21 @@ export default function ForecastPage() {
                         if (active && payload && payload.length) {
                           const pt = payload[0].payload as ForecastPoint;
                           return (
-                            <div className="bg-slate-900 text-white text-xs p-3 rounded-lg shadow-xl border border-slate-800 font-mono">
-                              <div className="text-slate-400 text-[10px] uppercase">
+                            <div className="bg-[#061827] text-[#E8F4FD] text-xs p-3 rounded-lg shadow-xl border border-[rgba(0,213,255,0.20)] font-mono">
+                              <div className="text-[#7BA4BC] text-[10px] uppercase">
                                 Horizon +{pt.hour}h ({pt.time})
                               </div>
-                              <div className="text-lg font-bold text-sky-300 mt-0.5">
+                              <div className="text-lg font-bold text-[#00E5FF] mt-0.5">
                                 {pt.pm25} µg/m³
                               </div>
-                              <div className="mt-2 pt-2 border-t border-slate-800 text-[10px] space-y-1 text-slate-300">
+                              <div className="mt-2 pt-2 border-t border-[rgba(0,213,255,0.15)] text-[10px] space-y-1 text-[#7BA4BC]">
                                 <div className="flex justify-between gap-4">
                                   <span>WHO Limit (24h):</span>
-                                  <strong className="text-emerald-400">15 µg/m³</strong>
+                                  <strong className="text-[#27E0C3]">15 µg/m³</strong>
                                 </div>
                                 <div className="flex justify-between gap-4">
                                   <span>NAAQS Standard:</span>
-                                  <strong className="text-orange-400">60 µg/m³</strong>
+                                  <strong className="text-[#FF9F1C]">60 µg/m³</strong>
                                 </div>
                               </div>
                             </div>
@@ -304,15 +304,15 @@ export default function ForecastPage() {
                     <Line
                       type="monotone"
                       dataKey="pm25"
-                      stroke="#0a2540"
-                      strokeWidth={3}
+                      stroke="#00E5FF"
+                      strokeWidth={2.5}
                       dot={{
                         r: 4,
-                        fill: '#0a2540',
-                        stroke: '#ffffff',
+                        fill: '#00E5FF',
+                        stroke: '#03111F',
                         strokeWidth: 2,
                       }}
-                      activeDot={{ r: 7, fill: '#0284c7' }}
+                      activeDot={{ r: 7, fill: '#27E0C3' }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -320,10 +320,10 @@ export default function ForecastPage() {
             </div>
 
             {/* Threshold Legend Bar */}
-            <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-[#64748b]">
+            <div className="mt-4 pt-3 border-t border-[rgba(0,213,255,0.08)] flex flex-wrap items-center justify-between gap-3 text-xs text-[#7BA4BC]">
               <div className="flex items-center gap-5">
                 <span className="flex items-center gap-1.5 font-medium">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0a2540]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#00E5FF]" />
                   <span>PM2.5 Forecast</span>
                 </span>
                 <span className="flex items-center gap-1.5 font-medium">
@@ -336,7 +336,7 @@ export default function ForecastPage() {
                 </span>
               </div>
 
-              <span className="text-[11px] font-mono text-slate-400">
+              <span className="text-[11px] font-mono text-[#2E5470]">
                 Resolution: Hourly Forecast
               </span>
             </div>
@@ -347,19 +347,19 @@ export default function ForecastPage() {
         {currentCityEvent && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* 1. Spike Probability */}
-            <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 shadow-xs flex flex-col justify-between">
+            <div className="bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl p-5 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#64748b]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#7BA4BC]">
                     Spike Probability
                   </span>
                   <span
                     className={`text-xs px-2.5 py-0.5 rounded font-bold uppercase ${
                       currentCityEvent.forecast.spike_probability === 'HIGH'
-                        ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                        ? 'bg-[rgba(255,68,68,0.10)] text-[#FF4444] border border-[rgba(255,68,68,0.25)]'
                         : currentCityEvent.forecast.spike_probability === 'MEDIUM'
-                        ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                        : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        ? 'bg-[rgba(255,181,46,0.10)] text-[#FFB52E] border border-[rgba(255,181,46,0.25)]'
+                        : 'bg-[rgba(39,224,195,0.10)] text-[#27E0C3] border border-[rgba(39,224,195,0.25)]'
                     }`}
                   >
                     {currentCityEvent.forecast.spike_probability} SPIKE RISK
@@ -368,80 +368,80 @@ export default function ForecastPage() {
 
                 <div className="mt-3">
                   <div className="flex items-center gap-2">
-                    <AlertTriangle className="w-5 h-5 text-orange-500" />
-                    <span className="text-base font-bold text-[#0f172a]">
+                    <AlertTriangle className="w-5 h-5 text-[#FFB52E]" />
+                    <span className="text-base font-bold text-[#E8F4FD]">
                       Acute Surge Expectancy
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <p className="text-xs text-[#7BA4BC] mt-1">
                     Indicates probability of sudden PM2.5 concentration spikes exceeding baseline within 24h.
                   </p>
                 </div>
               </div>
 
-              <p className="mt-3 pt-2.5 border-t border-slate-100 text-[11px] text-[#64748b] flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
+              <p className="mt-3 pt-2.5 border-t border-[rgba(0,213,255,0.08)] text-[11px] text-[#7BA4BC] flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-[#2E5470]" />
                 <span>Computed from wind stagnation & source telemetry</span>
               </p>
             </div>
 
             {/* 2. Forecast Uncertainty (Strictly Distinct from Confidence) */}
-            <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 shadow-xs flex flex-col justify-between">
+            <div className="bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl p-5 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#64748b]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#7BA4BC]">
                     Forecast Uncertainty
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded font-bold uppercase bg-slate-100 text-slate-700 border border-slate-200">
+                  <span className="text-xs px-2.5 py-0.5 rounded font-bold uppercase bg-[rgba(0,213,255,0.06)] text-[#7BA4BC] border border-[rgba(0,213,255,0.15)]">
                     {currentCityEvent.forecast.forecast_uncertainty}
                   </span>
                 </div>
 
                 <div className="mt-3">
                   <div className="flex items-center gap-2">
-                    <HelpCircle className="w-5 h-5 text-sky-600" />
-                    <span className="text-base font-bold text-[#0f172a]">
+                    <HelpCircle className="w-5 h-5 text-[#3BAED4]" />
+                    <span className="text-base font-bold text-[#E8F4FD]">
                       Forecast Uncertainty
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <p className="text-xs text-[#7BA4BC] mt-1">
                     Represents forecast variability across the selected time horizon. Distinct from detection confidence.
                   </p>
                 </div>
               </div>
 
-              <p className="mt-3 pt-2.5 border-t border-slate-100 text-[11px] text-[#64748b] flex items-center gap-1">
-                <Shield className="w-3.5 h-3.5 text-slate-400" />
+              <p className="mt-3 pt-2.5 border-t border-[rgba(0,213,255,0.08)] text-[11px] text-[#7BA4BC] flex items-center gap-1">
+                <Shield className="w-3.5 h-3.5 text-[#2E5470]" />
                 <span>Evaluated against synoptic weather ensemble</span>
               </p>
             </div>
 
             {/* 3. Detection Confidence (For Explicit Contrast) */}
-            <div className="bg-white border border-[#e2e8f0] rounded-lg p-5 shadow-xs flex flex-col justify-between">
+            <div className="bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl p-5 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#64748b]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#7BA4BC]">
                     Detection Confidence
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded font-bold uppercase bg-sky-50 text-sky-700 border border-sky-200">
+                  <span className="text-xs px-2.5 py-0.5 rounded font-bold uppercase bg-[rgba(0,229,255,0.08)] text-[#00E5FF] border border-[rgba(0,229,255,0.20)]">
                     {Math.round(currentCityEvent.detection.confidence * 100)}%
                   </span>
                 </div>
 
                 <div className="mt-3">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                    <span className="text-base font-bold text-[#0f172a]">
+                    <CheckCircle2 className="w-5 h-5 text-[#27E0C3]" />
+                    <span className="text-base font-bold text-[#E8F4FD]">
                       Detection Confidence
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <p className="text-xs text-[#7BA4BC] mt-1">
                     Reflects current evidence corroboration (sensor + satellite + citizen), completely independent of forecast uncertainty.
                   </p>
                 </div>
               </div>
 
-              <p className="mt-3 pt-2.5 border-t border-slate-100 text-[11px] text-[#64748b] font-mono">
+              <p className="mt-3 pt-2.5 border-t border-[rgba(0,213,255,0.08)] text-[11px] text-[#7BA4BC] font-mono">
                 Method: {currentCityEvent.detection.method || 'weighted_fusion_v1'}
               </p>
             </div>
