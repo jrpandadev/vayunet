@@ -1,7 +1,7 @@
 import { PollutionEvent, RiskLevel } from './types';
-import { FireDetection, MOCK_FIRE_DETECTIONS } from './fires';
-import { EmissionHotspot, MOCK_EMISSION_HOTSPOTS } from './hotspots';
-import { RiskZone, MOCK_RISK_ZONES } from './riskZones';
+import { FireDetection } from './fires';
+import { EmissionHotspot } from './hotspots';
+import { RiskZone } from './riskZones';
 import { MapLayersState } from '@/components/map/MapLayersPanel';
 
 export type AlertSeverity = 'CRITICAL' | 'HIGH' | 'MODERATE' | 'INFO';
@@ -43,9 +43,9 @@ export interface MapAlertItem {
  */
 export function getDerivedMapAlerts(
   events: PollutionEvent[],
-  fires: FireDetection[] = MOCK_FIRE_DETECTIONS,
-  hotspots: EmissionHotspot[] = MOCK_EMISSION_HOTSPOTS,
-  riskZones: RiskZone[] = MOCK_RISK_ZONES,
+  fires: FireDetection[] = [],
+  hotspots: EmissionHotspot[] = [],
+  riskZones: RiskZone[] = [],
   focalCity: string = 'ALL'
 ): MapAlertItem[] {
   const alerts: MapAlertItem[] = [];

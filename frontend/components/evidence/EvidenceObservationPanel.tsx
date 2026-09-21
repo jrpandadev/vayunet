@@ -36,6 +36,7 @@ import {
 import { RiskZone } from '@/lib/riskZones';
 import { EmissionHotspot } from '@/lib/hotspots';
 import { FireDetection } from '@/lib/fires';
+import { getIsSimulationMode } from '@/lib/api';
 import { CitizenObservation, MOCK_CITIZEN_OBSERVATIONS } from '@/lib/observations';
 import ProvenanceBadge from '@/components/ui/ProvenanceBadge';
 import { getEvidenceUrl } from '@/lib/api';
@@ -80,9 +81,10 @@ export const EvidenceObservationPanel: React.FC<EvidenceObservationPanelProps> =
     }
   }, [citizen]);
 
-  // For events, find any linked citizen observations from MOCK_CITIZEN_OBSERVATIONS
+  // For events, find any linked citizen observations from MOCK_CITIZEN_OBSERVATIONS if in simulation
   const linkedObservations = useMemo<CitizenObservation[]>(() => {
     if (entityType !== 'EVENT' || !event) return [];
+    if (!getIsSimulationMode()) return [];
     return MOCK_CITIZEN_OBSERVATIONS.filter((o) => o.relatedEventId === event.event_id);
   }, [entityType, event]);
 

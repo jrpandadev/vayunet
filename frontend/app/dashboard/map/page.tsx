@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { getEvents } from '@/lib/api';
+import { getEvents, getIsSimulationMode } from '@/lib/api';
 import { PollutionEvent, RiskLevel } from '@/lib/types';
 import DashboardHeader from '@/components/layout/DashboardHeader';
 import MapFilter, { MapFilterState } from '@/components/map/MapFilter';
@@ -60,6 +60,8 @@ export default function MapPage() {
     zoom?: number;
     timestamp: number;
   } | null>(null);
+
+  const isSimulation = getIsSimulationMode();
 
   const [filterState, setFilterState] = useState<MapFilterState>({
     city: 'ALL',
@@ -192,12 +194,12 @@ export default function MapPage() {
   const alerts = useMemo(() => {
     return getDerivedMapAlerts(
       events,
-      MOCK_FIRE_DETECTIONS,
-      MOCK_EMISSION_HOTSPOTS,
-      MOCK_RISK_ZONES,
+      isSimulation ? MOCK_FIRE_DETECTIONS : [],
+      isSimulation ? MOCK_EMISSION_HOTSPOTS : [],
+      isSimulation ? MOCK_RISK_ZONES : [],
       filterState.city
     );
-  }, [events, filterState.city]);
+  }, [events, filterState.city, isSimulation]);
 
   const handleInspectAlert = (alert: MapAlertItem) => {
     // 1. Auto-enable the corresponding layer if currently disabled
@@ -450,10 +452,10 @@ export default function MapPage() {
             <div className="absolute top-3.5 left-14 z-[950] pointer-events-auto">
               <MapSearch
                 events={events}
-                hotspots={MOCK_EMISSION_HOTSPOTS}
-                fires={MOCK_FIRE_DETECTIONS}
-                riskZones={MOCK_RISK_ZONES}
-                observations={MOCK_CITIZEN_OBSERVATIONS}
+                hotspots={isSimulation ? MOCK_EMISSION_HOTSPOTS : []}
+                fires={isSimulation ? MOCK_FIRE_DETECTIONS : []}
+                riskZones={isSimulation ? MOCK_RISK_ZONES : []}
+                observations={isSimulation ? MOCK_CITIZEN_OBSERVATIONS : []}
                 selectedEventId={selectedEventId}
                 onSelectEntity={handleSelectSearchEntity}
                 onSelectCoordinates={handleSelectCoordinates}

@@ -8,7 +8,7 @@ export type RiskLevel = 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
 
 export type OutcomeType = 'pending' | 'confirmed' | 'false_alarm' | 'resolved';
 
-export type UncertaintyLevel = 'LOW' | 'MEDIUM' | 'HIGH';
+export type UncertaintyLevel = 'LOW' | 'MEDIUM' | 'HIGH' | 'UNAVAILABLE';
 
 export type AuthorityAction = 'confirm' | 'investigate' | 'dismiss';
 

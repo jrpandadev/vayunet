@@ -49,6 +49,7 @@ const UNCERTAINTY_CONFIG: Record<
   LOW: { bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-emerald-200' },
   MEDIUM: { bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-200' },
   HIGH: { bg: 'bg-rose-50', text: 'text-rose-800', border: 'border-rose-200' },
+  UNAVAILABLE: { bg: 'bg-slate-50', text: 'text-slate-500', border: 'border-slate-200' },
 };
 
 export const AIModelPanel: React.FC<AIModelPanelProps> = ({
@@ -74,8 +75,8 @@ export const AIModelPanel: React.FC<AIModelPanelProps> = ({
     const f24 = event.forecast?.pm25_24h;
     const f72 = event.forecast?.pm25_72h;
     const spikeRisk = event.forecast?.spike_probability || 'LOW';
-    const uncertainty = event.forecast?.forecast_uncertainty || 'MEDIUM';
-    const uncertaintyStyle = UNCERTAINTY_CONFIG[uncertainty] || UNCERTAINTY_CONFIG.MEDIUM;
+    const uncertainty = event.forecast?.forecast_uncertainty || 'UNAVAILABLE';
+    const uncertaintyStyle = UNCERTAINTY_CONFIG[uncertainty] || UNCERTAINTY_CONFIG.UNAVAILABLE;
 
     const detectionConfidencePct = Math.round(event.detection.confidence * 100);
     const hypothesisConfidencePct = Math.round(event.source_hypothesis.confidence * 100);

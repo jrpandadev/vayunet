@@ -25,6 +25,8 @@ import {
   Check,
   HelpCircle,
 } from 'lucide-react';
+import { MapLayersState } from './MapLayersPanel';
+import { getIsSimulationMode } from '@/lib/api';
 import { PollutionEvent, RiskLevel } from '@/lib/types';
 import RiskBadge from '@/components/ui/RiskBadge';
 import { MOCK_EMISSION_HOTSPOTS, EmissionHotspot } from '@/lib/hotspots';
@@ -684,25 +686,29 @@ export const MapInfoPanel: React.FC<MapInfoPanelProps> = ({
 
   const selectedObs = useMemo(() => {
     if (!selectedEventId) return null;
-    const list = observations || MOCK_CITIZEN_OBSERVATIONS;
+    const isSim = getIsSimulationMode();
+    const list = observations || (isSim ? MOCK_CITIZEN_OBSERVATIONS : []);
     return list.find((o) => o.id === selectedEventId) || null;
   }, [selectedEventId, observations]);
 
   const selectedHotspot = useMemo(() => {
     if (!selectedEventId) return null;
-    const list = hotspots || MOCK_EMISSION_HOTSPOTS;
+    const isSim = getIsSimulationMode();
+    const list = hotspots || (isSim ? MOCK_EMISSION_HOTSPOTS : []);
     return list.find((h) => h.id === selectedEventId) || null;
   }, [selectedEventId, hotspots]);
 
   const selectedFire = useMemo(() => {
     if (!selectedEventId) return null;
-    const list = fires || MOCK_FIRE_DETECTIONS;
+    const isSim = getIsSimulationMode();
+    const list = fires || (isSim ? MOCK_FIRE_DETECTIONS : []);
     return list.find((f) => f.id === selectedEventId) || null;
   }, [selectedEventId, fires]);
 
   const selectedZone = useMemo(() => {
     if (!selectedEventId) return null;
-    const list = riskZones || MOCK_RISK_ZONES;
+    const isSim = getIsSimulationMode();
+    const list = riskZones || (isSim ? MOCK_RISK_ZONES : []);
     return list.find((z) => z.id === selectedEventId) || null;
   }, [selectedEventId, riskZones]);
 

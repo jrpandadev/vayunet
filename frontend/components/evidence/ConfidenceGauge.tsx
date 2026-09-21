@@ -13,6 +13,7 @@ const UNCERTAINTY_STYLES = {
   LOW: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200' },
   MEDIUM: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' },
   HIGH: { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200' },
+  UNAVAILABLE: { bg: 'bg-slate-50', text: 'text-slate-500', border: 'border-slate-200' },
 };
 
 function formatCategory(category: string): string {
@@ -30,8 +31,8 @@ export const ConfidenceGauge: React.FC<ConfidenceGaugeProps> = ({
 }) => {
   const percentage = Math.round(detection.confidence * 100);
   const hypothesisPct = Math.round(hypothesis.confidence * 100);
-  const uncertainty = forecast.forecast_uncertainty;
-  const uncertaintyStyle = UNCERTAINTY_STYLES[uncertainty] || UNCERTAINTY_STYLES.MEDIUM;
+  const uncertainty = forecast.forecast_uncertainty || 'UNAVAILABLE';
+  const uncertaintyStyle = UNCERTAINTY_STYLES[uncertainty] || UNCERTAINTY_STYLES.UNAVAILABLE;
 
   return (
     <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${className}`}>

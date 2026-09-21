@@ -133,15 +133,15 @@ export async function getEvents(): Promise<PollutionEvent[]> {
               },
               weather: {
                 wind_speed_kmh: data.diagnostics?.wind?.speed_kmh ?? null,
-                humidity_percent: data.diagnostics?.inversion_proxy?.temperature_c ? 50 : null, // Mock fallback for humidity if missing, but we shouldn't fake it too much
+                humidity_percent: data.diagnostics?.wind?.humidity_percent ?? null,
                 source: "open_meteo"
               },
               satellite: null,
               citizen: null
             },
             detection: {
-              confidence: 0.85,
-              supporting_evidence: ["sensor", "weather"],
+              confidence: null,
+              supporting_evidence: [],
               contradicting_evidence: []
             },
             forecast: {
@@ -149,12 +149,12 @@ export async function getEvents(): Promise<PollutionEvent[]> {
               pm25_24h: data.forecasts?.pm25?.forecast?.['24h'] ?? null,
               pm25_72h: data.forecasts?.pm25?.forecast?.['72h'] ?? null,
               spike_probability: data.forecasts?.pm25?.spike_risk?.level || "UNKNOWN",
-              forecast_uncertainty: "MEDIUM"
+              forecast_uncertainty: null
             },
             risk: (data.risk_level as RiskLevel) || "MODERATE",
             source_hypothesis: {
               category: data.diagnostics?.plume_influence_proxy?.status === "AVAILABLE" ? "plume_detected" : "unknown",
-              confidence: 0.7
+              confidence: null
             },
             explanation: data.diagnostics?.inversion_proxy?.reason || "Meteorological conditions indicate inversion layer.",
             response: {
