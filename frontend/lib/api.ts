@@ -39,16 +39,9 @@ let lastApiError: string | null = null;
 type StatusListener = (status: ApiStatus) => void;
 const listeners = new Set<StatusListener>();
 
-export function getIsSimulationMode(): boolean {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('vayunet_simulation_mode') === 'true';
-  }
-  return true; // Default to true during SSR/SSG to prevent build errors
-}
-
 export function getApiStatus(): ApiStatus {
   return {
-    isSimulation: getIsSimulationMode(),
+    isSimulation: false,
     isConnected: isBackendReachable,
     backendConfigured: USE_REAL_BACKEND && Boolean(API_BASE_URL),
     backendUrl: API_BASE_URL,
@@ -90,9 +83,7 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}): Promise
 }
 
 const CITIES = [
-  { name: 'Delhi', lat: 28.6139, lng: 77.2090 },
-  { name: 'Mumbai', lat: 19.0760, lng: 72.8777 },
-  { name: 'Bhubaneswar', lat: 20.2961, lng: 85.8245 }
+  { name: 'Delhi', lat: 28.6139, lng: 77.2090 }
 ];
 
 /**
@@ -103,96 +94,29 @@ const CITIES = [
 export async function getEvents(): Promise<PollutionEvent[]> {
   if (USE_REAL_BACKEND && API_BASE_URL) {
     try {
-      const fetchPromises = CITIES.map(city =>
-        fetchWithTimeout(`${API_BASE_URL}/api/sih_forecast?lat=${city.lat}&lng=${city.lng}&city=${city.name}`)
-          .then(res => {
-            if (!res.ok) throw new Error(`Backend returned status ${res.status}`);
-            return res.json();
-          })
-      );
-
-      const results = await Promise.allSettled(fetchPromises);
-      const mappedEvents: PollutionEvent[] = [];
-      let anySuccess = false;
-
-      for (const result of results) {
-        if (result.status === 'fulfilled') {
-          const data = result.value;
-          anySuccess = true;
-
-
-          const event: PollutionEvent = {
-            event_id: data.event_id,
-            location: data.location,
-            timestamp: data.timestamp,
-            evidence: {
-              sensor: {
-                pm25: data.forecasts?.pm25?.status === 'AVAILABLE' ? data.forecasts.pm25.forecast['6h'] : null,
-                source: "CPCB_Proxy",
-                station_id: `${data.location.city}_CPCB_1`
-              },
-              weather: {
-                wind_speed_kmh: data.diagnostics?.wind?.speed_kmh ?? null,
-                humidity_percent: data.diagnostics?.wind?.humidity_percent ?? null,
-                source: "open_meteo"
-              },
-              satellite: null,
-              citizen: null
-            },
-            detection: {
-              confidence: null,
-              supporting_evidence: [],
-              contradicting_evidence: []
-            },
-            forecast: {
-              pm25_6h: data.forecasts?.pm25?.forecast?.['6h'] ?? null,
-              pm25_24h: data.forecasts?.pm25?.forecast?.['24h'] ?? null,
-              pm25_72h: data.forecasts?.pm25?.forecast?.['72h'] ?? null,
-              spike_probability: data.forecasts?.pm25?.spike_risk?.level || "UNKNOWN",
-              forecast_uncertainty: null
-            },
-            risk: (data.risk_level as RiskLevel) || "MODERATE",
-            source_hypothesis: {
-              category: data.diagnostics?.plume_influence_proxy?.status === "AVAILABLE" ? "plume_detected" : "unknown",
-              confidence: null
-            },
-            explanation: data.diagnostics?.inversion_proxy?.reason || "Meteorological conditions indicate inversion layer.",
-            response: {
-              alert_sent: false,
-              authority_class: null,
-              status: "pending"
-            },
-            outcome: "pending",
-            timeline: [
-              { time: new Date(data.timestamp).toISOString().substring(11, 16), event: "Initial Detection" }
-            ]
-          };
-          mappedEvents.push(event);
-        }
-      }
-
-      if (anySuccess) {
+      const res = await fetchWithTimeout(`${API_BASE_URL}/api/events`);
+      if (res.ok) {
+        const data: PollutionEvent[] = await res.json();
         notifyStatusChange(true, null);
-        return mappedEvents;
-      } else {
-        throw new Error("All backend requests failed.");
+        return data;
       }
+      let errorBody = '';
+      try {
+        errorBody = await res.text();
+      } catch (e) {
+        // ignore
+      }
+      throw new Error(`Backend returned status ${res.status}: ${res.statusText} - ${errorBody}`);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       notifyStatusChange(false, msg);
-      if (!getIsSimulationMode()) {
-        throw err;
-      }
+      throw err;
     }
   } else {
     notifyStatusChange(false, null);
-    if (!getIsSimulationMode()) {
-        throw new Error("Real backend is disabled but simulation mode is off.");
-    }
+    notifyStatusChange(false, null);
+    throw new Error("Real backend is disabled.");
   }
-
-  // Simulation mock dataset
-  return Promise.resolve([...eventsCache]);
 }
 
 /**
@@ -245,7 +169,7 @@ export async function updateEventAction(
     ],
   };
 
-  return Promise.resolve({ success: true, event: updated, isSimulation: true });
+  return Promise.resolve({ success: false, event: current, isSimulation: false });
 }
 
 /**
@@ -295,13 +219,12 @@ export async function submitReport(
     notifyStatusChange(false, null);
   }
 
-  // Mock report ingestion fallback
-  const newId = `evt_citizen_${Date.now()}`;
+  // No mock ingestion fallback
   return Promise.resolve({
-    success: true,
-    event_id: newId,
-    message: 'Report received and queued for evidence synthesis (Simulation Mode)',
-    isSimulation: true,
+    success: false,
+    event_id: '',
+    message: 'Backend is unavailable',
+    isSimulation: false,
   });
 }
 
@@ -316,9 +239,17 @@ export async function getForecast(
 ): Promise<ForecastPoint[]> {
   if (USE_REAL_BACKEND && API_BASE_URL) {
     try {
+      const headers: Record<string, string> = {};
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const targetCity = CITIES.find(c => c.name.toLowerCase() === city.toLowerCase()) || CITIES[0];
       const res = await fetchWithTimeout(
-        `${API_BASE_URL}/api/sih_forecast?lat=${targetCity.lat}&lng=${targetCity.lng}&city=${targetCity.name}`
+        `${API_BASE_URL}/api/sih_forecast?lat=${targetCity.lat}&lng=${targetCity.lng}&city=${targetCity.name}`,
+        { headers }
       );
       if (res.ok) {
         const data = await res.json();
@@ -332,7 +263,7 @@ export async function getForecast(
           for (let i = 0; i <= maxIdx; i++) {
             const future = new Date(now.getTime() + i * 6 * 3600 * 1000);
 
-            // Try to pull real values, else interpolate
+            // Try to pull real values, else return null/unavailable
             let pm25_val: number | null = null;
             if (i === 0 || i === 1) pm25_val = forecastObj['6h'] ?? null;
             else if (i <= 4) pm25_val = forecastObj['24h'] ?? null;
@@ -348,61 +279,70 @@ export async function getForecast(
           }
           notifyStatusChange(true, null);
           return points;
+        } else {
+          notifyStatusChange(true, null);
+          return [];
         }
       }
       throw new Error(`Backend returned status ${res.status}: ${res.statusText}`);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       notifyStatusChange(false, msg);
-      if (!getIsSimulationMode()) {
-        throw err;
-      }
+      throw err;
     }
   } else {
     notifyStatusChange(false, null);
-    if (!getIsSimulationMode()) {
-        throw new Error("Real backend is disabled but simulation mode is off.");
+    throw new Error("Real backend is disabled.");
+  }
+}
+
+export interface ObservationResult {
+  status: string;
+  value: number | null;
+  unit: string;
+  source: string;
+}
+
+/**
+ * Fetch authoritative PM2.5 telemetry
+ * Backend: GET /api/environment/observations?city={city}
+ */
+export async function getObservations(city: string): Promise<ObservationResult> {
+  if (USE_REAL_BACKEND && API_BASE_URL) {
+    try {
+      const headers: Record<string, string> = {};
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const res = await fetchWithTimeout(
+        `${API_BASE_URL}/api/environment/observations?city=${encodeURIComponent(city)}`,
+        { headers }
+      );
+      
+      if (res.ok) {
+        const data = await res.json();
+        return data as ObservationResult;
+      }
+      throw new Error(`Backend returned status ${res.status}`);
+    } catch (err: unknown) {
+      console.warn("Failed to fetch observations", err);
+      return {
+        status: "UNAVAILABLE",
+        value: null,
+        unit: "µg/m³",
+        source: "CPCB"
+      };
     }
   }
-
-  // Generate realistic progression for chosen city and horizon (simulation)
-  const allEvents = await getEvents();
-  const cityEvent = allEvents.find(
-    (e) => e.location.city.toLowerCase() === city.toLowerCase()
-  );
-  const basePm25 = cityEvent?.evidence?.sensor?.pm25 || 120;
-  const targetPm25 =
-    hours === 6
-      ? cityEvent?.forecast?.pm25_6h || basePm25 + 15
-      : hours === 24
-      ? cityEvent?.forecast?.pm25_24h || basePm25 + 30
-      : cityEvent?.forecast?.pm25_72h || basePm25 - 10;
-
-  const steps = hours === 6 ? 6 : hours === 24 ? 8 : 12;
-  const interval = hours / steps;
-
-  const points: ForecastPoint[] = [];
-  const now = new Date();
-
-  for (let i = 0; i <= steps; i++) {
-    const future = new Date(now.getTime() + i * interval * 3600 * 1000);
-    const progress = i / steps;
-    // Curved projection between current and forecasted level with slight diurnal variance
-    const interpolated =
-      basePm25 +
-      (targetPm25 - basePm25) * Math.sin((progress * Math.PI) / 2) +
-      Math.sin(i) * 5;
-
-    points.push({
-      time: future.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      hour: Math.round(i * interval),
-      pm25: Math.round(Math.max(15, interpolated)),
-      who_limit: 15, // WHO Guideline: 15 µg/m³ 24h mean
-      naaqs_limit: 60, // Indian NAAQS Guideline: 60 µg/m³ 24h mean
-    });
-  }
-
-  return Promise.resolve(points);
+  return {
+    status: "UNAVAILABLE",
+    value: null,
+    unit: "µg/m³",
+    source: "CPCB"
+  };
 }
 
 export async function getEvidenceUrl(path: string): Promise<string | null> {

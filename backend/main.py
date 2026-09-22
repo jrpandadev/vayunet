@@ -67,6 +67,8 @@ def health_check_endpoint():
         "version": "0.1.0"
     }
 
+EVENTS_STORE = {}
+REPORTS_STORE = {}
 
 import base64
 import json
@@ -83,6 +85,10 @@ async def submit_report(
     photo: Optional[UploadFile] = File(None, description="Optional photographic evidence"),
     user: dict = Depends(get_current_user)
 ):
+    # TODO: Authoritative Delhi NCR geographic boundary enforcement is NOT IMPLEMENTED.
+    # Extension point for GeoJSON boundary check.
+    
+
     event_id = str(uuid.uuid4())
     user_id = user.get("uid", "anonymous")
 
@@ -180,7 +186,7 @@ async def submit_report(
     if supabase_path:
         citizen_evidence["supabase_path"] = supabase_path
 
-    return {
+    evidence_candidate = {
         "event_id": event_id,
         "location": {"lat": lat, "lng": lng, "city": city},
         "evidence": {
@@ -193,9 +199,57 @@ async def submit_report(
             **fusion_result,
             **evidence_breakdown
         },
-        "status": "processed",
+        "status": "pending_verification",
         "timestamp": datetime.utcnow().isoformat()
     }
+    # Safely store as evidence, do not promote to active EVENTS_STORE 
+    # TODO: Authoritative event promotion is NOT IMPLEMENTED.
+    # Report remains UNVERIFIED/CANDIDATE.
+    REPORTS_STORE[event_id] = evidence_candidate
+    return evidence_candidate
+
+@app.get("/api/events")
+def get_all_events():
+    return sorted(list(EVENTS_STORE.values()), key=lambda x: x["timestamp"], reverse=True)
+
+
+@app.get("/api/environment/observations")
+def get_environment_observations(
+    city: str,
+    user: dict = Depends(get_current_user)
+):
+    # TODO: Authoritative Delhi NCR geographic boundary enforcement is NOT IMPLEMENTED.
+    # Extension point for GeoJSON boundary check.
+    
+
+    try:
+        df = load_cpcb_data(city.lower())
+        latest = get_latest_reading(df)
+        
+        # Check if pm25 is available
+        pm25 = latest.get("pm25")
+        if pm25 is None or pd.isna(pm25):
+            return {
+                "status": "UNAVAILABLE",
+                "value": None,
+                "unit": "µg/m³",
+                "source": "CPCB"
+            }
+            
+        return {
+            "status": "AVAILABLE",
+            "value": float(pm25),
+            "unit": "µg/m³",
+            "source": f"CPCB ({latest.get('station', 'Unknown')})"
+        }
+    except Exception as e:
+        return {
+            "status": "UNAVAILABLE",
+            "value": None,
+            "unit": "µg/m³",
+            "source": "CPCB",
+            "error": str(e)
+        }
 
 
 @app.get("/api/evidence/url")
@@ -218,6 +272,10 @@ def get_sih_forecast(
     city: str,
     user: dict = Depends(require_authority)
 ):
+    # TODO: Authoritative Delhi NCR geographic boundary enforcement is NOT IMPLEMENTED.
+    # Extension point for GeoJSON boundary check.
+    
+
     event_id = f"SIH-{datetime.utcnow().strftime('%Y%m%d')}-{str(uuid.uuid4())[:8].upper()}"
     report_dt = datetime.now(timezone.utc)
 

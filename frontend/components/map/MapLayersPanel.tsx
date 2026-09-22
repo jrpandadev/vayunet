@@ -86,12 +86,14 @@ export const MapLayersPanel: React.FC<MapLayersPanelProps> = ({
 
   // Automatically collapse / minimize floating panel when an event/marker is selected
   // to prevent obscuring Leaflet popups or map focus
-  useEffect(() => {
-    if (selectedEventId) {
-      setDesktopOpen(false);
-      setMobileOpen(false);
-    }
-  }, [selectedEventId]);
+  const [prevEventId, setPrevEventId] = useState(selectedEventId);
+  if (selectedEventId && selectedEventId !== prevEventId) {
+    setPrevEventId(selectedEventId);
+    setDesktopOpen(false);
+    setMobileOpen(false);
+  } else if (selectedEventId !== prevEventId) {
+    setPrevEventId(selectedEventId);
+  }
 
   // Handle outside clicks on desktop to auto-dismiss
   useEffect(() => {

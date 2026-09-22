@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type TransitionPanelProps = {
@@ -13,9 +13,12 @@ export function TransitionPanel({
   activeIndex,
   className,
 }: TransitionPanelProps) {
-  const previousIndex = useRef(activeIndex);
-  const direction = activeIndex > previousIndex.current ? 1 : -1;
-  previousIndex.current = activeIndex;
+  const [previousIndex, setPreviousIndex] = useState(activeIndex);
+  const [direction, setDirection] = useState(1);
+  if (activeIndex !== previousIndex) {
+    setDirection(activeIndex > previousIndex ? 1 : -1);
+    setPreviousIndex(activeIndex);
+  }
 
   const childArray = React.Children.toArray(children);
 
