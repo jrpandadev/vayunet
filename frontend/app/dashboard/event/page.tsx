@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getEventById, updateEventAction } from '@/lib/api';
 import { PollutionEvent, AuthorityAction } from '@/lib/types';
@@ -34,10 +34,12 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-export default function EventDetailPage() {
-  const params = useParams();
+import { Suspense } from 'react';
+
+function EventDetailContent() {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const eventId = params?.event_id as string;
+  const eventId = searchParams?.get('id') as string;
 
   const [event, setEvent] = useState<PollutionEvent | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -547,5 +549,13 @@ export default function EventDetailPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function EventDetailPage() {
+  return (
+    <Suspense fallback={<div>Loading event...</div>}>
+      <EventDetailContent />
+    </Suspense>
   );
 }

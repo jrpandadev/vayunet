@@ -1295,7 +1295,7 @@ export default function DashboardOverviewPage() {
                   {/* Primary CTA Link to Full Forensic Screen */}
                   <div className="pt-2">
                     <Link
-                      href={`/dashboard/event/${selectedEvent.event_id}`}
+                      href={`/dashboard/event?id=${selectedEvent.event_id}`}
                       className="w-full py-2.5 px-4 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-xs"
                     >
                       <span>View Full Event Intelligence & Forensic Timeline</span>

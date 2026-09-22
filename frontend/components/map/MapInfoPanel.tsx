@@ -218,7 +218,7 @@ const EventDetailView: React.FC<{
       {event.event_id && (
         <div className="pt-1">
           <Link
-            href={`/dashboard/event/${event.event_id}`}
+            href={`/dashboard/event?id=${event.event_id}`}
             className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#0a2540] hover:bg-[#0f2a3f] text-white text-xs font-semibold rounded-xl shadow-md transition-all active:scale-98 cursor-pointer"
           >
             <span>View Full Incident Dossier</span>
@@ -334,7 +334,7 @@ const ObservationDetailView: React.FC<{
         </span>
         {observation.relatedEventId ? (
           <Link
-            href={`/dashboard/event/${observation.relatedEventId}`}
+            href={`/dashboard/event?id=${observation.relatedEventId}`}
             className="inline-flex items-center justify-between w-full p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-semibold transition-colors group"
           >
             <div className="flex items-center gap-1.5">

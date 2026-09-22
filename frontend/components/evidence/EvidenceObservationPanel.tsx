@@ -876,7 +876,7 @@ export const EvidenceObservationPanel: React.FC<EvidenceObservationPanelProps> =
                 <span className="font-bold text-slate-900">Incident {observation.relatedEventId}</span>
               </div>
               <Link
-                href={`/dashboard/event/${observation.relatedEventId}`}
+                href={`/dashboard/event?id=${observation.relatedEventId}`}
                 className="inline-flex items-center gap-1 text-[10px] font-bold text-sky-700 hover:text-sky-900 bg-sky-50 hover:bg-sky-100 px-2 py-1 rounded border border-sky-200 transition-colors"
               >
                 <span>View Incident Dossier</span>

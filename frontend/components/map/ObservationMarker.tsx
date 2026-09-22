@@ -262,7 +262,7 @@ export const ObservationMarker: React.FC<ObservationMarkerProps> = ({
             {/* SPA Navigation Link to Related Event Dossier (using Next.js Link) */}
             {observation.relatedEventId && (
               <Link
-                href={`/dashboard/event/${observation.relatedEventId}`}
+                href={`/dashboard/event?id=${observation.relatedEventId}`}
                 className="inline-flex items-center justify-center gap-1.5 w-full py-1.5 px-3 bg-[#0a2540] hover:bg-[#0f2a3f] text-white text-xs font-semibold rounded transition-colors"
                 title={`Inspect correlated incident dossier ${observation.relatedEventId}`}
               >

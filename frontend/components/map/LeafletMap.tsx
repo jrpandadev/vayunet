@@ -1222,7 +1222,7 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
 
                   {/* Link to Event Detail Dossier */}
                   <Link
-                    href={`/dashboard/event/${event.event_id}`}
+                    href={`/dashboard/event?id=${event.event_id}`}
                     className="inline-flex items-center justify-center gap-1.5 w-full py-1.5 px-3 bg-[#0a2540] hover:bg-[#0f2a3f] text-white text-xs font-semibold rounded transition-colors"
                   >
                     <span>View Full Evidence Details</span>

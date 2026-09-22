@@ -462,7 +462,7 @@ export default function AlertsCentrePage() {
                           {/* Action Button */}
                           <td className="py-3.5 px-4 text-right whitespace-nowrap">
                             <Link
-                              href={`/dashboard/event/${event.event_id}?from=alerts${
+                              href={`/dashboard/event?id=${event.event_id}&from=alerts${
                                 activeTab !== 'active' ? `&tab=${activeTab}` : ''
                               }${
                                 searchQuery.trim()

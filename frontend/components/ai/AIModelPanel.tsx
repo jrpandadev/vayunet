@@ -356,7 +356,7 @@ export const AIModelPanel: React.FC<AIModelPanelProps> = ({
           {isCompact && event.event_id && (
             <div className="pt-1">
               <Link
-                href={`/dashboard/event/${event.event_id}`}
+                href={`/dashboard/event?id=${event.event_id}`}
                 className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-[#0a2540] hover:bg-[#0f2a3f] text-white text-xs font-semibold rounded-lg shadow-xs transition-colors"
               >
                 <span>Inspect Full Evidence Dossier</span>
@@ -625,7 +625,7 @@ export const AIModelPanel: React.FC<AIModelPanelProps> = ({
             <div className="p-2 bg-sky-50 border border-sky-200 rounded-lg text-[10px] text-sky-900 flex items-center justify-between">
               <span>Cross-referenced with Incident: <strong>{observation.relatedEventId}</strong></span>
               <Link
-                href={`/dashboard/event/${observation.relatedEventId}`}
+                href={`/dashboard/event?id=${observation.relatedEventId}`}
                 className="font-bold text-sky-700 hover:underline flex items-center gap-0.5"
               >
                 <span>View Model Dossier</span>
