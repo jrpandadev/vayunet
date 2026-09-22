@@ -39,9 +39,16 @@ let lastApiError: string | null = null;
 type StatusListener = (status: ApiStatus) => void;
 const listeners = new Set<StatusListener>();
 
+export function getIsSimulationMode(): boolean {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('vayunet_simulation_mode') === 'true';
+  }
+  return true; // Default to true during SSR/SSG to prevent build errors
+}
+
 export function getApiStatus(): ApiStatus {
   return {
-    isSimulation: false,
+    isSimulation: getIsSimulationMode(),
     isConnected: isBackendReachable,
     backendConfigured: USE_REAL_BACKEND && Boolean(API_BASE_URL),
     backendUrl: API_BASE_URL,
