@@ -42,7 +42,7 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({ pageTitle, actions }) => {
   return (
     <header
       className="
-        h-14 bg-[#061827] border-b border-[rgba(0,213,255,0.10)]
+        h-14 bg-[var(--vayu-bg-elevated)] border-b border-[var(--border-hairline)]
         px-4 flex items-center justify-between gap-4
         sticky top-0 z-30
       "
@@ -75,7 +75,7 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({ pageTitle, actions }) => {
             className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[rgba(39,224,195,0.08)] border border-[rgba(39,224,195,0.20)] text-[#27E0C3] text-xs font-semibold uppercase tracking-wider"
             title={`Connected to backend: ${apiStatus.backendUrl}`}
           >
-            <Radio className="w-3 h-3 animate-pulse" />
+            <Radio className="w-3 h-3 animate-vn-pulse" />
             <span>System Live</span>
           </div>
         ) : (
@@ -101,7 +101,7 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({ pageTitle, actions }) => {
         <button
           type="button"
           aria-label="Notifications"
-          className="p-1.5 rounded-lg text-[#7BA4BC] hover:text-[#E8F4FD] hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+          className="p-1.5 rounded-lg text-[#7BA4BC] hover:text-[#E8F4FD] hover:bg-[rgba(255,255,255,0.05)] transition-colors duration-micro ease-vayu-entrance"
         >
           <Bell className="w-4 h-4" />
         </button>
@@ -111,7 +111,7 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({ pageTitle, actions }) => {
           type="button"
           aria-label={user?.email ?? 'User profile'}
           title={user?.email ?? ''}
-          className="p-1.5 rounded-lg text-[#7BA4BC] hover:text-[#E8F4FD] hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+          className="p-1.5 rounded-lg text-[#7BA4BC] hover:text-[#E8F4FD] hover:bg-[rgba(255,255,255,0.05)] transition-colors duration-micro ease-vayu-entrance"
         >
           <User className="w-4 h-4" />
         </button>

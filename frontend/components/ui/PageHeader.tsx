@@ -18,21 +18,21 @@ interface PageHeaderProps {
 
 export function PageHeader({ icon, title, subtitle, badge, actions, className }: PageHeaderProps) {
   return (
-    <div className={cn('px-6 py-5 border-b border-[rgba(0,213,255,0.08)]', className)}>
+    <div className={cn('px-6 py-5 border-b border-[var(--border-hairline)]', className)}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3 min-w-0">
           {icon && (
-            <div className="mt-0.5 h-9 w-9 rounded-lg bg-[rgba(0,229,255,0.08)] border border-[rgba(0,229,255,0.15)] flex items-center justify-center shrink-0 text-[#00E5FF]">
+            <div className="mt-0.5 h-9 w-9 rounded-lg bg-[rgba(0,229,255,0.08)] border border-[rgba(0,229,255,0.15)] flex items-center justify-center shrink-0 text-[var(--vayu-signal-primary)]">
               {icon}
             </div>
           )}
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="text-xl font-bold text-[#E8F4FD] tracking-tight">{title}</h1>
+              <h1 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">{title}</h1>
               {badge}
             </div>
             {subtitle && (
-              <p className="text-sm text-[#7BA4BC] mt-0.5 leading-relaxed">{subtitle}</p>
+              <p className="text-sm text-[var(--text-secondary)] mt-0.5 leading-relaxed">{subtitle}</p>
             )}
           </div>
         </div>
@@ -58,8 +58,8 @@ export function SectionHeader({ title, subtitle, actions, className }: SectionHe
   return (
     <div className={cn('flex items-center justify-between gap-3 mb-3', className)}>
       <div>
-        <h2 className="text-sm font-bold text-[#E8F4FD] uppercase tracking-widest">{title}</h2>
-        {subtitle && <p className="text-xs text-[#7BA4BC] mt-0.5">{subtitle}</p>}
+        <h2 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-widest">{title}</h2>
+        {subtitle && <p className="text-xs text-[var(--text-secondary)] mt-0.5">{subtitle}</p>}
       </div>
       {actions && <div className="flex items-center gap-2">{actions}</div>}
     </div>
@@ -85,27 +85,27 @@ export function MetricCard({ label, value, unit, icon, subtext, statusChip, clas
   return (
     <div
       className={cn(
-        'bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl p-4 flex flex-col gap-2',
+        'bg-[var(--vayu-surface-elevated)] border border-[var(--border-hairline)] rounded-xl p-4 flex flex-col gap-2',
         className
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-bold text-[#7BA4BC] uppercase tracking-widest truncate">{label}</span>
-        {icon && <span className="text-[#2E5470] shrink-0">{icon}</span>}
+        <span className="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest truncate">{label}</span>
+        {icon && <span className="text-[var(--text-secondary)] opacity-50 shrink-0">{icon}</span>}
       </div>
       <div className="flex items-end gap-1.5">
         {isUnavailable ? (
-          <span className="text-sm font-mono text-[#2E5470] uppercase tracking-wider">Unavailable</span>
+          <span className="text-sm font-mono text-[var(--text-secondary)] opacity-70 uppercase tracking-wider">Unavailable</span>
         ) : (
           <>
-            <span className="text-2xl font-bold font-mono text-[#E8F4FD] tabular-telemetry leading-none">
+            <span className="text-2xl font-bold font-mono text-[var(--text-primary)] tabular-telemetry leading-none">
               {value}
             </span>
-            {unit && <span className="text-sm text-[#7BA4BC] pb-0.5">{unit}</span>}
+            {unit && <span className="text-sm text-[var(--text-secondary)] pb-0.5">{unit}</span>}
           </>
         )}
       </div>
-      {subtext && <p className="text-[11px] text-[#7BA4BC]">{subtext}</p>}
+      {subtext && <p className="text-[11px] text-[var(--text-secondary)]">{subtext}</p>}
       {statusChip}
     </div>
   );
@@ -162,26 +162,26 @@ interface StatCardProps {
 export function StatCard({ label, value, unit, icon, trend, className }: StatCardProps) {
   const isUnavailable = value === null || value === undefined;
   return (
-    <div className={cn('bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl p-4', className)}>
+    <div className={cn('bg-[var(--vayu-surface-elevated)] border border-[var(--border-hairline)] rounded-xl p-4', className)}>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-[#7BA4BC]">{label}</span>
-        <div className="h-7 w-7 rounded-lg bg-[rgba(0,229,255,0.06)] border border-[rgba(0,229,255,0.12)] flex items-center justify-center text-[#00E5FF]">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">{label}</span>
+        <div className="h-7 w-7 rounded-lg bg-[rgba(0,229,255,0.06)] border border-[rgba(0,229,255,0.12)] flex items-center justify-center text-[var(--vayu-signal-primary)]">
           {icon}
         </div>
       </div>
       <div className="flex items-end gap-1.5">
         {isUnavailable ? (
-          <span className="text-sm font-mono text-[#2E5470] uppercase tracking-wider">—</span>
+          <span className="text-sm font-mono text-[var(--text-secondary)] opacity-70 uppercase tracking-wider">—</span>
         ) : (
           <>
-            <span className="text-3xl font-bold font-mono text-[#E8F4FD] tabular-telemetry leading-none">
+            <span className="text-3xl font-bold font-mono text-[var(--text-primary)] tabular-telemetry leading-none">
               {value}
             </span>
-            {unit && <span className="text-sm text-[#7BA4BC] pb-1">{unit}</span>}
+            {unit && <span className="text-sm text-[var(--text-secondary)] pb-1">{unit}</span>}
           </>
         )}
       </div>
-      {trend && <p className="text-xs text-[#7BA4BC] mt-2">{trend}</p>}
+      {trend && <p className="text-xs text-[var(--text-secondary)] mt-2">{trend}</p>}
     </div>
   );
 }

@@ -26,11 +26,11 @@ export function Card({ children, className, active, warning, critical, onClick }
     <div
       onClick={onClick}
       className={cn(
-        'bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl transition-all duration-200',
+        'bg-[#092337] border border-[rgba(0,213,255,0.12)] rounded-xl transition-all duration-micro ease-vayu-entrance',
         active && 'border-[rgba(0,229,255,0.40)] shadow-[0_0_16px_rgba(0,229,255,0.12)]',
         warning && 'border-[rgba(255,181,46,0.35)] shadow-[0_0_16px_rgba(255,181,46,0.10)]',
         critical && 'border-[rgba(255,68,68,0.35)] shadow-[0_0_16px_rgba(255,68,68,0.10)]',
-        onClick && 'cursor-pointer hover:border-[rgba(0,213,255,0.25)] hover:bg-[#0B2940]',
+        onClick && 'cursor-pointer vn-card-hover',
         className
       )}
     >

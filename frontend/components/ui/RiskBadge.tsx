@@ -35,7 +35,7 @@ export function StatusBadge({ variant, label, className }: StatusBadgeProps) {
       )}
     >
       {config.dot && (
-        <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+        <span className="w-1.5 h-1.5 rounded-full bg-current animate-vn-pulse" />
       )}
       {label ?? config.label}
     </span>

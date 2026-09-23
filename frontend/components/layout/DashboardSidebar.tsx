@@ -22,7 +22,7 @@ import {
   ChevronRight,
   Zap,
 } from 'lucide-react';
-import { getEvents, getIsSimulationMode } from '@/lib/api';
+import { getEvents } from '@/lib/api';
 
 interface NavItem {
   label: string;
@@ -141,7 +141,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = 
         }
       })
       .catch(() => {});
-    setIsSimulation(getIsSimulationMode());
+    setIsSimulation(false);
     return () => {
       mounted = false;
     };
@@ -161,11 +161,11 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = 
 
   const sidebarContent = (
     <aside
-      className={`w-[220px] bg-[#061827] text-[#E8F4FD] flex flex-col shrink-0 border-r border-[rgba(0,213,255,0.10)] min-h-screen select-none ${className}`}
+      className={`w-[220px] bg-[var(--vayu-bg-elevated)] text-[var(--text-primary)] flex flex-col shrink-0 border-r border-[var(--border-hairline)] min-h-screen select-none ${className}`}
       aria-label="VayuNet Navigation"
     >
       {/* Brand header */}
-      <div className="px-4 py-4 border-b border-[rgba(0,213,255,0.10)] flex items-center justify-between">
+      <div className="px-4 py-4 border-b border-[var(--border-hairline)] flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
           {/* Logo mark */}
           <div className="h-8 w-8 rounded-lg bg-[rgba(0,229,255,0.10)] border border-[rgba(0,229,255,0.25)] flex items-center justify-center shrink-0">
@@ -211,7 +211,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = 
                     href={item.href}
                     className={`
                       group flex items-center justify-between px-3 py-2 rounded-lg text-[13px] font-medium
-                      transition-all duration-150
+                      transition-all duration-micro ease-vayu-entrance
                       ${active
                         ? 'bg-[rgba(0,229,255,0.08)] text-[#00E5FF] border-l-2 border-[#00E5FF] pl-[10px]'
                         : 'text-[#7BA4BC] hover:bg-[rgba(255,255,255,0.04)] hover:text-[#E8F4FD] border-l-2 border-transparent'}
@@ -237,7 +237,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = 
       </nav>
 
       {/* Footer — mode badge */}
-      <div className="px-3 py-3 border-t border-[rgba(0,213,255,0.10)]">
+      <div className="px-3 py-3 border-t border-[var(--border-hairline)]">
         {isSimulation ? (
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[rgba(255,181,46,0.08)] border border-[rgba(255,181,46,0.20)]">
             <Zap className="w-3.5 h-3.5 text-[#FFB52E] shrink-0" />
@@ -248,7 +248,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = 
           </div>
         ) : (
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[rgba(39,224,195,0.08)] border border-[rgba(39,224,195,0.20)]">
-            <span className="w-2 h-2 rounded-full bg-[#27E0C3] animate-pulse shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-[#27E0C3] animate-vn-pulse shrink-0" />
             <div>
               <span className="text-[10px] font-bold text-[#27E0C3] uppercase tracking-wider block">System Live</span>
               <span className="text-[9px] text-[#7BA4BC]">Backend connected</span>
@@ -262,7 +262,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = 
   return (
     <>
       {/* Mobile top bar toggle */}
-      <div className="md:hidden bg-[#061827] text-[#E8F4FD] px-4 py-3 flex items-center justify-between border-b border-[rgba(0,213,255,0.10)] sticky top-0 z-40">
+      <div className="md:hidden bg-[var(--vayu-bg-elevated)] text-[var(--text-primary)] px-4 py-3 flex items-center justify-between border-b border-[var(--border-hairline)] sticky top-0 z-40">
         <div className="flex items-center gap-2.5">
           <div className="h-7 w-7 rounded-lg bg-[rgba(0,229,255,0.10)] border border-[rgba(0,229,255,0.20)] flex items-center justify-center">
             <Wind className="w-4 h-4 text-[#00E5FF]" />

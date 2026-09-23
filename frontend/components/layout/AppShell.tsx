@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { DashboardSidebar } from './DashboardSidebar';
 import { AppTopBar } from './AppTopBar';
 
@@ -15,8 +17,10 @@ export const AppShell: React.FC<AppShellProps> = ({
   pageTitle,
   actions,
 }) => {
+  const pathname = usePathname();
+
   return (
-    <div className="flex min-h-screen bg-[#03111F] text-[#E8F4FD]">
+    <div className="flex min-h-screen bg-[var(--vayu-bg)] text-[var(--text-primary)]">
       {/* Persistent Left Sidebar */}
       <DashboardSidebar />
 
@@ -26,8 +30,16 @@ export const AppShell: React.FC<AppShellProps> = ({
         <AppTopBar pageTitle={pageTitle} actions={actions} />
 
         {/* Page Content Viewport */}
-        <main className="flex-1 overflow-y-auto">
-          {children}
+        <main className="flex-1 overflow-y-auto overflow-x-hidden">
+          <motion.div
+            key={pathname}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0, 0, 0.2, 1] }}
+            className="min-h-full"
+          >
+            {children}
+          </motion.div>
         </main>
       </div>
     </div>
